@@ -9,11 +9,15 @@ public class Player extends MovableEntity{
 
 
     public Player(float x, float y, float width, float height) {
+
         super(x, y, width, height);
+        this.xSpeed = 2;
+        this.ySpeed = 0;
     }
 
     @Override
     public void update() {
-
+        this.x = getX()+getXSpeed();
+        this.y = getY()+getYSpeed();
     }
 }
