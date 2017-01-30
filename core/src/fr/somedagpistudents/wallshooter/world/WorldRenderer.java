@@ -5,9 +5,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-/**
- * Created by benjamin on 1/30/17.
- */
 public class WorldRenderer {
     private World world;
     private SpriteBatch batch;
