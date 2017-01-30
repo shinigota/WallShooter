@@ -1,7 +1,12 @@
 # WallShooter
 DAGPI project based on SCRUM method
 
-![Master build status](https://travis-ci.org/DopaSensei/WallShooter.svg?branch=master "Master branch build status")
+##Build Status
+
+* Master : ![Master build status](https://travis-ci.org/DopaSensei/WallShooter.svg?branch=master "Master branch build status")
+* Develop : ![Develop build status](https://travis-ci.org/DopaSensei/WallShooter.svg?branch=develop "Develop branch build status")
+
+## Project Management Tools
 
 Taskboard Framaboard : https://dagpi-wallshooter.framaboard.org/
 *Utilisation du taskboard
