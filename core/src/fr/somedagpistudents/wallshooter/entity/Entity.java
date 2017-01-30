@@ -7,7 +7,7 @@ public abstract class Entity {
     protected float x;
     protected float y;
 
-    public Entity(float x, float y,float width,float height) {
+    public Entity(float x, float y, float width, float height) {
         this.x = x;
         this.y = y;
         this.width = width;
