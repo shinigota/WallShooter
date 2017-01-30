@@ -1,11 +1,9 @@
 package fr.somedagpistudents.wallshooter.entity;
 
-/**
- * Created by benjamin on 1/30/17.
- */
 public abstract class Entity {
     protected float width;
     protected float height;
+
     protected float x;
     protected float y;
 
