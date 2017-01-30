@@ -11,6 +11,7 @@ import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 public class WallShooter extends ApplicationAdapter {
 	public final static int SCREEN_WIDTH = 1280;
 	public final static int SCREEN_HEIGHT = 720;
+	public final static int CAM_X_SPEED = 2;
 
 	private World world;
 	private WorldRenderer worldRenderer;
