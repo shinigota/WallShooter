@@ -20,11 +20,12 @@ public class World {
         this.bricks = new ArrayList<Brick>();
         this.bricks.add(new Brick(500,0));
         this.bricks.add(new Brick(0,250));
+        this.c=new Controller();
     }
 
     public void render() {
 
-        this.c.checkGameState(this.p,this.b);
+        this.c.checkGameState(this.p,this.bricks.get(0));
 
         p.update();
 

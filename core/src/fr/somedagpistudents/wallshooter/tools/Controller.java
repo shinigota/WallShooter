@@ -22,6 +22,7 @@ public class Controller {
 
         if (ColisionTools.contact(player,brick)==true){
             gamestate="gameover";
+            this.displayGameStateText();
 
         }
 
