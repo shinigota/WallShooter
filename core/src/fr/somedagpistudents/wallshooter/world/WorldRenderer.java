@@ -29,15 +29,19 @@ public class WorldRenderer {
         this.spriteBatch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
 
-        this.camera.position.set(WallShooter.SCREEN_WIDTH / 2, WallShooter.SCREEN_HEIGHT / 2, 0);
+        this.camera.position.set(0,  0 , 0);
+        this.camera.update();
     }
 
     public void render() {
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        this.camera.position.add(WallShooter.CAM_X_SPEED, 0, 0);
+        this.camera.update();
+
         ArrayList<Brick> bricks = this.world.getBricks();
-//        this.camera.position.set(WallShooter.SCREEN_WIDTH / 2, WallShooter.SCREEN_HEIGHT / 2, 0);
         this.spriteBatch.setProjectionMatrix(this.camera.combined);
         this.shapeRenderer.setProjectionMatrix(this.camera.combined);
 

@@ -17,7 +17,7 @@ public class Player extends MovableEntity{
 
     @Override
     public void update() {
-        this.x = getX()+getXSpeed();
-        this.y = getY()+getYSpeed();
+        this.x += getXSpeed();
+        this.y += getYSpeed();
     }
 }
