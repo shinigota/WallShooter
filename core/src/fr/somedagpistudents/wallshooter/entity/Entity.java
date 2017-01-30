@@ -23,4 +23,12 @@ public abstract class Entity {
     public float getY() {
         return this.y;
     }
+
+    public float getWidth() {
+        return this.width;
+    }
+
+    public float getHeight() {
+        return this.height;
+    }
 }
