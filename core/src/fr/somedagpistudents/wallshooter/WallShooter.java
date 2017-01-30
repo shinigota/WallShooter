@@ -23,6 +23,7 @@ public class WallShooter extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+		this.world.render();
 		this.worldRenderer.render();
 	}
 	

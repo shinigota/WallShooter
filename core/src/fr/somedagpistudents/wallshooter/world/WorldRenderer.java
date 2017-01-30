@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.Brick;
 import fr.somedagpistudents.wallshooter.entity.Entity;
+import fr.somedagpistudents.wallshooter.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ public class WorldRenderer {
 
     public WorldRenderer(World world) {
         this.world = world;
+
         this.camera = new OrthographicCamera(WallShooter.SCREEN_WIDTH, WallShooter.SCREEN_HEIGHT);
         this.spriteBatch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
@@ -50,7 +52,9 @@ public class WorldRenderer {
         }
 
         this.shapeRenderer.setColor(Color.BLUE);
-//        this.shapeRenderer.rect(0, 0, Brick.WIDTH, Brick.HEIGHT * 2);
+
+        Player p = world.getPlayer();
+        this.shapeRenderer.rect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
         this.shapeRenderer.end();
 
         this.spriteBatch.begin();
