@@ -12,6 +12,11 @@ public class WallTest {
     @Test
     public void canGetColumns() throws Exception {
         Wall wall = new Wall();
+        wall.getColumn();
+       // wall.columns.size();
+        //assertThat(wall.columns, new Column());
     }
+
+
 
 }
