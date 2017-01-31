@@ -1,5 +1,7 @@
 package fr.somedagpistudents.wallshooter.entity;
 
+import com.badlogic.gdx.InputProcessor;
+
 /**
  * Created by djacques on 30/01/17.
  */
