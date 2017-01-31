@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
+import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
@@ -44,8 +46,6 @@ public class WorldRenderer{
     public void render() {
         this.clearScreen();
 
-        this.refreshCamera();
-
         this.setPlayerPosition();
 
         this.drawDebug();
@@ -75,13 +75,18 @@ public class WorldRenderer{
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)){
             p.setXSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedX())*2);
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            Weapon weapon = p.getWeapon();
+            if(weapon.canShoot()) {
+                Bullet bullet = weapon.shoot(p.getX() + p.getWidth() / 2, p.getY() + p.getHeight() / 2);
+                this.world.addBullet(bullet);
+            }
 
         }
-    }
 
-    private void refreshCamera() {
-       // this.camera.position.add(WallShooter.CAM_X_SPEED, 0, 0);
-        this.camera.update();
+
     }
 
     private void clearScreen() {
@@ -105,9 +110,21 @@ public class WorldRenderer{
 
 
         this.debugBricks();
+        this.debugBullets();
         this.debugPlayer();
 
         this.shapeRenderer.end();
+    }
+
+    private void debugBullets() {
+        ArrayList<Bullet> bullets = world.getBullets();
+        Iterator<Bullet> bulletIter = bullets.iterator();
+
+        this.shapeRenderer.setColor(Color.YELLOW);
+        while (bulletIter.hasNext()) {
+            Bullet bullet = bulletIter.next();
+            this.shapeRenderer.rect(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
+        }
     }
 
     private void debugPlayer() {
