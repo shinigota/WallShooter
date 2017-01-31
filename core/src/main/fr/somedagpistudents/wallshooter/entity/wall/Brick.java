@@ -1,4 +1,6 @@
-package fr.somedagpistudents.wallshooter.entity;
+package fr.somedagpistudents.wallshooter.entity.wall;
+
+import fr.somedagpistudents.wallshooter.entity.Entity;
 
 public class Brick extends Entity {
     public static final float WIDTH  = 60;

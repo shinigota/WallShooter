@@ -1,33 +1,30 @@
 package fr.somedagpistudents.wallshooter.world;
 
-import fr.somedagpistudents.wallshooter.entity.Brick;
-import fr.somedagpistudents.wallshooter.entity.Player;
+import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class World {
     private ArrayList<Brick> bricks;
-    Player p;
-    Brick b;
-    Controller c;
+    private Player player;
+    private Controller controller;
 
 
     public World() {
-        this.p = new Player(-640,0,60,100);
+        this.player = new Player(-640, 0, 60, 100);
         this.bricks = new ArrayList<Brick>();
-        this.bricks.add(new Brick(500,0));
-        this.bricks.add(new Brick(0,250));
-        this.c=new Controller();
+        this.bricks.add(new Brick(500, 0));
+        this.bricks.add(new Brick(0, 250));
+        this.controller = new Controller();
     }
 
-    public void render() {
+    public void update() {
+        this.controller.checkGameState(this.player, this.bricks.get(0));
 
-        this.c.checkGameState(this.p,this.bricks.get(0));
-
-        p.update();
+        player.update();
 
         Iterator<Brick> brickIter = this.bricks.iterator();
         while (brickIter.hasNext()) {
@@ -41,11 +38,10 @@ public class World {
     }
 
     public Player getPlayer() {
-        return this.p;
-
+        return this.player;
     }
 
     public Object getController() {
-        return this.c;
+        return this.controller;
     }
 }

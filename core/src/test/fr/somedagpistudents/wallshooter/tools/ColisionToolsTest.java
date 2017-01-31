@@ -1,12 +1,10 @@
 package fr.somedagpistudents.wallshooter.tools;
 
 import fr.somedagpistudents.wallshooter.entity.Brick;
-import fr.somedagpistudents.wallshooter.entity.Entity;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import fr.somedagpistudents.wallshooter.entity.Player;
 import org.junit.Test;
 
 /**

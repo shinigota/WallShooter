@@ -9,9 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
-import fr.somedagpistudents.wallshooter.entity.Brick;
-import fr.somedagpistudents.wallshooter.entity.Entity;
-import fr.somedagpistudents.wallshooter.entity.Player;
+import fr.somedagpistudents.wallshooter.entity.player.Player;
+import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
@@ -20,11 +19,13 @@ import java.util.Iterator;
 public class WorldRenderer implements InputProcessor{
     private Controller controller;
     private World world;
-    BitmapFont font;
+
     private OrthographicCamera camera;
 
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
+
+    private BitmapFont font;
 
     public WorldRenderer(World world) {
         this.world = world;
@@ -41,40 +42,60 @@ public class WorldRenderer implements InputProcessor{
     }
 
     public void render() {
+        this.clearScreen();
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        this.refreshCamera();
 
+        this.drawDebug();
+        this.drawTextures();
+    }
+
+    private void refreshCamera() {
         this.camera.position.add(WallShooter.CAM_X_SPEED, 0, 0);
         this.camera.update();
+    }
 
-        ArrayList<Brick> bricks = this.world.getBricks();
-        this.spriteBatch.setProjectionMatrix(this.camera.combined);
-        this.shapeRenderer.setProjectionMatrix(this.camera.combined);
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
 
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        this.shapeRenderer.setColor(Color.RED);
-
-        Iterator<Brick> brickIter = bricks.iterator();
-        while (brickIter.hasNext()) {
-            Brick brick = brickIter.next();
-
-            this.shapeRenderer.rect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
-        }
-
-        this.shapeRenderer.setColor(Color.BLUE);
-
-        Player p = world.getPlayer();
-
-        this.shapeRenderer.rect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
-        this.shapeRenderer.end();
-
+    private void drawTextures() {
         this.spriteBatch.begin();
 
-       // String str=this.controller.displayGameStateText();
-       // font.draw(spriteBatch, str, this.camera.position.x+10, 10);
+        // String str=this.controller.displayGameStateText();
+        // font.draw(spriteBatch, str, this.camera.position.x+10, 10);
 
         this.spriteBatch.end();
+    }
+
+
+    private void drawDebug() {
+        this.shapeRenderer.setProjectionMatrix(this.camera.combined);
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+
+        this.debugBricks();
+        this.debugPlayer();
+        
+        this.shapeRenderer.end();
+    }
+
+    private void debugPlayer() {
+        Player p = world.getPlayer();
+        this.shapeRenderer.setColor(Color.BLUE);
+        this.shapeRenderer.rect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
+    }
+
+    private void debugBricks() {
+        ArrayList<Brick> bricks = this.world.getBricks();
+        Iterator<Brick> brickIter = bricks.iterator();
+
+        this.shapeRenderer.setColor(Color.RED);
+        while (brickIter.hasNext()) {
+            Brick brick = brickIter.next();
+            this.shapeRenderer.rect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
+        }
     }
 
     public void dispose() {
