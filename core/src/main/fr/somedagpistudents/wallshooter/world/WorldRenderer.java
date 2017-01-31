@@ -77,7 +77,7 @@ public class WorldRenderer implements InputProcessor{
 
         this.debugBricks();
         this.debugPlayer();
-        
+
         this.shapeRenderer.end();
     }
 
