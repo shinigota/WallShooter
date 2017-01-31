@@ -43,9 +43,10 @@ public class World {
     public Player getPlayer() {
         return this.p;
 
+
     }
 
-    public Object getController() {
+    public Controller getController() {
         return this.c;
     }
 }
