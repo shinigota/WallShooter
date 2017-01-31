@@ -6,6 +6,7 @@ package fr.somedagpistudents.wallshooter.entity;
 public class Player extends MovableEntity{
 
     protected int score = 0;
+    protected boolean blockedFront = false;
 
 
     public Player(float x, float y, float width, float height) {
@@ -17,7 +18,18 @@ public class Player extends MovableEntity{
 
     @Override
     public void update() {
-        this.x += getXSpeed();
-        this.y += getYSpeed();
+        if(!this.blockedFront) {
+            this.x += getXSpeed();
+        }else{
+            this.blockedFront = false;
+        }
+            this.y += getYSpeed();
+    }
+
+    @Override
+    public void contactWith(Object object) {
+        if(object instanceof Brick){
+            this.blockedFront = true;
+        }
     }
 }

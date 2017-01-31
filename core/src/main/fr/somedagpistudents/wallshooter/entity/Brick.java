@@ -12,4 +12,9 @@ public class Brick extends Entity {
     public void update() {
 
     }
+
+    @Override
+    public void contactWith(Object object) {
+
+    }
 }

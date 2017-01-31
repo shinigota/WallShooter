@@ -16,6 +16,8 @@ public abstract class Entity {
 
     public abstract void update();
 
+    public abstract void contactWith(Object object);
+
     public float getX() {
         return this.x;
     }
