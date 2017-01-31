@@ -60,18 +60,22 @@ public class WorldRenderer{
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
             p.setYSpeed(Gdx.graphics.getDeltaTime() * p.getSpeedY());
+            System.out.println(Gdx.graphics.getDeltaTime() * p.getSpeedY());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
             p.setYSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedY())*-1);
+            System.out.println((Gdx.graphics.getDeltaTime() * p.getSpeedY())*-1);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)){
-            p.setXSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedX())*-1);
+            p.setXSpeed(((Gdx.graphics.getDeltaTime() * p.getSpeedX())*-1)+2);
+            System.out.println((Gdx.graphics.getDeltaTime() * p.getSpeedX())*-1);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)){
             p.setXSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedX())*2);
+
         }
     }
 
