@@ -56,7 +56,7 @@ public class WorldRenderer{
         Player p = world.getPlayer();
 
         p.setYSpeed(0);
-        p.setXSpeed(2);
+        p.setXSpeed(0);
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
             p.setYSpeed(Gdx.graphics.getDeltaTime() * p.getSpeedY());
@@ -76,7 +76,7 @@ public class WorldRenderer{
     }
 
     private void refreshCamera() {
-        this.camera.position.add(WallShooter.CAM_X_SPEED, 0, 0);
+       // this.camera.position.add(WallShooter.CAM_X_SPEED, 0, 0);
         this.camera.update();
     }
 

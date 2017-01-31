@@ -23,8 +23,6 @@ public class Player extends MovableEntity {
     public Player(float x, float y, float width, float height) {
 
         super(x, y, width, height, 0, 0);
-        this.xSpeed = 2;
-        this.ySpeed = 0;
     }
 
     @Override
@@ -32,11 +30,12 @@ public class Player extends MovableEntity {
         if(time == null){
             createTimer();
         }
-        if(!this.blockedFront) {
+        if(this.blockedFront) {
             this.x += getXSpeed();
-        }else{
             this.blockedFront = false;
+            this.xSpeed = 0;
         }
+        this.x += getXSpeed();
         this.y += getYSpeed();
     }
 
@@ -44,6 +43,7 @@ public class Player extends MovableEntity {
     public void onCollision(Object object) {
         if(object instanceof Brick){
             this.blockedFront = true;
+            this.xSpeed = ((Brick) object).getXSpeed();
         }
     }
 
