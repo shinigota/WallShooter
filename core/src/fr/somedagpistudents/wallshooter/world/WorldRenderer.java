@@ -4,19 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.Brick;
 import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.Player;
+import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class WorldRenderer {
+    private Controller controller;
     private World world;
-
+    BitmapFont font;
     private OrthographicCamera camera;
 
     private SpriteBatch spriteBatch;
@@ -30,6 +33,9 @@ public class WorldRenderer {
         this.shapeRenderer = new ShapeRenderer();
 
         this.camera.position.set(0,  0 , 0);
+        this.controller= (Controller) world.getController();
+
+        this.font = new BitmapFont();
         this.camera.update();
     }
 
@@ -58,10 +64,17 @@ public class WorldRenderer {
         this.shapeRenderer.setColor(Color.BLUE);
 
         Player p = world.getPlayer();
+
+
+
+
         this.shapeRenderer.rect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
         this.shapeRenderer.end();
 
         this.spriteBatch.begin();
+
+       // String str=this.controller.displayGameStateText();
+       // font.draw(spriteBatch, str, this.camera.position.x+10, 10);
 
         this.spriteBatch.end();
     }

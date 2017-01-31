@@ -18,8 +18,6 @@ public class Controller {
 
     public void checkGameState(Player player,Brick brick){
 
-
-
         if (ColisionTools.contact(player,brick)==true){
             gamestate="gameover";
             this.displayGameStateText();
@@ -27,18 +25,28 @@ public class Controller {
         }
 
 
+
     }
-    public void displayGameStateText(){
+    public String displayGameStateText(){
 
 ///à utiliser avec draw.text ?
         if (gamestate=="gamestart"){
             str="WALLSHOOTER \n Press start";
 
         }
-        if (gamestate=="gameover"){
-            str="You Died.";}
+        if (gamestate=="gameplay"){
+            str="WALLSHOOTER \n Press start";
 
-    System.out.print(str);
+        }
+
+
+
+        if (gamestate=="gameover"){
+            str="You Died.";
+        }
+
+    return(str);
+
 
     }
 

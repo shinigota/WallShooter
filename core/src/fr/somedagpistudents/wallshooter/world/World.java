@@ -44,4 +44,8 @@ public class World {
         return this.p;
 
     }
+
+    public Object getController() {
+        return this.c;
+    }
 }
