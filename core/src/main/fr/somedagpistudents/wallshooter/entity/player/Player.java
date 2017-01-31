@@ -6,6 +6,7 @@ import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import com.badlogic.gdx.InputProcessor;
 
 /**
  * Created by djacques on 30/01/17.
