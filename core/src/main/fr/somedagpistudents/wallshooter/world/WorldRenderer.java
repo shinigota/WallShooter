@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
+import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
@@ -43,42 +45,8 @@ public class WorldRenderer{
 
     public void render() {
         this.clearScreen();
-
-        this.refreshCamera();
-
-        //TODO : Delete this function
-        //this.setPlayerPosition();
-
         this.drawDebug();
         this.drawTextures();
-    }
-
-    private void setPlayerPosition() {
-        /*Player p = world.getPlayer();
-
-        p.setYSpeed(0);
-        p.setXSpeed(0);
-
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
-            p.setYSpeed(Gdx.graphics.getDeltaTime() * p.getSpeedY());
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
-            p.setYSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedY())*-1);
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)){
-            p.setXSpeed(((Gdx.graphics.getDeltaTime() * p.getSpeedX())*-1)+2);
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)){
-            p.setXSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedX())*2);
-        }*/
-    }
-
-    private void refreshCamera() {
-       // this.camera.position.add(WallShooter.CAM_X_SPEED, 0, 0);
-        this.camera.update();
     }
 
     private void clearScreen() {
@@ -102,9 +70,21 @@ public class WorldRenderer{
 
 
         this.debugBricks();
+        this.debugBullets();
         this.debugPlayer();
 
         this.shapeRenderer.end();
+    }
+
+    private void debugBullets() {
+        ArrayList<Bullet> bullets = world.getBullets();
+        Iterator<Bullet> bulletIter = bullets.iterator();
+
+        this.shapeRenderer.setColor(Color.YELLOW);
+        while (bulletIter.hasNext()) {
+            Bullet bullet = bulletIter.next();
+            this.shapeRenderer.rect(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
+        }
     }
 
     private void debugPlayer() {

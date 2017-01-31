@@ -8,16 +8,16 @@ import java.util.concurrent.TimeUnit;
  * Created by benjamin on 1/31/17.
  */
 public class Weapon {
-    public final static float DEFAULT_FIRE_RATE_MILLIS = 500;
+    public final static long DEFAULT_FIRE_RATE_MILLIS = 500;
 
-    private float fireRateInMillis;
-    private float lastShootTimeInMillis;
+    private long fireRateInMillis;
+    private long lastShootTimeInMillis;
 
     public Weapon() {
         this(Weapon.DEFAULT_FIRE_RATE_MILLIS);
     }
 
-    public Weapon(float fireRateInMillis) {
+    public Weapon(long fireRateInMillis) {
         this.fireRateInMillis = fireRateInMillis;
         this.lastShootTimeInMillis = 0;
     }
@@ -26,7 +26,7 @@ public class Weapon {
         this.lastShootTimeInMillis = TimeUtils.millis();
         return new Bullet(xOrigin, yOrigin);
     }
-    public float getFireRateInMillis() {
+    public long getFireRateInMillis() {
         return fireRateInMillis;
     }
 

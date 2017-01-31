@@ -2,6 +2,8 @@ package fr.somedagpistudents.wallshooter.world;
 
 import com.badlogic.gdx.InputProcessor;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
+import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
+import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,6 +45,14 @@ public class InputController implements ActionListener, InputProcessor{
             this.mPlayer.setXSpeed(this.mLateralSpeed);
         }
 
+        if(keycode == SPACE){
+            Weapon weapon = this.mPlayer.getWeapon();
+            if(weapon.canShoot()) {
+                Bullet bullet = weapon.shoot(this.mPlayer.getX() + this.mPlayer.getWidth() / 2, this.mPlayer.getY() + this.mPlayer.getHeight() / 2);
+                this.mWorld.addBullet(bullet);
+            }
+        }
+
         System.out.println("Key down !");
         return false;
     }
@@ -58,6 +68,7 @@ public class InputController implements ActionListener, InputProcessor{
 
     @Override
     public boolean keyTyped(char character) {
+
         return false;
     }
 
