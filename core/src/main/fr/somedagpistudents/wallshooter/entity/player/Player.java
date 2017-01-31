@@ -4,6 +4,8 @@ import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
+import com.badlogic.gdx.InputProcessor;
+
 /**
  * Created by djacques on 30/01/17.
  */
