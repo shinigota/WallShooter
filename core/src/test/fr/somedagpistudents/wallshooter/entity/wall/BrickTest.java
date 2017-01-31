@@ -32,8 +32,8 @@ public class BrickTest {
     public void BrickMovesProperly() throws Exception  {
         Brick b = new Brick(5,5);
         b.update();
-        assertEquals(5,b.getX(),0);
-        assertEquals(5,b.getY(),0);
+        assertEquals(5+b.getXSpeed(),b.getX(),0);
+        assertEquals(5+b.getYSpeed(),b.getY(),0);
     }
 
     @Test
