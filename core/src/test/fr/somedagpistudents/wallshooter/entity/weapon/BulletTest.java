@@ -1,9 +1,12 @@
 package fr.somedagpistudents.wallshooter.entity.weapon;
 
+import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by benjamin on 1/31/17.
@@ -35,5 +38,49 @@ public class BulletTest {
         bullet.update();
         assertEquals(bullet.getX(), 40, 0);
         assertEquals(bullet.getY(), 10, 0);
+    }
+
+    @Test
+    public void bulletCollidesWithBrick() throws Exception {
+        Bullet bullet;
+        Brick brick;
+
+        bullet = new Bullet(0, 0);
+        brick = new Brick(0, 0);
+        assertTrue(ColisionTools.contact(bullet, brick));
+
+        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, 0);
+        brick = new Brick(0, 0);
+        assertTrue(ColisionTools.contact(bullet, brick));
+
+        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, Brick.HEIGHT - Bullet.SIZE);
+        brick = new Brick(0, 0);
+        assertTrue(ColisionTools.contact(bullet, brick));
+
+        bullet = new Bullet(0, Brick.HEIGHT - Bullet.SIZE);
+        brick = new Brick(0, 0);
+        assertTrue(ColisionTools.contact(bullet, brick));
+    }
+
+    @Test
+    public void bulletDoesNotCollideWithBrick() throws Exception {
+        Bullet bullet;
+        Brick brick;
+
+        bullet = new Bullet(-Bullet.SIZE - 1, 0);
+        brick = new Brick(0, 0);
+        assertTrue(! ColisionTools.contact(bullet, brick));
+
+//        bullet = new Bullet(Brick.WIDTH, 0);
+//        brick = new Brick(0, 0);
+//        assertTrue(ColisionTools.contact(bullet, brick));
+//
+//        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, Brick.HEIGHT - Bullet.SIZE);
+//        brick = new Brick(0, 0);
+//        assertTrue(ColisionTools.contact(bullet, brick));
+//
+//        bullet = new Bullet(0, Brick.HEIGHT - Bullet.SIZE);
+//        brick = new Brick(0, 0);
+//        assertTrue(ColisionTools.contact(bullet, brick));
     }
 }

@@ -4,6 +4,7 @@ import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
+import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
@@ -27,12 +28,40 @@ public class World {
     }
 
     public void update() {
-        this.controller.checkGameState(this.player, this.bricks.get(0));
+        for (Brick brick : this.bricks) {
+            this.controller.checkGameState(this.player, brick);
+        }
 
         player.update();
 
         this.updateBullets();
         this.updateBricks();
+
+        this.checkCollisions();
+    }
+
+    private void checkCollisions() {
+        Iterator<Bullet> bulletIter = this.bullets.iterator();
+        while (bulletIter.hasNext()) {
+            boolean removeBullet = false;
+            Bullet bullet = bulletIter.next();
+
+            Iterator<Brick> brickIter = this.bricks.iterator();
+            while (brickIter.hasNext()) {
+                Brick brick = brickIter.next();
+
+                if(ColisionTools.contact(bullet, brick)) {
+                    System.out.println("collision");
+                    brickIter.remove();
+                    removeBullet = true;
+
+                }
+            }
+
+            if (removeBullet) {
+                bulletIter.remove();
+            }
+        }
     }
 
     private void updateBricks() {
