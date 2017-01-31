@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class WallTest {
 
     @Test
-    public void DummyWallTest() throws Exception {
-        assertEquals(1,1);
+    public void canGetColumns() throws Exception {
+        Wall wall = new Wall();
     }
 }
