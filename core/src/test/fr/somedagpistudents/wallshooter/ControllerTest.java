@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  */
 public class ControllerTest {
     @Test
-    public void worldHasController(){
+    public void worldHasController() throws Exception  {
         World world = new World();
         assertNotNull(world.getController());
 

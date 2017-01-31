@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class WallShooterTest {
     @Test
-    public void dummy() {
+    public void dummy() throws Exception {
         assertEquals(1, 1);
     }
 }

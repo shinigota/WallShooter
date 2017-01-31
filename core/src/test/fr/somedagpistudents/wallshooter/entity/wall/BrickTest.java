@@ -16,20 +16,20 @@ public class BrickTest {
     }
 
     @Test
-    public void BrickIsCreated(){
+    public void BrickIsCreated() throws Exception  {
         Brick b = new Brick(5,5);
         assertNotNull(b);
     }
 
     @Test
-    public void BrickHasGoodCoordinates(){
+    public void BrickHasGoodCoordinates() throws Exception  {
         Brick b = new Brick(5,5);
         assertEquals(5,b.getX(),0);
         assertEquals(5,b.getY(),0);
     }
 
     @Test
-    public void BrickMovesProperly(){
+    public void BrickMovesProperly() throws Exception  {
         Brick b = new Brick(5,5);
         b.update();
         assertEquals(5,b.getX(),0);
@@ -37,7 +37,7 @@ public class BrickTest {
     }
 
     @Test
-    public void BrickIsWellDimensioned(){
+    public void BrickIsWellDimensioned() throws Exception  {
         Brick b = new Brick(5,5);
         assertEquals(Brick.WIDTH,60,0);
         assertEquals(Brick.HEIGHT,35,0);

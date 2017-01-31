@@ -18,16 +18,11 @@ public class Player extends MovableEntity {
     private int PLAYER_Y_SPEED = 100;
     private int PLAYER_X_SPEED = 100;
 
-    public int getScore() {
-        return score;
-    }
-
     protected boolean blockedFront = false;
-
 
     public Player(float x, float y, float width, float height) {
 
-        super(x, y, width, height);
+        super(x, y, width, height, 0, 0);
         this.xSpeed = 2;
         this.ySpeed = 0;
     }
@@ -46,10 +41,14 @@ public class Player extends MovableEntity {
     }
 
     @Override
-    public void contactWith(Object object) {
+    public void onCollision(Object object) {
         if(object instanceof Brick){
             this.blockedFront = true;
         }
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public void setWeapon(Weapon weapon) {

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNull;
  */
 public class PlayerTest {
     @Test
-    public void playerHasWeapon() {
+    public void playerHasWeapon() throws Exception {
         Player player = new Player(0, 0, 10, 10);
         assertNull(player.getWeapon());
         player.setWeapon(new Weapon());
