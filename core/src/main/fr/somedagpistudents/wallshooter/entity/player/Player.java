@@ -4,6 +4,8 @@ import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import com.badlogic.gdx.InputProcessor;
 
 /**
@@ -12,6 +14,12 @@ import com.badlogic.gdx.InputProcessor;
 public class Player extends MovableEntity {
     private int score = 0;
     private Weapon weapon;
+    private Timer time;
+
+    public int getScore() {
+        return score;
+    }
+
     protected boolean blockedFront = false;
 
 
@@ -24,6 +32,9 @@ public class Player extends MovableEntity {
 
     @Override
     public void update() {
+        if(time == null){
+            createTimer();
+        }
         if(!this.blockedFront) {
             this.x += getXSpeed();
         }else{
@@ -45,5 +56,16 @@ public class Player extends MovableEntity {
 
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public void createTimer(){
+        time = new Timer("AddScore");
+        time.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                createTimer();
+                Player.this.score++;
+            }
+        },1000);
     }
 }

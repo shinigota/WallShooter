@@ -1,6 +1,6 @@
 package fr.somedagpistudents.wallshooter;
 
-import fr.somedagpistudents.wallshooter.entity.Brick;
+import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
