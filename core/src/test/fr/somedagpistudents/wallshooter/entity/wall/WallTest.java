@@ -13,4 +13,5 @@ public class WallTest {
     public void canGetColumns() throws Exception {
         Wall wall = new Wall();
     }
+
 }

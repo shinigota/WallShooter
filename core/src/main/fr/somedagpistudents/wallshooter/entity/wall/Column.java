@@ -26,10 +26,36 @@ public class Column {
         this.bricks.add(calculPosBrick(x,0));
     }
 
-    public Brick calculPosBrick(int x,int position){
+    Brick calculPosBrick(int x,int position){
         return new Brick(x, (position*60)-360);
     }
 
+    public int getPosBrick(Brick brick){
+        return (int) (brick.getY()+360)/60;
+    }
+
+    public Brick getBrickPos(int pos){
+        for(int i =0;i<this.bricks.size();i++){
+            if(getPosBrick(this.bricks.get(i)) == pos){
+                return this.bricks.get(i);
+            }
+        }
+        return null;
+    }
+
+    public int getIdBrickColumn(Brick brick){
+        //return this.bricks;
+        for(int i = 0; i<this.bricks.size(); i++){
+            if(this.bricks.get(i).equals(brick)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void destroyBrick(int pos){
+        this.bricks.remove(getBrickPos(pos));
+    }
 
 
 }
