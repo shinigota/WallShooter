@@ -1,7 +1,7 @@
 package fr.somedagpistudents.wallshooter.tools;
 
-import fr.somedagpistudents.wallshooter.entity.Brick;
-import fr.somedagpistudents.wallshooter.entity.Player;
+import fr.somedagpistudents.wallshooter.entity.player.Player;
+import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 
 /**
  * Created by fjude001 on 30/01/17.
@@ -16,7 +16,7 @@ public class Controller {
     }
 
 
-    public void checkGameState(Player player,Brick brick){
+    public void checkGameState(Player player, Brick brick){
 
         if (ColisionTools.contact(player,brick)==true){
             gamestate="gameover";

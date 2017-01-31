@@ -8,6 +8,10 @@ public abstract class MovableEntity extends Entity {
         super(x, y, width, height);
     }
 
+    public MovableEntity(float size, float width, float height) {
+        super(size, width, height);
+    }
+
     public float getXSpeed() {
         return this.xSpeed;
     }

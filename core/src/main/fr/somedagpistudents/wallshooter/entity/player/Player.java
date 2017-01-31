@@ -1,11 +1,15 @@
-package fr.somedagpistudents.wallshooter.entity;
+package fr.somedagpistudents.wallshooter.entity.player;
+
+import fr.somedagpistudents.wallshooter.entity.MovableEntity;
+import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 /**
  * Created by djacques on 30/01/17.
  */
-public class Player extends MovableEntity{
-
-    protected int score = 0;
+public class Player extends MovableEntity {
+    private int score = 0;
+    private Weapon weapon;
     protected boolean blockedFront = false;
 
 
@@ -23,7 +27,7 @@ public class Player extends MovableEntity{
         }else{
             this.blockedFront = false;
         }
-            this.y += getYSpeed();
+        this.y += getYSpeed();
     }
 
     @Override
@@ -31,5 +35,13 @@ public class Player extends MovableEntity{
         if(object instanceof Brick){
             this.blockedFront = true;
         }
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
     }
 }

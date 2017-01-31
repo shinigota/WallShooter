@@ -1,4 +1,4 @@
-package fr.somedagpistudents.wallshooter.entity;
+package fr.somedagpistudents.wallshooter.entity.wall;
 
 /**
  * Created by sbonnan on 30/01/17.
