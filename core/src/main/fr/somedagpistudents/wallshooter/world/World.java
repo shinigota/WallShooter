@@ -50,7 +50,7 @@ public class World {
             while (brickIter.hasNext()) {
                 Brick brick = brickIter.next();
 
-                if(ColisionTools.contact(bullet, brick)) {
+                if(ColisionTools.contact(brick, bullet)) {
                     System.out.println("collision");
                     brickIter.remove();
                     removeBullet = true;
