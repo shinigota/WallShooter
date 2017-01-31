@@ -23,7 +23,8 @@ public class World {
         this.bricks = new ArrayList<Brick>();
         this.bricks.add(new Brick(500, 0));
         this.bricks.add(new Brick(0, 250));
-        this.controller = new Controller();
+        this.controller = new Controller(this);
+
     }
 
     public void update() {

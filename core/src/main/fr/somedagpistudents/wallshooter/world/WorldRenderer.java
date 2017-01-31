@@ -65,8 +65,8 @@ public class WorldRenderer{
     private void drawHUD() {
         String str = this.controller.displayGameStateText();
         if (controller.getGamestate()=="gameplay"){
-        font.draw(spriteBatch, "Score : ", this.camera.position.x+10, 10);
-        font.draw(spriteBatch, "Lives: ", this.camera.position.x+10+128, 10);}
+        font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x+10, 10);
+        font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x+10+128, 10);}
         else
             font.draw(spriteBatch, str, this.camera.position.x+10, 10);
 

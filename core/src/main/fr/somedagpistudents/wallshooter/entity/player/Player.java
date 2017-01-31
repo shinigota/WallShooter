@@ -13,10 +13,12 @@ import com.badlogic.gdx.InputProcessor;
  */
 public class Player extends MovableEntity {
     private int score = 0;
+    private int lives = 0;
     private Weapon weapon;
     private Timer time;
     private int PLAYER_Y_SPEED = 100;
     private int PLAYER_X_SPEED = 100;
+
 
     protected boolean blockedFront = false;
 
@@ -84,5 +86,13 @@ public class Player extends MovableEntity {
 
     public float getSpeedX(){
         return this.PLAYER_X_SPEED;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 }
