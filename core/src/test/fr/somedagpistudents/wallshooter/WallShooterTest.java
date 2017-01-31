@@ -10,6 +10,6 @@ import static org.junit.Assert.assertEquals;
 public class WallShooterTest {
     @Test
     public void dummy() {
-        assertEquals(0, 1);
+        assertEquals(1, 1);
     }
 }
