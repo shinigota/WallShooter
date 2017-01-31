@@ -19,9 +19,6 @@ public class Player extends MovableEntity {
     private int PLAYER_Y_SPEED = 100;
     private int PLAYER_X_SPEED = 100;
 
-
-    protected boolean blockedFront = false;
-
     public Player(float x, float y, float width, float height) {
 
         super(x, y, width, height, 0, 0);
@@ -32,11 +29,6 @@ public class Player extends MovableEntity {
         if(time == null){
             createTimer();
         }
-        if(this.blockedFront) {
-            this.x += getXSpeed();
-            this.blockedFront = false;
-            this.xSpeed = 0;
-        }
         this.x += getXSpeed();
         this.y += getYSpeed();
     }
@@ -44,8 +36,13 @@ public class Player extends MovableEntity {
     @Override
     public void onCollision(Object object) {
         if(object instanceof Brick){
-            this.blockedFront = true;
-            this.xSpeed = ((Brick) object).getXSpeed();
+            if((x + width >= ((Brick) object).getX()) && (x + width <= (((Brick) object).getX()+10))) {
+                if(xSpeed > 0 || xSpeed == ((Brick) object).getXSpeed()) {
+                    this.xSpeed = ((Brick) object).getXSpeed();
+                }else{
+                    this.xSpeed += ((Brick) object).getXSpeed();
+                }
+            }
         }
     }
 
