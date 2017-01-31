@@ -15,6 +15,8 @@ public class Player extends MovableEntity {
     private int score = 0;
     private Weapon weapon;
     private Timer time;
+    private int PLAYER_Y_SPEED = 100;
+    private int PLAYER_X_SPEED = 100;
 
     public int getScore() {
         return score;
@@ -67,5 +69,21 @@ public class Player extends MovableEntity {
                 Player.this.score++;
             }
         },1000);
+    }
+
+    public void setYSpeed(float y){
+        this.ySpeed = y;
+    }
+
+    public void setXSpeed(float x){
+        this.xSpeed = x;
+    }
+
+    public float getSpeedY(){
+        return this.PLAYER_Y_SPEED;
+    }
+
+    public float getSpeedX(){
+        return this.PLAYER_X_SPEED;
     }
 }
