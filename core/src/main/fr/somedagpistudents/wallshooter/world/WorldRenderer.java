@@ -46,37 +46,34 @@ public class WorldRenderer{
 
         this.refreshCamera();
 
-        this.setPlayerPosition();
+        //TODO : Delete this function
+        //this.setPlayerPosition();
 
         this.drawDebug();
         this.drawTextures();
     }
 
     private void setPlayerPosition() {
-        Player p = world.getPlayer();
+        /*Player p = world.getPlayer();
 
         p.setYSpeed(0);
         p.setXSpeed(0);
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
             p.setYSpeed(Gdx.graphics.getDeltaTime() * p.getSpeedY());
-            System.out.println(Gdx.graphics.getDeltaTime() * p.getSpeedY());
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
             p.setYSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedY())*-1);
-            System.out.println((Gdx.graphics.getDeltaTime() * p.getSpeedY())*-1);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)){
             p.setXSpeed(((Gdx.graphics.getDeltaTime() * p.getSpeedX())*-1)+2);
-            System.out.println((Gdx.graphics.getDeltaTime() * p.getSpeedX())*-1);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)){
             p.setXSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedX())*2);
-
-        }
+        }*/
     }
 
     private void refreshCamera() {

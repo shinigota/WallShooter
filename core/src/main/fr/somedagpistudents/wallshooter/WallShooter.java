@@ -1,6 +1,8 @@
 package fr.somedagpistudents.wallshooter;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import fr.somedagpistudents.wallshooter.world.InputController;
 import fr.somedagpistudents.wallshooter.world.World;
 import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 
@@ -16,6 +18,8 @@ public class WallShooter extends ApplicationAdapter {
 	public void create () {
 		this.world = new World();
 		this.worldRenderer = new WorldRenderer(this.world);
+		InputController inputController = new InputController(this.world,3,3);
+		Gdx.input.setInputProcessor(inputController);
 	}
 
 	@Override
