@@ -51,5 +51,7 @@ public class Controller {
     }
 
 
-
+    public String getGamestate() {
+        return this.gamestate;
+    }
 }

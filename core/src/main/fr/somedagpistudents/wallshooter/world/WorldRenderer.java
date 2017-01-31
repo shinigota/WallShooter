@@ -57,10 +57,19 @@ public class WorldRenderer{
     private void drawTextures() {
         this.spriteBatch.begin();
 
-        // String str=this.controller.displayGameStateText();
-        // font.draw(spriteBatch, str, this.camera.position.x+10, 10);
+        this.drawHUD();
 
         this.spriteBatch.end();
+    }
+
+    private void drawHUD() {
+        String str = this.controller.displayGameStateText();
+        if (controller.getGamestate()=="gameplay"){
+        font.draw(spriteBatch, "Score : ", this.camera.position.x+10, 10);
+        font.draw(spriteBatch, "Lives: ", this.camera.position.x+10+128, 10);}
+        else
+            font.draw(spriteBatch, str, this.camera.position.x+10, 10);
+
     }
 
 
