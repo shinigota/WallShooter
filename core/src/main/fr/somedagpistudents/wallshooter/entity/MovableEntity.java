@@ -19,4 +19,5 @@ public abstract class MovableEntity extends Entity {
     public float getYSpeed() {
         return this.ySpeed;
     }
+
 }

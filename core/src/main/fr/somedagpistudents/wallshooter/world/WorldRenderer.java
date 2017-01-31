@@ -1,7 +1,7 @@
 package fr.somedagpistudents.wallshooter.world;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +16,7 @@ import fr.somedagpistudents.wallshooter.tools.Controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class WorldRenderer implements InputProcessor{
+public class WorldRenderer{
     private Controller controller;
     private World world;
 
@@ -46,8 +46,33 @@ public class WorldRenderer implements InputProcessor{
 
         this.refreshCamera();
 
+        this.setPlayerPosition();
+
         this.drawDebug();
         this.drawTextures();
+    }
+
+    private void setPlayerPosition() {
+        Player p = world.getPlayer();
+
+        p.setYSpeed(0);
+        p.setXSpeed(2);
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
+            p.setYSpeed(Gdx.graphics.getDeltaTime() * p.getSpeedY());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
+            p.setYSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedY())*-1);
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)){
+            p.setXSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedX())*-1);
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)){
+            p.setXSpeed((Gdx.graphics.getDeltaTime() * p.getSpeedX())*2);
+        }
     }
 
     private void refreshCamera() {
@@ -102,43 +127,4 @@ public class WorldRenderer implements InputProcessor{
         spriteBatch.dispose();
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
 }
