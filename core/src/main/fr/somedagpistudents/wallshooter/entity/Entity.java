@@ -7,11 +7,11 @@ public abstract class Entity {
     protected float x;
     protected float y;
 
-    public Entity(float size, float width, float height) {
-        this.x = size;
-        this.y = size;
-        this.width = width;
-        this.height = height;
+    public Entity(float x, float y, float size) {
+        this.x = x;
+        this.y = y;
+        this.width = size;
+        this.height = size;
     }
 
     public Entity(float x, float y, float width, float height) {
@@ -23,7 +23,7 @@ public abstract class Entity {
 
     public abstract void update();
 
-    public abstract void contactWith(Object object);
+    public abstract void onCollision(Object object);
 
     public float getX() {
         return this.x;

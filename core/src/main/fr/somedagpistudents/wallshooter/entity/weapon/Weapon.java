@@ -22,9 +22,9 @@ public class Weapon {
         this.lastShootTimeInMillis = 0;
     }
 
-    public Bullet shoot() {
+    public Bullet shoot(float xOrigin, float yOrigin) {
         this.lastShootTimeInMillis = TimeUtils.millis();
-        return new Bullet();
+        return new Bullet(xOrigin, yOrigin);
     }
     public float getFireRateInMillis() {
         return fireRateInMillis;

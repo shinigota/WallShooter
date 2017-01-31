@@ -13,8 +13,8 @@ public class ColisionTools {
         boolean colisionBottom = (( objectA.getY() <= objectB.getY()+objectB.getHeight())&& (objectB.getY()+objectB.getHeight() <= (objectA.getY()+objectA.getHeight())));
         if(colisionLeft || colisionRight){
             if(colisionTop || colisionBottom) {
-                objectA.contactWith(objectB);
-                objectB.contactWith(objectA);
+                objectA.onCollision(objectB);
+                objectB.onCollision(objectA);
                 return true;
             }
         }

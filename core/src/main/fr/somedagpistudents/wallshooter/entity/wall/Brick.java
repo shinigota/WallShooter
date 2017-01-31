@@ -16,7 +16,7 @@ public class Brick extends Entity {
     }
 
     @Override
-    public void contactWith(Object object) {
+    public void onCollision(Object object) {
 
     }
 }
