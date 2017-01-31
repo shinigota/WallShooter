@@ -7,6 +7,8 @@ import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.badlogic.gdx.Input.Keys.*;
 
@@ -19,29 +21,40 @@ public class InputController implements ActionListener, InputProcessor{
     private Player mPlayer;
     private int mLateralSpeed;
     private int mVerticalSpeed;
+    private Map<String, Integer> mKeyMap;
 
     public InputController(World w, int vSpeed, int lSpeed){
         this.mWorld = w;
         this.mPlayer = w.getPlayer();
         this.mLateralSpeed = lSpeed;
         this.mVerticalSpeed = vSpeed;
+        this.mKeyMap = new HashMap<String, Integer>();
+
+        this.mKeyMap.put("Z",0);
+        this.mKeyMap.put("Q",0);
+        this.mKeyMap.put("S",0);
+        this.mKeyMap.put("D",0);
     }
 
     @Override
     public boolean keyDown(int keycode) {
         if(keycode == Z){
+            this.mKeyMap.put("Z",1);
             this.mPlayer.setYSpeed(this.mVerticalSpeed);
         }
 
         if(keycode == Q){
+            this.mKeyMap.put("Q",1);
             this.mPlayer.setXSpeed(this.mLateralSpeed * -1);
         }
 
         if(keycode == S){
+            this.mKeyMap.put("S",1);
             this.mPlayer.setYSpeed(this.mVerticalSpeed * -1);
         }
 
         if(keycode == D){
+            this.mKeyMap.put("D",1);
             this.mPlayer.setXSpeed(this.mLateralSpeed);
         }
 
@@ -52,17 +65,39 @@ public class InputController implements ActionListener, InputProcessor{
                 this.mWorld.addBullet(bullet);
             }
         }
-
-        System.out.println("Key down !");
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        this.mPlayer.setYSpeed(0);
-        this.mPlayer.setXSpeed(0);
+        if(keycode == Z){
+            this.mKeyMap.put("Z",0);
+            if(this.mKeyMap.get("S") != 1){
+                this.mPlayer.setYSpeed(0);
+            }
+        }
 
-        System.out.println("Key up !");
+        if(keycode == S){
+            this.mKeyMap.put("S",0);
+            if(this.mKeyMap.get("Z") != 1){
+                this.mPlayer.setYSpeed(0);
+            }
+        }
+
+        if(keycode == Q){
+            this.mKeyMap.put("Q",0);
+            if(this.mKeyMap.get("D") != 1){
+                this.mPlayer.setXSpeed(0);
+            }
+        }
+
+        if(keycode == D){
+            this.mKeyMap.put("D",0);
+            if(this.mKeyMap.get("Q") != 1){
+                this.mPlayer.setXSpeed(0);
+            }
+        }
+
         return false;
     }
 

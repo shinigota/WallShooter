@@ -115,6 +115,8 @@ public class WorldRenderer{
 
     public void dispose() {
         spriteBatch.dispose();
+        shapeRenderer.dispose();
+        font.dispose();
     }
 
 }
