@@ -8,6 +8,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import com.badlogic.gdx.InputProcessor;
 
+import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
+
 /**
  * Created by djacques on 30/01/17.
  */
@@ -123,6 +125,9 @@ public class Player extends MovableEntity {
             this.speedcolisionXRight = object.getXSpeed();
         }
     }
+
+
+
 
     public int getScore() {
         return score;

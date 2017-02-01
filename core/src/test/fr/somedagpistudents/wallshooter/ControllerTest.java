@@ -1,4 +1,5 @@
 package fr.somedagpistudents.wallshooter;
+import fr.somedagpistudents.wallshooter.entity.player.Player;
 import org.junit.Test;
 import fr.somedagpistudents.wallshooter.world.World;
 
@@ -12,6 +13,14 @@ public class ControllerTest {
     public void worldHasController() throws Exception  {
         World world = new World();
         assertNotNull(world.getController());
+
+    }
+
+    public void playerCantLeaveScreen() throws Exception{
+       // Player player = new Player(0,0);
+
+
+
 
     }
 }
