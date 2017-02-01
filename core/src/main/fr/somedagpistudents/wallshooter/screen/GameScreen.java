@@ -24,12 +24,14 @@ public class GameScreen implements Screen {
 
     public GameScreen(WallShooter wallShooter,Controller controller) {
         this.wallShooter = wallShooter;
-        this.controller = controller;
-        this.world = new World(controller);
+        this.setController(controller);
+        World world = new World(controller);
+        this.setWorld(world);
+        this.controller.setWorld(world);
 
-        this.worldRenderer = new WorldRenderer(this.world);
+        this.worldRenderer = new WorldRenderer(this.getWorld());
 
-        this.inputController = new InputController(this.world,3,3);
+        this.inputController = new InputController(this.getWorld(),3,3);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        this.world.update();
+        this.getWorld().update();
         this.worldRenderer.render();
     }
 
@@ -73,5 +75,17 @@ public class GameScreen implements Screen {
     }
     public World getWorld() {
         return this.world;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
 }

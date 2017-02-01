@@ -22,9 +22,14 @@ public class Controller {
     WorldRenderer worldRenderer;
     World world;
 
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
     public Controller(WallShooter game){
         this.gamestate="gameplay";
         this.game=game;
+
 
 
     }
