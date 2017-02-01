@@ -24,7 +24,7 @@ public class World {
         BrickType hardBrick = new BrickType(3);
 
         this.wall = new Wall();
-
+        
         this.player = new Player(-640, 0, 60, 100);
         this.player.setWeapon(new Weapon(50));
         this.controller = controller;
