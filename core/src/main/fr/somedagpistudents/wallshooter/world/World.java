@@ -31,7 +31,6 @@ public class World {
         BrickType mediumBrick = new BrickType(2);
         BrickType hardBrick = new BrickType(3);
 
-
         this.wall = new Wall();
 
         this.player = new Player(-640, 0, 60, 100);

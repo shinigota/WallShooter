@@ -65,6 +65,18 @@ public class BulletTest {
     }
 
     @Test
+    public void bulletRemovesBrickHealth() throws Exception{
+        Bullet bullet;
+        Brick brick;
+        BrickType easyBrick = new BrickType(1);
+
+        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, 0);
+        brick = new Brick(0, 0, easyBrick);
+
+        assertEquals(0, brick.getBrickLife(),0);
+    }
+
+    @Test
     public void bulletDoesNotCollideWithBrick() throws Exception {
         Bullet bullet;
         Brick brick;
