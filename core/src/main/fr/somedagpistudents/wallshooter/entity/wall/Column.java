@@ -18,7 +18,20 @@ public class Column {
     public Column() {
         Set<Integer> pos = generatePosition();
         for(int position: pos ) {
-            this.bricks.add(generateBrick(POSITION_X, position));
+            BrickType bt = new BrickType(1);
+            int nb = (int) (Math.random() * 3 );
+            switch (nb){
+                case 0:
+                    bt.setBrickTypeLife(1);
+                    break;
+                case 1:
+                    bt.setBrickTypeLife(2);
+                    break;
+                case 2:
+                    bt.setBrickTypeLife(3);
+                    break;
+            }
+            this.bricks.add(generateBrick(POSITION_X, position, bt));
         }
     }
 
@@ -35,8 +48,11 @@ public class Column {
         return pos;
     }
 
-    private Brick generateBrick(int x, int position){
-        return new Brick(x, (position*60)-360);
+    private Brick calculPosBrick(int x,int position, BrickType brickType) {
+        return new Brick(x, (position * 60) - 360, brickType);
+    }
+    private Brick generateBrick(int x, int position, BrickType brickType){
+        return new Brick(x, (position*60)-360, brickType);
     }
 
     public void destroyBrick(Brick brick){
