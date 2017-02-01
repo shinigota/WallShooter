@@ -25,11 +25,15 @@ public class WallShooter extends ApplicationAdapter {
 	@Override
 	public void render () {
 		this.world.update();
-		this.worldRenderer.render();
+		this.getWorldRenderer().render();
 	}
 	
 	@Override
 	public void dispose () {
-		this.worldRenderer.dispose();
+		this.getWorldRenderer().dispose();
+	}
+
+	public WorldRenderer getWorldRenderer() {
+		return worldRenderer;
 	}
 }

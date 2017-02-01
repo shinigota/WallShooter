@@ -15,8 +15,21 @@ public class Player extends MovableEntity{
     private int lives = 0;
     private Weapon weapon;
     private Timer time;
-    private int PLAYER_Y_SPEED = 100;
+    private int PLAYER_Y_SPEED = 10;
     private int PLAYER_X_SPEED = 100;
+
+
+    private boolean colisionXRight = false;
+    private float speedcolisionXRight;
+
+    private boolean colisionXLeft = false;
+    private float speedcolisionXLeft;
+
+    private boolean colisionYBottom = false;
+    private float speedcolisionYBottom;
+
+    private boolean colisionYTop = false;
+    private float speedcolisionYTop;
 
     public Player(float x, float y, float width, float height) {
 
@@ -28,20 +41,85 @@ public class Player extends MovableEntity{
         if(time == null){
             createTimer();
         }
-        this.x += getXSpeed();
-        this.y += getYSpeed();
+        if(colisionXRight || colisionXLeft) {
+            if(colisionXRight) {
+                colisionXRight = false;
+                if (xSpeed > 0) {
+                    this.x += speedcolisionXRight;
+                } else {
+                    this.x += getXSpeed() + speedcolisionXRight;
+                }
+            }
+            if(colisionXLeft) {
+                colisionXLeft = false;
+                if (xSpeed < 0) {
+                    this.x += speedcolisionXLeft;
+                }else{
+                    this.x += getXSpeed();
+                }
+            }
+        }else {
+            this.x += getXSpeed();
+        }
+        if(colisionYBottom || colisionYTop){
+            if(colisionYBottom) {
+                colisionYBottom = false;
+                if (ySpeed < 0) {
+                    this.y += speedcolisionYBottom;
+                } else {
+                    this.y += getYSpeed();
+                }
+            }
+            if(colisionYTop){
+                colisionYTop = false;
+                if (ySpeed > 0) {
+                    this.y += speedcolisionYTop;
+                } else {
+                    this.y += getYSpeed();
+                }
+            }
+        }else {
+            this.y += getYSpeed();
+        }
     }
 
     @Override
     public void onCollision(Object object) {
         if(object instanceof Brick){
-            if((x + width >= ((Brick) object).getX()) && (x + width <= (((Brick) object).getX()+10))) {
-                if(xSpeed > 0 || xSpeed == ((Brick) object).getXSpeed()) {
-                    this.xSpeed = ((Brick) object).getXSpeed();
-                }else{
-                    this.xSpeed += ((Brick) object).getXSpeed();
-                }
-            }
+            contactBrickRight((Brick) object);
+            contactBrickLeft((Brick) object);
+            contactBrickBottom((Brick) object);
+            contactBrickTop((Brick) object);
+        }
+    }
+
+    private void contactBrickTop(Brick object) {
+        if(y+height >= object.getY() && y+height <= object.getY() +10){
+            System.out.println("TOP");
+            colisionYTop = true;
+            speedcolisionYTop = 0;
+        }
+    }
+
+    private void contactBrickBottom(Brick object) {
+        if(y <= object.getY()+object.getHeight() && y >= object.getY()+object.getHeight() -10){
+            System.out.println("BOTTOM");
+            colisionYBottom = true;
+            speedcolisionYBottom = 0;
+        }
+    }
+
+    private void contactBrickLeft(Brick object) {
+        if((x <= object.getX()+ object.getWidth()) && (x >= (object.getX()+ object.getWidth()-10))) {
+            this.colisionXLeft = true;
+            this.speedcolisionXLeft = object.getXSpeed();
+        }
+    }
+
+    private void contactBrickRight(Brick object) {
+        if((x + width >= object.getX()) && (x + width <= (object.getX()+10))) {
+            this.colisionXRight = true;
+            this.speedcolisionXRight = object.getXSpeed();
         }
     }
 
