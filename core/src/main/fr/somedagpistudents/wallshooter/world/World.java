@@ -27,7 +27,8 @@ public class World {
 
         this.wall = new Wall();
 
-        this.player = new Player(-640, 0, 60, 100);
+        this.player = new Player(-640, 0, 40, 80);
+
         this.player.setWeapon(new Weapon(50));
         this.controller = controller;
     }
@@ -64,7 +65,7 @@ public class World {
 
                 if(ColisionTools.contact(brick, bullet)) {
                     brick.setBrickLife(brick.getBrickLife() - bullet.getDamages());
-                    if(brick.getBrickLife() == 0){
+                    if(brick.getBrickLife() <= 0){
                         this.wall.removeBrick(brick);
                     }
                     removeBullet = true;
