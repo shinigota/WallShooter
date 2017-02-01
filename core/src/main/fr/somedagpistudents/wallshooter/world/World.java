@@ -38,6 +38,7 @@ public class World {
 
         player.update();
         wall.update();
+        wall.setDifficulty(player.getScore()/10);
 
         this.updateBullets();
 

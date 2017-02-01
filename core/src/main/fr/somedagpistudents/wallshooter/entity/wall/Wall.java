@@ -11,13 +11,14 @@ import java.util.List;
  */
 public class Wall {
     private List<Column> columns = new ArrayList<Column>();
+    private int difficulty = 0;
 
     public Wall() {
         this.addColumn();
     }
 
     private void addColumn() {
-        this.columns.add(new Column());
+        this.columns.add(new Column(difficulty));
     }
 
     public void update(){
@@ -35,6 +36,10 @@ public class Wall {
         if(canGenerateColumn()){
             this.addColumn();
         }
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
     public ArrayList<Brick> getAllBricks(){
