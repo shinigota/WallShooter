@@ -41,6 +41,11 @@ public class Player extends MovableEntity{
 
     @Override
     public void update() {
+        if(this.isShooting)
+            weapon.growHeat();
+        else
+            weapon.reduceHeat();
+
         if(this.canShoot()) {
             weapon.shoot(this.x+ this.width / 2, this.y + this.height / 2);
         }

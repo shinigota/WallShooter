@@ -44,6 +44,10 @@ public class Controller {
     public void restartGame(){
     }
 
+    public Player getPlayer(){
+        return this.player;
+    }
+
     public void checkGameState(Player player){
 
 

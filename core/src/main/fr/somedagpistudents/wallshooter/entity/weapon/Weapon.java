@@ -19,9 +19,9 @@ public class Weapon {
     private long fireRateInMillis;
     private long lastShootTimeInMillis;
     private long damagesPerBullet;
+    private boolean allowedToShoot;
 
     private float heatPercent;
-    private boolean heatShootAllowed;
 
     private List<Bullet> bullets;
 
@@ -35,8 +35,7 @@ public class Weapon {
         this.lastShootTimeInMillis = 0;
         this.damagesPerBullet = DEFAULT_BULLET_DAMAGES;
         this.heatPercent = 0;
-        this.heatShootAllowed = true;
-
+        this.allowedToShoot = true;
     }
 
     public Weapon(long fireRateInMillis, long damagesPerBullet){
@@ -47,46 +46,36 @@ public class Weapon {
     }
 
     public void shoot(float xOrigin, float yOrigin) {
-        if(this.getHeatPercent() < 100 && this.heatShootAllowed){
-            this.lastShootTimeInMillis = TimeUtils.millis();
-            this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
-            this.growHeat();
+        if(this.getHeatPercent() >= 100){
+            this.allowedToShoot = false;
         }
-        else{
-            this.heatShootAllowed = false;
-            resetHeat();
-        }
+            if(this.allowedToShoot){
+                this.lastShootTimeInMillis = TimeUtils.millis();
+                this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
+            }
+
     }
 
     public void growHeat(){
-        System.out.println("A : " + this.getHeatPercent());
-        this.heatPercent = this.heatPercent + (float)(this.heatPercent * 0.14) + (float) 0.15;
-        if(this.heatPercent > 100)
+        this.heatPercent = this.heatPercent + (float)(this.heatPercent * 0.0084) + (float) 0.05;
+        if(this.heatPercent >= 100){
             this.heatPercent = 100;
+        }
     }
 
     public void reduceHeat(){
-        System.out.println("R : " + this.getHeatPercent());
-        this.heatPercent = ((float) (this.heatPercent * 0.99));
-        if(this.heatPercent < 0){
-            this.heatPercent = 0;
-        }
-    }
-
-    public void resetHeat(){
-        this.heatShootAllowed = false;
-        Timer time = new Timer("HeatReset");
-        if(this.getHeatPercent() >= 20){
-            time.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    System.out.println("Reduction de la chaleur");
-                    Weapon.this.reduceHeat();
-                }
-            },600);
+        if(!this.allowedToShoot){
+            this.heatPercent = ((float) (this.heatPercent - 0.75));
+            if(this.heatPercent <= 5){
+                this.allowedToShoot = true;
+            }
         }
         else{
-            this.heatShootAllowed = true;
+            this.heatPercent = ((float) (this.heatPercent - 2));
+        }
+
+        if(this.heatPercent < 0){
+            this.heatPercent = 0;
         }
     }
 
