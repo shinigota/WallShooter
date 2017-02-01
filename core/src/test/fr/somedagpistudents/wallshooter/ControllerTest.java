@@ -1,5 +1,6 @@
 package fr.somedagpistudents.wallshooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
+import fr.somedagpistudents.wallshooter.tools.Controller;
 import org.junit.Test;
 import fr.somedagpistudents.wallshooter.world.World;
 
@@ -11,7 +12,7 @@ import static org.junit.Assert.*;
 public class ControllerTest {
     @Test
     public void worldHasController() throws Exception  {
-        World world = new World();
+        World world = new World(new Controller(new WallShooter()));
         assertNotNull(world.getController());
 
     }

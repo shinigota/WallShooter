@@ -18,9 +18,7 @@ public class WallShooter extends ApplicationAdapter {
 	@Override
 	public void create () {
 		Controller controller = new Controller(this);
-
 		this.world = new World(controller);
-
 		this.worldRenderer = new WorldRenderer(this.world);
 		InputController inputController = new InputController(this.world,3,3);
 		Gdx.input.setInputProcessor(inputController);

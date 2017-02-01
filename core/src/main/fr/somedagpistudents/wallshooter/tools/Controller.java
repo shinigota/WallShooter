@@ -24,17 +24,15 @@ public class Controller {
     public Controller(WallShooter game){
         this.gamestate="gameplay";
         this.game=game;
-
-//        this.worldRenderer=game.getWorldRenderer();
         this.world=game.getWorld();
 
     }
 
     public int getPlayerScore(Player player){
         return player.getScore();
-
-
     }
+
+
     public void checkGameState(Player player){
 
 
