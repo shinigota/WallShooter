@@ -1,9 +1,12 @@
 package fr.somedagpistudents.wallshooter.entity.weapon;
 
 import com.badlogic.gdx.utils.TimeUtils;
+import fr.somedagpistudents.wallshooter.entity.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,6 +20,9 @@ public class Weapon {
     private long lastShootTimeInMillis;
     private long damagesPerBullet;
 
+    private float heatPercent;
+    private boolean heatShootAllowed;
+
     private List<Bullet> bullets;
 
     public Weapon() {
@@ -28,6 +34,8 @@ public class Weapon {
         this.fireRateInMillis = fireRateInMillis;
         this.lastShootTimeInMillis = 0;
         this.damagesPerBullet = DEFAULT_BULLET_DAMAGES;
+        this.heatPercent = 0;
+        this.heatShootAllowed = true;
 
     }
 
@@ -35,11 +43,51 @@ public class Weapon {
         this.fireRateInMillis = fireRateInMillis;
         this.lastShootTimeInMillis = 0;
         this.damagesPerBullet = damagesPerBullet;
+        this.heatPercent = 0;
     }
 
     public void shoot(float xOrigin, float yOrigin) {
-        this.lastShootTimeInMillis = TimeUtils.millis();
-        this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
+        if(this.getHeatPercent() < 100 && this.heatShootAllowed){
+            this.lastShootTimeInMillis = TimeUtils.millis();
+            this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
+            this.growHeat();
+        }
+        else{
+            this.heatShootAllowed = false;
+            resetHeat();
+        }
+    }
+
+    public void growHeat(){
+        System.out.println("A : " + this.getHeatPercent());
+        this.heatPercent = this.heatPercent + (float)(this.heatPercent * 0.14) + (float) 0.15;
+        if(this.heatPercent > 100)
+            this.heatPercent = 100;
+    }
+
+    public void reduceHeat(){
+        System.out.println("R : " + this.getHeatPercent());
+        this.heatPercent = ((float) (this.heatPercent * 0.99));
+        if(this.heatPercent < 0){
+            this.heatPercent = 0;
+        }
+    }
+
+    public void resetHeat(){
+        this.heatShootAllowed = false;
+        Timer time = new Timer("HeatReset");
+        if(this.getHeatPercent() >= 20){
+            time.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("Reduction de la chaleur");
+                    Weapon.this.reduceHeat();
+                }
+            },600);
+        }
+        else{
+            this.heatShootAllowed = true;
+        }
     }
 
     public Bullet getLastBullet(){
@@ -52,6 +100,14 @@ public class Weapon {
 
     public long getDamagesPerBullet(){
         return this.damagesPerBullet;
+    }
+
+    public float getHeatPercent() {
+        return this.heatPercent;
+    }
+
+    public void setHeatPercent(float newHeatPercent){
+        this.heatPercent = newHeatPercent;
     }
 
     public boolean canShoot() {

@@ -40,19 +40,19 @@ public class ColumnTest {
 
     @Test
     public void columnPosX() throws Exception {
-        Column column = new Column();
+        Column column = new Column(2);
         assertEquals(column.getPosX(), Column.POSITION_X, 0);
     }
 
     @Test
     public void columnSpeedX() throws Exception {
-        Column column = new Column();
+        Column column = new Column(2);
         assertEquals(column.getSpeedX(), Brick.XSPEED, 0);
     }
 
     @Test
     public void validateColumn() throws Exception {
-        Column column = new Column();
+        Column column = new Column(2);
         Set<Integer> pos = new HashSet<Integer>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12));
         column.validColumn(pos);
     }

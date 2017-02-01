@@ -56,4 +56,19 @@ public class WeaponTest {
         assertEquals(weapon.getDamagesPerBullet(),2,0);
     }
 
+    @Test
+    public void heatCannotGrowTooMuch(){
+        Weapon weapon = new Weapon();
+        weapon.setHeatPercent(114);
+        weapon.growHeat();
+        assertEquals(100,weapon.getHeatPercent(),0);
+    }
+
+    @Test
+    public void heatCannotReduceTooLow(){
+        Weapon weapon = new Weapon();
+        weapon.setHeatPercent(-2);
+        weapon.reduceHeat();
+        assertEquals(0,weapon.getHeatPercent(),0);
+    }
 }
