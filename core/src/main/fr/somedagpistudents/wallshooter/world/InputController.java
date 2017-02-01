@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
+import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +39,16 @@ public class InputController implements ActionListener, InputProcessor{
 
     @Override
     public boolean keyDown(int keycode) {
+
+        Controller c = (Controller) this.mWorld.getController();
+        if(c.getGamestate().equals("gameover")){
+            System.out.println("Evenement de relancement du jeu");
+        }
+
+        if(keycode == R){
+            System.out.println("Event de relaunch du jeu");
+        }
+
         if(keycode == Z){
             this.mKeyMap.put("Z",1);
             this.mPlayer.setYSpeed(this.mVerticalSpeed);
