@@ -3,13 +3,12 @@ package fr.somedagpistudents.wallshooter.entity.player;
 import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
-
-import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
 
 /**
  * Created by djacques on 30/01/17.
@@ -19,29 +18,32 @@ public class Player extends MovableEntity{
     private int lives = 0;
     private Weapon weapon;
     private Timer time;
-    private int PLAYER_Y_SPEED = 10;
-    private int PLAYER_X_SPEED = 100;
+    private boolean isShooting;
 
 
     private boolean colisionXRight = false;
+
     private float speedcolisionXRight;
-
     private boolean colisionXLeft = false;
+
     private float speedcolisionXLeft;
-
     private boolean colisionYBottom = false;
-    private float speedcolisionYBottom;
 
+    private float speedcolisionYBottom;
     private boolean colisionYTop = false;
     private float speedcolisionYTop;
 
     public Player(float x, float y, float width, float height) {
-
         super(x, y, width, height, 0, 0);
+        this.isShooting = false;
     }
 
     @Override
     public void update() {
+        if(this.canShoot()) {
+            weapon.shoot(this.x+ this.width / 2, this.y + this.height / 2);
+        }
+
         if(time == null){
             createTimer();
         }
@@ -85,6 +87,10 @@ public class Player extends MovableEntity{
         }else {
             this.y += getYSpeed();
         }
+    }
+
+    private boolean canShoot() {
+        return this.weapon.canShoot() && this.isShooting;
     }
 
     @Override
@@ -149,5 +155,9 @@ public class Player extends MovableEntity{
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public void toggleShoot(boolean isShooting) {
+        this.isShooting = isShooting;
     }
 }

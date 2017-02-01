@@ -1,6 +1,5 @@
 package fr.somedagpistudents.wallshooter.entity.wall;
 
-import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 
 public class Brick extends MovableEntity {

@@ -11,17 +11,12 @@ import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class World {
-    private ArrayList<Brick> bricks;
-    private ArrayList<Bullet> bullets;
     private Wall wall;
     private Player player;
     private Controller controller;
-
-    public World() {
-
-    }
 
     public World(Controller controller) {
         BrickType easyBrick = new BrickType(3);
@@ -29,24 +24,13 @@ public class World {
         BrickType hardBrick = new BrickType(9);
 
         this.wall = new Wall();
-
+        
         this.player = new Player(-640, 0, 60, 100);
-        this.player.setWeapon(new Weapon());
-        this.bullets = new ArrayList<Bullet>();
-        this.bricks = new ArrayList<Brick>();
-
-        this.bricks.add(new Brick(500, -100, easyBrick));
-        this.bricks.add(new Brick(0, 250, mediumBrick));
-        this.bricks.add(new Brick(900, 250, hardBrick));
-        this.bricks.add(new Brick(500, 100, hardBrick));
-        this.bricks.add(new Brick(800, -100, hardBrick));
+        this.player.setWeapon(new Weapon(50));
         this.controller = controller;
-
-
     }
 
     public void update() {
-
         controller.update(this.player,wall.getAllBricks());
         player.update();
         wall.update();
@@ -66,7 +50,7 @@ public class World {
     }
 
     private void checkCollisions() {
-        Iterator<Bullet> bulletIter = this.bullets.iterator();
+        Iterator<Bullet> bulletIter = this.getBullets().iterator();
         while (bulletIter.hasNext()) {
             boolean removeBullet = false;
             Bullet bullet = bulletIter.next();
@@ -91,15 +75,8 @@ public class World {
         }
     }
 
-    private void updateBricks() {
-        Iterator<Brick> brickIter = wall.getAllBricks().iterator();
-        while (brickIter.hasNext()) {
-            Brick brick = brickIter.next();
-            brick.update();
-        }
-    }
     private void updateBullets() {
-        Iterator<Bullet> bulletIter = this.bullets.iterator();
+        Iterator<Bullet> bulletIter = this.getBullets().iterator();
         while (bulletIter.hasNext()) {
             Bullet bullet = bulletIter.next();
             bullet.update();
@@ -118,11 +95,7 @@ public class World {
         return this.controller;
     }
 
-    public ArrayList<Bullet> getBullets() {
-        return bullets;
-    }
-
-    public void addBullet(Bullet bullet) {
-        this.bullets.add(bullet);
+    public List<Bullet> getBullets() {
+        return this.player.getWeapon().getBullets();
     }
 }
