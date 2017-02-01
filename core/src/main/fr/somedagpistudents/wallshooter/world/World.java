@@ -2,6 +2,7 @@ package fr.somedagpistudents.wallshooter.world;
 
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
+import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
@@ -16,20 +17,20 @@ public class World {
     private Player player;
     private Controller controller;
 
-
-
-
-
     public World() {
+        BrickType easyBrick = new BrickType(1);
+        BrickType mediumBrick = new BrickType(2);
+        BrickType hardBrick = new BrickType(3);
+
         this.player = new Player(-640, 0, 60, 100);
         this.player.setWeapon(new Weapon());
         this.bullets = new ArrayList<Bullet>();
         this.bricks = new ArrayList<Brick>();
-        this.bricks.add(new Brick(500, -100));
-        this.bricks.add(new Brick(0, 250));
-        this.bricks.add(new Brick(900, 250));
-        this.bricks.add(new Brick(500, 100));
-        this.bricks.add(new Brick(800, -100));
+        this.bricks.add(new Brick(500, -100, easyBrick));
+        this.bricks.add(new Brick(0, 250, mediumBrick));
+        this.bricks.add(new Brick(900, 250, hardBrick));
+        this.bricks.add(new Brick(500, 100, hardBrick));
+        this.bricks.add(new Brick(800, -100, hardBrick));
         this.controller = new Controller(this);
 
     }

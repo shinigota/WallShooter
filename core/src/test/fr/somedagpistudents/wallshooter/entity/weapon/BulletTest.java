@@ -1,6 +1,7 @@
 package fr.somedagpistudents.wallshooter.entity.weapon;
 
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 import org.junit.Test;
 
@@ -44,21 +45,22 @@ public class BulletTest {
     public void bulletCollidesWithBrick() throws Exception {
         Bullet bullet;
         Brick brick;
+        BrickType easyBrick = new BrickType(1);
 
         bullet = new Bullet(0, 0);
-        brick = new Brick(0, 0);
+        brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
         bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, 0);
-        brick = new Brick(0, 0);
+        brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
         bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, Brick.HEIGHT - Bullet.SIZE);
-        brick = new Brick(0, 0);
+        brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
         bullet = new Bullet(0, Brick.HEIGHT - Bullet.SIZE);
-        brick = new Brick(0, 0);
+        brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
     }
 
@@ -66,9 +68,10 @@ public class BulletTest {
     public void bulletDoesNotCollideWithBrick() throws Exception {
         Bullet bullet;
         Brick brick;
+        BrickType easyBrick = new BrickType(1);
 
         bullet = new Bullet(-Bullet.SIZE - 1, 0);
-        brick = new Brick(0, 0);
+        brick = new Brick(0, 0, easyBrick);
         assertTrue(! ColisionTools.contact(bullet, brick));
 
 //        bullet = new Bullet(Brick.WIDTH, 0);
