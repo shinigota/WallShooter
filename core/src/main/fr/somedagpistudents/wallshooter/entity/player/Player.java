@@ -19,6 +19,7 @@ public class Player extends MovableEntity{
     private Weapon weapon;
     private Timer time;
     private boolean isShooting;
+    private boolean isDead=false;
 
 
     private boolean colisionXRight = false;
@@ -136,6 +137,7 @@ public class Player extends MovableEntity{
     }
 
     public void createTimer(){
+
         time = new Timer("AddScore");
         time.schedule(new TimerTask() {
             @Override

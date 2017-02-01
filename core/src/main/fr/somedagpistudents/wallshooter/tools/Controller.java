@@ -93,7 +93,8 @@ public class Controller {
         }
 
         if (gamestate=="gameover"){
-            str="GAME OVER\nPRESS SPACE.";
+            str="GAME OVER\nPRESS SPACE.\nYou scored : "+player.getScore();
+
             freezePlayer();
 
         }
@@ -104,6 +105,7 @@ public class Controller {
     }
 
     public void freezePlayer(){
+
         player.setXSpeed(0);
         player.setYSpeed(0);
         player.setShooting(false);
