@@ -79,9 +79,10 @@ public class World {
                 Brick brick = brickIter.next();
 
                 if(ColisionTools.contact(brick, bullet)) {
-                    System.out.println("collision");
-                    this.wall.removeBrick(brick);
-//                    brickIter.remove();
+                    brick.setBrickLife(brick.getBrickLife() - bullet.getDamages());
+                    if(brick.getBrickLife() == 0){
+                        this.wall.removeBrick(brick);
+                    }
                     removeBullet = true;
 
                 }

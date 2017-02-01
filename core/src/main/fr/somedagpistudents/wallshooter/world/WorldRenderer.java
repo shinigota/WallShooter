@@ -131,6 +131,21 @@ public class WorldRenderer{
         this.shapeRenderer.setColor(Color.RED);
         while (brickIter.hasNext()) {
             Brick brick = brickIter.next();
+            int brickLife = Math.round(brick.getBrickLife());
+            switch (brickLife){
+                case 1:
+                    this.shapeRenderer.setColor(Color.RED);
+                    break;
+                case 2:
+                    this.shapeRenderer.setColor(Color.ORANGE);
+                    break;
+                case 3:
+                    this.shapeRenderer.setColor(Color.GREEN);
+                    break;
+                default:
+                    this.shapeRenderer.setColor(Color.RED);
+                    break;
+            }
             this.shapeRenderer.rect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
         }
     }

@@ -20,6 +20,10 @@ public class Brick extends MovableEntity {
         return mHealthPoints;
     }
 
+    public void setBrickLife(float newBrickLife){
+        this.mHealthPoints = newBrickLife;
+    }
+
     @Override
     public void update() {
         this.x += this.xSpeed;

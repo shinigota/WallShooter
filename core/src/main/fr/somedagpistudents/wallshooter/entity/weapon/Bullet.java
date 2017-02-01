@@ -10,12 +10,19 @@ public class Bullet extends MovableEntity {
     public final static float X_SPEED = 10;
     public final static float Y_SPEED = 0;
 
-    public Bullet(float x, float y, float size, float xSpeed, float ySpeed) {
+    private float bulletDamages;
+
+    public Bullet(float x, float y, float size, float xSpeed, float ySpeed, float bulletDamages) {
         super(x, y, size, xSpeed, ySpeed);
+        this.bulletDamages = bulletDamages;
     }
 
-    public Bullet(float x, float y) {
-        this(x, y, Bullet.SIZE, Bullet.X_SPEED, Bullet.Y_SPEED);
+    public Bullet(float x, float y, float bulletDamages) {
+        this(x, y, Bullet.SIZE, Bullet.X_SPEED, Bullet.Y_SPEED,bulletDamages);
+    }
+
+    public float getDamages(){
+        return this.bulletDamages;
     }
 
     @Override
