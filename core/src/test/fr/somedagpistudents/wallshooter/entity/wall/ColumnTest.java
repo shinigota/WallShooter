@@ -3,6 +3,9 @@ package fr.somedagpistudents.wallshooter.entity.wall;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -36,8 +39,21 @@ public class ColumnTest {
 */
 
     @Test
-    public void validColumn() throws Exception {
+    public void columnPosX() throws Exception {
         Column column = new Column();
+        assertEquals(column.getPosX(), Column.POSITION_X, 0);
+    }
 
+    @Test
+    public void columnSpeedX() throws Exception {
+        Column column = new Column();
+        assertEquals(column.getSpeedX(), Brick.XSPEED, 0);
+    }
+
+    @Test
+    public void validateColumn() throws Exception {
+        Column column = new Column();
+        Set<Integer> pos = new HashSet<Integer>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12));
+        column.validColumn(pos);
     }
 }

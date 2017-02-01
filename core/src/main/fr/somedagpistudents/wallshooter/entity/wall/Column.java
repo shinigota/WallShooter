@@ -23,10 +23,22 @@ public class Column {
         Set<Integer> pos = generatePosition();
         for(int position: pos ) {
             BrickType bt = new BrickType(1);
-            int nb = (int) (Math.random() * 10 );
+            int nb = (int) (Math.random() * 10);
             bt.setBrickTypeLife(nb);
             this.bricks.add(generateBrick(POSITION_X, position, bt));
         }
+    }
+
+    public boolean validColumn(Set<Integer> pos){
+        if (pos.size() == MAX_NB_BRICK){
+            for(int position : pos){
+                if( position < 0 || MAX_NB_BRICK< position) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     public List<Brick> getBricks(){
@@ -65,4 +77,7 @@ public class Column {
         }
     }
 
+    public float getSpeedX() {
+        return speedX;
+    }
 }
