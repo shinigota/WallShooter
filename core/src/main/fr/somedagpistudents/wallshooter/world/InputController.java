@@ -41,11 +41,10 @@ public class InputController implements ActionListener, InputProcessor{
     public boolean keyDown(int keycode) {
 
         Controller c = (Controller) this.mWorld.getController();
-        if(c.getGamestate().equals("gameover")){
-            System.out.println("Evenement de relancement du jeu");
-        }
 
         if(keycode == R){
+
+
             System.out.println("Event de relaunch du jeu");
         }
 

@@ -20,7 +20,7 @@ public class World {
 
 
 
-    public World() {
+    public World(Controller controller) {
         this.player = new Player(-640, 0, 60, 100);
         this.player.setWeapon(new Weapon());
         this.bullets = new ArrayList<Bullet>();
@@ -30,7 +30,7 @@ public class World {
         this.bricks.add(new Brick(900, 250));
         this.bricks.add(new Brick(500, 100));
         this.bricks.add(new Brick(800, -100));
-        this.controller = new Controller(this);
+        this.controller = controller;
 
     }
 

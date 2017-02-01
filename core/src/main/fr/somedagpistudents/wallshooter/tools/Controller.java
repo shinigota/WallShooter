@@ -1,8 +1,10 @@
 package fr.somedagpistudents.wallshooter.tools;
 
+import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.world.World;
+import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 
 import java.util.ArrayList;
 
@@ -13,14 +15,19 @@ import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
  * Created by fjude001 on 30/01/17.
  */
 public class Controller {
-    private final World world;
+
     String gamestate,str,t;
+    WallShooter game;
+    WorldRenderer worldRenderer;
+    World world;
 
-
-
-    public Controller(World world){
+    public Controller(WallShooter game){
         this.gamestate="gameplay";
-        this.world=world;
+        this.game=game;
+
+//        this.worldRenderer=game.getWorldRenderer();
+        this.world=game.getWorld();
+
     }
 
     public int getPlayerScore(Player player){
@@ -82,10 +89,15 @@ public class Controller {
     }
 
     public int getPlayerScore() {
+
+        if (this.world!=null)
        return this.world.getPlayer().getScore();
+        else return 0;
     }
     public int getPlayerLives() {
+        if (this.world!=null)
         return this.world.getPlayer().getLives();
+        else return 0;
     }
 
     public void decreaseLife(Player player ){
