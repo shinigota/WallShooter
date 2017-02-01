@@ -141,6 +141,7 @@ public class WorldRenderer{
         shapeRenderer.dispose();
         font.dispose();
     }
+
     public int get_xview(){
         return (int) this.camera.position.x;
 
@@ -150,4 +151,8 @@ public class WorldRenderer{
 
     }
 
+    public void updateCameraViewport(float width, float height) {
+        this.camera.setToOrtho(false, width, height);
+        this.camera.update();
+    }
 }

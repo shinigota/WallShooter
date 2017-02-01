@@ -1,8 +1,10 @@
 package fr.somedagpistudents.wallshooter.tools;
 
+import com.badlogic.gdx.Game;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.world.World;
 import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 
@@ -17,11 +19,11 @@ import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
 public class Controller {
 
     String gamestate,str,t;
-    WallShooter game;
+    GameScreen game;
     WorldRenderer worldRenderer;
     World world;
 
-    public Controller(WallShooter game){
+    public Controller(GameScreen game){
         this.gamestate="gameplay";
         this.game=game;
         this.world=game.getWorld();
