@@ -90,6 +90,7 @@ public class Player extends MovableEntity{
     }
 
     private boolean canShoot() {
+
         return this.weapon.canShoot() && this.isShooting;
     }
 
@@ -159,6 +160,10 @@ public class Player extends MovableEntity{
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public void setShooting(boolean shooting) {
+        isShooting = shooting;
     }
 
     public void toggleShoot(boolean isShooting) {
