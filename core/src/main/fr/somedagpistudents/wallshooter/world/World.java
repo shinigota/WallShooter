@@ -22,8 +22,11 @@ public class World {
         this.player.setWeapon(new Weapon());
         this.bullets = new ArrayList<Bullet>();
         this.bricks = new ArrayList<Brick>();
-        this.bricks.add(new Brick(500, 0));
+        this.bricks.add(new Brick(500, -100));
         this.bricks.add(new Brick(0, 250));
+        this.bricks.add(new Brick(900, 250));
+        this.bricks.add(new Brick(500, 100));
+        this.bricks.add(new Brick(800, -100));
         this.controller = new Controller(this);
 
     }
@@ -39,6 +42,15 @@ public class World {
         this.updateBricks();
 
         this.checkCollisions();
+        this.checkCollisionsPlayer();
+    }
+
+    private void checkCollisionsPlayer() {
+        Iterator<Brick> brickIterator = this.bricks.iterator();
+        while (brickIterator.hasNext()) {
+            Brick brick = brickIterator.next();
+            ColisionTools.contact(player, brick);
+        }
     }
 
     private void checkCollisions() {
