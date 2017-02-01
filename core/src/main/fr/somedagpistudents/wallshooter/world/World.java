@@ -17,6 +17,9 @@ public class World {
     private Controller controller;
 
 
+
+
+
     public World() {
         this.player = new Player(-640, 0, 60, 100);
         this.player.setWeapon(new Weapon());
@@ -32,10 +35,8 @@ public class World {
     }
 
     public void update() {
-        for (Brick brick : this.bricks) {
-            this.controller.checkGameState(this.player, brick);
-        }
 
+        controller.update(this.player,this.bricks);
         player.update();
 
         this.updateBullets();

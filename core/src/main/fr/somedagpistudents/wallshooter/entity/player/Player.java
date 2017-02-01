@@ -7,13 +7,12 @@ import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import com.badlogic.gdx.InputProcessor;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 
 /**
  * Created by djacques on 30/01/17.
  */
-public class Player extends MovableEntity {
+public class Player extends MovableEntity{
     private int score = 0;
     private int lives = 0;
     private Weapon weapon;
@@ -137,14 +136,6 @@ public class Player extends MovableEntity {
 
     public void setXSpeed(float x){
         this.xSpeed = x;
-    }
-
-    public float getSpeedY(){
-        return this.PLAYER_Y_SPEED;
-    }
-
-    public float getSpeedX(){
-        return this.PLAYER_X_SPEED;
     }
 
     public int getLives() {
