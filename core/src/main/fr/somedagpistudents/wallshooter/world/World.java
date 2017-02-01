@@ -29,7 +29,7 @@ public class World {
 
         this.player = new Player(-640, 0, 40, 80);
 
-        this.player.setWeapon(new Weapon(50));
+        this.player.setWeapon(new Weapon(100));
         this.controller = controller;
     }
 
