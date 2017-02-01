@@ -23,8 +23,7 @@ public class BulletTest {
         assertEquals(bullet.getWidth(), 2, 0);
         assertEquals(bullet.getHeight(), 2, 0);
         assertEquals(bullet.getXSpeed(), 3, 0);
-        assertEquals(bullet.getYSpeed(), 4, 0);
-
+        assertEquals(bullet.getYSpeed(), 3, Bullet.MAX_Y_RAND);
     }
 
     @Test
@@ -36,11 +35,11 @@ public class BulletTest {
 
         bullet.update();
         assertEquals(bullet.getX(), 20, 0);
-        assertEquals(bullet.getY(), 10, 0);
+        assertEquals(bullet.getY(), 10, Bullet.MAX_Y_RAND);
 
         bullet.update();
         assertEquals(bullet.getX(), 40, 0);
-        assertEquals(bullet.getY(), 10, 0);
+        assertEquals(bullet.getY(), 10, Bullet.MAX_Y_RAND);
     }
 
     @Test
@@ -95,8 +94,8 @@ public class BulletTest {
     @Test
     public void bulletHasWeaponDamages(){
         Weapon weapon = new Weapon();
-        Bullet bullet = weapon.shoot(0,0);
-        assertEquals(weapon.getDamagesPerBullet(),bullet.getDamages(),0);
+        weapon.shoot(0,0);
+        assertEquals(weapon.getDamagesPerBullet(),weapon.getBullets().get(0).getDamages(),0);
     }
 
 /*

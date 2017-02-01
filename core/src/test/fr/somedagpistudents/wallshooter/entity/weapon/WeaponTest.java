@@ -26,10 +26,9 @@ public class WeaponTest {
     @Test
     public void bulletCreatedOnShoot() throws Exception {
         Weapon weapon = new Weapon();
-        Bullet bullet = weapon.shoot(0, 1);
-        assertNotNull(bullet);
-        assertEquals(bullet.getX(), 0, 0);
-        assertEquals(bullet.getY(), 1, 0);
+        assertEquals(weapon.getBullets().size(), 0, 0);
+        weapon.shoot(0, 1);
+        assertEquals(weapon.getBullets().size(), 1, 0);
     }
 
     @Test

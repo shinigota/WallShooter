@@ -20,10 +20,7 @@ public class Weapon {
     private List<Bullet> bullets;
 
     public Weapon() {
-
-        this.fireRateInMillis = DEFAULT_FIRE_RATE_MILLIS;
-        this.lastShootTimeInMillis = 0;
-        this.damagesPerBullet = DEFAULT_BULLET_DAMAGES;
+        this(DEFAULT_FIRE_RATE_MILLIS);
     }
 
     public Weapon(long fireRateInMillis) {
