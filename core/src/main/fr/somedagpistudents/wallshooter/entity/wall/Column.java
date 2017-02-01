@@ -23,18 +23,8 @@ public class Column {
         Set<Integer> pos = generatePosition();
         for(int position: pos ) {
             BrickType bt = new BrickType(1);
-            int nb = (int) (Math.random() * 3 );
-            switch (nb){
-                case 0:
-                    bt.setBrickTypeLife(1);
-                    break;
-                case 1:
-                    bt.setBrickTypeLife(2);
-                    break;
-                case 2:
-                    bt.setBrickTypeLife(3);
-                    break;
-            }
+            int nb = (int) (Math.random() * 10 );
+            bt.setBrickTypeLife(nb);
             this.bricks.add(generateBrick(POSITION_X, position, bt));
         }
     }
