@@ -42,6 +42,10 @@ public class Weapon {
         this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
     }
 
+    public Bullet getLastBullet(){
+        return this.bullets.get(this.bullets.size()-1);
+    }
+
     public long getFireRateInMillis() {
         return fireRateInMillis;
     }

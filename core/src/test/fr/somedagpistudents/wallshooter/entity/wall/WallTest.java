@@ -36,7 +36,7 @@ public class WallTest {
         assertEquals(Column.POSITION_X,columns.get(0).getPosX(), 0);
         assertFalse(wall.canGenerateColumn());
 
-        columns.get(0).setPosX(Column.POSITION_X-Brick.WIDTH);
+        columns.get(0).setPosX(Column.POSITION_X-Brick.WIDTH-5);
         assertTrue(wall.canGenerateColumn());
     }
 }
