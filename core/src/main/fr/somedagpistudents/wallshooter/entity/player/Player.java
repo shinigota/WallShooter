@@ -1,5 +1,6 @@
 package fr.somedagpistudents.wallshooter.entity.player;
 
+import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
@@ -7,6 +8,7 @@ import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import java.util.Timer;
 import java.util.TimerTask;
 import com.badlogic.gdx.InputProcessor;
+import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 
 /**
  * Created by djacques on 30/01/17.
@@ -87,40 +89,22 @@ public class Player extends MovableEntity {
     @Override
     public void onCollision(Object object) {
         if(object instanceof Brick){
-            contactBrickRight((Brick) object);
-            contactBrickLeft((Brick) object);
-            contactBrickBottom((Brick) object);
-            contactBrickTop((Brick) object);
-        }
-    }
-
-    private void contactBrickTop(Brick object) {
-        if(y+height >= object.getY() && y+height <= object.getY() +10){
-            System.out.println("TOP");
-            colisionYTop = true;
-            speedcolisionYTop = 0;
-        }
-    }
-
-    private void contactBrickBottom(Brick object) {
-        if(y <= object.getY()+object.getHeight() && y >= object.getY()+object.getHeight() -10){
-            System.out.println("BOTTOM");
-            colisionYBottom = true;
-            speedcolisionYBottom = 0;
-        }
-    }
-
-    private void contactBrickLeft(Brick object) {
-        if((x <= object.getX()+ object.getWidth()) && (x >= (object.getX()+ object.getWidth()-10))) {
-            this.colisionXLeft = true;
-            this.speedcolisionXLeft = object.getXSpeed();
-        }
-    }
-
-    private void contactBrickRight(Brick object) {
-        if((x + width >= object.getX()) && (x + width <= (object.getX()+10))) {
-            this.colisionXRight = true;
-            this.speedcolisionXRight = object.getXSpeed();
+            if(ColisionTools.contactRightLeft(this, (Entity) object)){
+                this.colisionXRight = true;
+                this.speedcolisionXRight = ((Brick)object).getXSpeed();
+            }
+            if(ColisionTools.contactLeftRight(this, (Entity) object)){
+                this.colisionXLeft = true;
+                this.speedcolisionXLeft = ((Brick)object).getXSpeed();
+            }
+            if(ColisionTools.contactBottomTop(this, (Entity) object)){
+                colisionYBottom = true;
+                speedcolisionYBottom = 0;
+            }
+            if(ColisionTools.contactTopBottom(this,(Entity) object)){
+                colisionYTop = true;
+                speedcolisionYTop = 0;
+            }
         }
     }
 
