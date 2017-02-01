@@ -26,11 +26,6 @@ public class WallTest {
 
         Set<Column> columns = new HashSet<Column>();
 
-        columns.
-
-        int[] tab = wall.generatePosition();
-
-        assertTrue(tab.length >= 0 && tab.length <= 12);
     }
 
 }
