@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class WorldRenderer{
+
     private Controller controller;
     private World world;
 
@@ -27,7 +28,7 @@ public class WorldRenderer{
     private SpriteBatch spriteBatch;
     private ShapeRenderer shapeRenderer;
 
-    private BitmapFont font;
+    public BitmapFont font;
 
     public WorldRenderer(World world) {
         this.world = world;
@@ -58,7 +59,7 @@ public class WorldRenderer{
         this.spriteBatch.begin();
 
         this.drawHUD();
-
+        this.debugPlayerPosition();
         this.spriteBatch.end();
     }
 
@@ -82,6 +83,7 @@ public class WorldRenderer{
         this.debugBullets();
         this.debugPlayer();
 
+
         this.shapeRenderer.end();
     }
 
@@ -96,10 +98,27 @@ public class WorldRenderer{
         }
     }
 
+    private void debugPlayerPosition()    {
+
+        //displays player's position
+
+        Player p = world.getPlayer();
+        //round position x and y
+        int x= (int) p.getX();
+        int y= (int) p.getY();
+        //casts positions
+        String str_x= String.valueOf(x);
+        String str_y= String.valueOf(y);
+
+        //displays position
+        this.font.draw(this.spriteBatch,str_x,x,y-16);
+        this.font.draw(this.spriteBatch,str_y,x,y);
+    }
     private void debugPlayer() {
         Player p = world.getPlayer();
         this.shapeRenderer.setColor(Color.BLUE);
         this.shapeRenderer.rect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
+
     }
 
     private void debugBricks() {
@@ -113,10 +132,19 @@ public class WorldRenderer{
         }
     }
 
+
     public void dispose() {
         spriteBatch.dispose();
         shapeRenderer.dispose();
         font.dispose();
+    }
+    public int get_xview(){
+        return (int) this.camera.position.x;
+
+    }
+    public int get_yview(){
+        return (int) this.camera.position.y;
+
     }
 
 }

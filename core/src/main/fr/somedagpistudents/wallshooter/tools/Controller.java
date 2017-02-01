@@ -4,6 +4,11 @@ import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.world.World;
 
+import java.util.ArrayList;
+
+import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
+import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
+
 /**
  * Created by fjude001 on 30/01/17.
  */
@@ -23,23 +28,22 @@ public class Controller {
 
 
     }
-    public void checkGameState(Player player, Brick brick){
+    public void checkGameState(Player player){
 
-        if (ColisionTools.contact(player,brick)==true){
-            if (gamestate=="gameplay"){
-                player.setLives(player.getLives()-1);}
-
+/*
+if (player.getX()<0)
+        gamestate="gameover";
+        if (player.getY()<0)
             gamestate="gameover";
-            this.displayGameStateText();
+*/
 
-        }
 
 
 
     }
     public String displayGameStateText(){
 
-///à utiliser avec draw.text ?
+
         if (gamestate=="gamestart"){
             str="WALLSHOOTER \n Press start";
 
@@ -70,5 +74,21 @@ public class Controller {
     }
     public int getPlayerLives() {
         return this.world.getPlayer().getLives();
+    }
+
+    public void decreaseLife(Player player ){
+            if (gamestate=="gameplay"){
+        player.setLives(player.getLives()-1);
+                gamestate="gameover";
+            }
+    }
+    public void update(Player player, ArrayList<Brick> bricks) {
+        for (Brick brick:bricks        ) {
+            ColisionTools.contact(player,brick);
+        }
+
+        this.checkGameState(player);
+        //
+
     }
 }
