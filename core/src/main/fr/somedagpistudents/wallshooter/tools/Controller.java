@@ -21,9 +21,11 @@ public class Controller {
     WallShooter game;
     WorldRenderer worldRenderer;
     World world;
+    Player player;
 
     public void setWorld(World world) {
         this.world = world;
+        player = this.world.getPlayer();
     }
 
     public Controller(WallShooter game){
@@ -92,6 +94,8 @@ public class Controller {
 
         if (gamestate=="gameover"){
             str="GAME OVER\nPRESS SPACE.";
+            freezePlayer();
+
         }
 
     return(str);
@@ -99,7 +103,13 @@ public class Controller {
 
     }
 
+    public void freezePlayer(){
+        player.setXSpeed(0);
+        player.setYSpeed(0);
+        player.setShooting(false);
 
+
+    }
     public String getGamestate() {
         return this.gamestate;
     }
