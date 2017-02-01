@@ -6,6 +6,7 @@ import java.util.*;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -28,4 +29,14 @@ public class WallTest {
 
     }
 
+    @Test
+    public void validPosColumn() throws Exception {
+        Wall wall = new Wall();
+        List<Column> columns = wall.getColumns();
+        assertEquals(Column.POSITION_X,columns.get(0).getPosX(), 0);
+        assertFalse(wall.canGenerateColumn());
+
+        columns.get(0).setPosX(Column.POSITION_X-Brick.WIDTH);
+        assertTrue(wall.canGenerateColumn());
+    }
 }

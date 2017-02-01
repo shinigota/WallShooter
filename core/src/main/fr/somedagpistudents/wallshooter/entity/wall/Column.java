@@ -11,11 +11,15 @@ import static com.badlogic.gdx.math.MathUtils.random;
  * Created by sbonnan on 30/01/17.
  */
 public class Column {
-    private static final int POSITION_X = 640;
+    public static final int POSITION_X = 640;
     public final static int MAX_NB_BRICK = 12;
+    private float posX;
+    private float speedX;
     private ArrayList<Brick> bricks = new ArrayList<Brick>();
 
     public Column() {
+        posX = POSITION_X;
+        speedX = Brick.XSPEED;
         Set<Integer> pos = generatePosition();
         for(int position: pos ) {
             BrickType bt = new BrickType(1);
@@ -51,8 +55,16 @@ public class Column {
     private Brick calculPosBrick(int x,int position, BrickType brickType) {
         return new Brick(x, (position * 60) - 360, brickType);
     }
-    private Brick generateBrick(int x, int position, BrickType brickType){
-        return new Brick(x, (position*60)-360, brickType);
+    private Brick generateBrick(int x, int position, BrickType brickType) {
+        return new Brick(x, (position * 60) - 360, brickType);
+    }
+
+    public float getPosX() {
+        return posX;
+    }
+
+    public void setPosX(float posX) {
+        this.posX = posX;
     }
 
     public void destroyBrick(Brick brick){
@@ -60,6 +72,7 @@ public class Column {
     }
 
     public void update(){
+        this.posX += this.speedX;
         for(Brick brick: this.bricks){
             brick.update();
         }

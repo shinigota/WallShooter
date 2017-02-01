@@ -52,9 +52,9 @@ public class World {
 
         controller.update(this.player,wall.getAllBricks());
         player.update();
+        wall.update();
 
         this.updateBullets();
-        this.updateBricks();
 
         this.checkCollisions();
         this.checkCollisionsPlayer();
@@ -80,7 +80,8 @@ public class World {
 
                 if(ColisionTools.contact(brick, bullet)) {
                     System.out.println("collision");
-                    brickIter.remove();
+                    this.wall.removeBrick(brick);
+//                    brickIter.remove();
                     removeBullet = true;
 
                 }
