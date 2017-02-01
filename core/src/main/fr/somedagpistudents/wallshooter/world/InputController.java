@@ -81,12 +81,18 @@ public class InputController implements ActionListener, InputProcessor{
             if(this.mKeyMap.get("S") != 1){
                 this.mPlayer.setYSpeed(0);
             }
+            else{
+                this.mPlayer.setYSpeed(this.mVerticalSpeed * -1);
+            }
         }
 
         if(keycode == S){
             this.mKeyMap.put("S",0);
             if(this.mKeyMap.get("Z") != 1){
                 this.mPlayer.setYSpeed(0);
+            }
+            else{
+                this.mPlayer.setYSpeed(this.mVerticalSpeed);
             }
         }
 
@@ -95,12 +101,18 @@ public class InputController implements ActionListener, InputProcessor{
             if(this.mKeyMap.get("D") != 1){
                 this.mPlayer.setXSpeed(0);
             }
+            else{
+                this.mPlayer.setXSpeed(this.mLateralSpeed);
+            }
         }
 
         if(keycode == D){
             this.mKeyMap.put("D",0);
             if(this.mKeyMap.get("Q") != 1){
                 this.mPlayer.setXSpeed(0);
+            }
+            else{
+                this.mPlayer.setXSpeed(this.mLateralSpeed * -1);
             }
         }
 
