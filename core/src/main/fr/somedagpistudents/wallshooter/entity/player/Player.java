@@ -99,18 +99,22 @@ public class Player extends MovableEntity{
             if(ColisionTools.contactRightLeft(this, (Entity) object)){
                 this.colisionXRight = true;
                 this.speedcolisionXRight = ((Brick)object).getXSpeed();
+                this.x = ((Brick) object).getX() - this.width - 1;
             }
             if(ColisionTools.contactLeftRight(this, (Entity) object)){
                 this.colisionXLeft = true;
                 this.speedcolisionXLeft = ((Brick)object).getXSpeed();
+                this.x = ((Brick) object).getX() + ((Brick) object).getWidth() +1;
             }
             if(ColisionTools.contactBottomTop(this, (Entity) object)){
                 colisionYBottom = true;
                 speedcolisionYBottom = 0;
+                this.y = ((Brick) object).getY() + ((Brick) object).getHeight() + 1;
             }
             if(ColisionTools.contactTopBottom(this,(Entity) object)){
                 colisionYTop = true;
                 speedcolisionYTop = 0;
+                this.y = ((Brick) object).getY() - this.height - 1;
             }
         }
     }
