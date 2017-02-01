@@ -13,10 +13,15 @@ import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 public class WallShooter extends Game {
 	public final static int SCREEN_WIDTH = 1280;
 	public final static int SCREEN_HEIGHT = 720;
-
+	public static GameScreen gameScreen ;
 	@Override
 	public void create() {
-		GameScreen gameScreen = new GameScreen(this);
+
+		Controller controller = new Controller(this);
+		GameScreen gameScreen = new GameScreen(this,controller);
 		this.setScreen(gameScreen);
 	}
+
+
+
 }

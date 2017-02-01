@@ -1,6 +1,5 @@
 package fr.somedagpistudents.wallshooter.tools;
 
-import com.badlogic.gdx.Game;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
@@ -19,21 +18,24 @@ import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
 public class Controller {
 
     String gamestate,str,t;
-    GameScreen game;
+    WallShooter game;
     WorldRenderer worldRenderer;
     World world;
 
-    public Controller(GameScreen game){
+    public Controller(WallShooter game){
         this.gamestate="gameplay";
         this.game=game;
-        this.world=game.getWorld();
+
 
     }
+
+
 
     public int getPlayerScore(Player player){
         return player.getScore();
     }
-
+    public void restartGame(){
+    }
 
     public void checkGameState(Player player){
 
@@ -63,6 +65,9 @@ public class Controller {
 
 
     }
+
+
+
     public String displayGameStateText(){
 
         if (gamestate=="gamestart"){

@@ -22,11 +22,13 @@ public class GameScreen implements Screen {
     private World world;
     private WorldRenderer worldRenderer;
 
-    public GameScreen(WallShooter wallShooter) {
+    public GameScreen(WallShooter wallShooter,Controller controller) {
         this.wallShooter = wallShooter;
-        this.controller = new Controller(this);
+        this.controller = controller;
         this.world = new World(controller);
+
         this.worldRenderer = new WorldRenderer(this.world);
+
         this.inputController = new InputController(this.world,3,3);
     }
 

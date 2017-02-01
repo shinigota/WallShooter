@@ -27,6 +27,8 @@ public class World {
 
 
     public World(Controller controller) {
+
+
         BrickType easyBrick = new BrickType(1);
         BrickType mediumBrick = new BrickType(2);
         BrickType hardBrick = new BrickType(3);
@@ -43,14 +45,14 @@ public class World {
         this.bricks.add(new Brick(900, 250, hardBrick));
         this.bricks.add(new Brick(500, 100, hardBrick));
         this.bricks.add(new Brick(800, -100, hardBrick));
-        this.controller = controller;
+        this.setController(controller);
 
 
     }
 
     public void update() {
 
-        controller.update(this.player,wall.getAllBricks());
+        getController().update(this.player,wall.getAllBricks());
         player.update();
         wall.update();
 
@@ -116,7 +118,7 @@ public class World {
         return this.player;
     }
 
-    public Object getController() {
+    public Controller getController() {
         return this.controller;
     }
 
@@ -126,5 +128,9 @@ public class World {
 
     public void addBullet(Bullet bullet) {
         this.bullets.add(bullet);
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 }
