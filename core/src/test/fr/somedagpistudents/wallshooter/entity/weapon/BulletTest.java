@@ -98,14 +98,16 @@ public class BulletTest {
         assertEquals(weapon.getDamagesPerBullet(),weapon.getBullets().get(0).getDamages(),0);
     }
 
-/*
+
     @Test
     public void bulletRemovesBrickHealth() throws Exception{
         Weapon weapon = new Weapon();
-        Bullet bullet = weapon.shoot(0,0);
+        weapon.shoot(0,0);
+        Bullet bullet = weapon.getLastBullet();
         BrickType easyBrick = new BrickType(1);
         Brick brick = new Brick(0, 0, easyBrick);
+        brick.setBrickLife(brick.getBrickLife()-bullet.getDamages());
 
         assertEquals(0, brick.getBrickLife(),0);
-    }*/
+    }
 }
