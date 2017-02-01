@@ -2,20 +2,34 @@ package fr.somedagpistudents.wallshooter.entity.weapon;
 
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 
+import static com.badlogic.gdx.math.MathUtils.random;
+
 /**
  * Created by benjamin on 1/31/17.
  */
 public class Bullet extends MovableEntity {
     public final static float SIZE = 10;
-    public final static float X_SPEED = 10;
+    public final static float X_SPEED = 50;
     public final static float Y_SPEED = 0;
 
-    public Bullet(float x, float y, float size, float xSpeed, float ySpeed) {
+    private final static float MAX_Y_RAND = 2.5f;
+    private final static float Y_RAND_SCALE = 100f;
+
+
+    private float bulletDamages;
+
+    public Bullet(float x, float y, float size, float xSpeed, float ySpeed, float bulletDamages) {
         super(x, y, size, xSpeed, ySpeed);
+        this.setRandomYSpeed();
+        this.bulletDamages = bulletDamages;
     }
 
-    public Bullet(float x, float y) {
-        this(x, y, Bullet.SIZE, Bullet.X_SPEED, Bullet.Y_SPEED);
+    public Bullet(float x, float y, float bulletDamages) {
+        this(x, y, Bullet.SIZE, Bullet.X_SPEED, Bullet.Y_SPEED,bulletDamages);
+    }
+
+    public float getDamages(){
+        return this.bulletDamages;
     }
 
     @Override
@@ -26,6 +40,10 @@ public class Bullet extends MovableEntity {
 
     @Override
     public void onCollision(Object object) {
-//        throw new UnsupportedOperationException();
+        
+    }
+
+    private void setRandomYSpeed() {
+        this.ySpeed += (float) ( random(0, MAX_Y_RAND * Y_RAND_SCALE) ) / Y_RAND_SCALE -  (MAX_Y_RAND)/ 2f;
     }
 }

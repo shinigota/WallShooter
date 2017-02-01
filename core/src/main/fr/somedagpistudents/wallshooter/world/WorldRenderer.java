@@ -17,6 +17,7 @@ import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
@@ -91,7 +92,7 @@ public class WorldRenderer{
     }
 
     private void debugBullets() {
-        ArrayList<Bullet> bullets = world.getBullets();
+        List<Bullet> bullets = world.getBullets();
         Iterator<Bullet> bulletIter = bullets.iterator();
 
         this.shapeRenderer.setColor(Color.YELLOW);
@@ -128,9 +129,20 @@ public class WorldRenderer{
         ArrayList<Brick> bricks = this.world.getBricks();
         Iterator<Brick> brickIter = bricks.iterator();
 
-        this.shapeRenderer.setColor(Color.RED);
+
         while (brickIter.hasNext()) {
             Brick brick = brickIter.next();
+            int brickLife = Math.round(brick.getBrickLife());
+            if(brickLife <= 3){
+                this.shapeRenderer.setColor(Color.RED);
+            }
+            else if(brickLife > 3 && brickLife <= 6){
+                    this.shapeRenderer.setColor(Color.ORANGE);
+                }
+                else{
+                    this.shapeRenderer.setColor(Color.GREEN);
+                }
+
             this.shapeRenderer.rect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
         }
     }

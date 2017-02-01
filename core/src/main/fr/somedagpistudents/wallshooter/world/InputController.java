@@ -69,11 +69,7 @@ public class InputController implements ActionListener, InputProcessor{
         }
 
         if(keycode == SPACE){
-            Weapon weapon = this.mPlayer.getWeapon();
-            if(weapon.canShoot()) {
-                Bullet bullet = weapon.shoot(this.mPlayer.getX() + this.mPlayer.getWidth() / 2, this.mPlayer.getY() + this.mPlayer.getHeight() / 2);
-                this.mWorld.addBullet(bullet);
-            }
+            this.mPlayer.toggleShoot(true);
         }
         return false;
     }
@@ -106,6 +102,10 @@ public class InputController implements ActionListener, InputProcessor{
             if(this.mKeyMap.get("Q") != 1){
                 this.mPlayer.setXSpeed(0);
             }
+        }
+
+        if(keycode == SPACE) {
+            this.mPlayer.toggleShoot(false);
         }
 
         return false;

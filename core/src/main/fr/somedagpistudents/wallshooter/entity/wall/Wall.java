@@ -56,7 +56,7 @@ public class Wall {
     }
 
     public boolean canGenerateColumn() {
-        if(this.columns.get(columns.size()-1).getPosX()+Brick.WIDTH <= Column.POSITION_X){
+        if(this.columns.get(columns.size()-1).getPosX()+Brick.WIDTH <= Column.POSITION_X+1){
             return true;
         }
         return false;

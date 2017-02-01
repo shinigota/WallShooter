@@ -13,10 +13,12 @@ import static org.junit.Assert.*;
 public class ControllerTest {
     @Test
     public void worldHasController() throws Exception  {
+
         WallShooter wallshooter = new WallShooter();
         Controller controller = new Controller(wallshooter);
         World world = new World(controller);
         assertNotNull(controller);
+
 
     }
 

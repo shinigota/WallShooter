@@ -1,6 +1,5 @@
 package fr.somedagpistudents.wallshooter.entity.wall;
 
-import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 
 public class Brick extends MovableEntity {
@@ -18,6 +17,10 @@ public class Brick extends MovableEntity {
 
     public float getBrickLife(){
         return mHealthPoints;
+    }
+
+    public void setBrickLife(float newBrickLife){
+        this.mHealthPoints = newBrickLife;
     }
 
     @Override

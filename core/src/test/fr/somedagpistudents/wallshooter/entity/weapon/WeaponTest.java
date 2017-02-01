@@ -45,4 +45,16 @@ public class WeaponTest {
         assertTrue(weapon2.canShoot());
     }
 
+    @Test
+    public void defaultWeaponHasDamages(){
+        Weapon weapon = new Weapon();
+        assertEquals(weapon.getDamagesPerBullet(),1,0);
+    }
+
+    @Test
+    public void customWeaponHasDamages(){
+        Weapon weapon = new Weapon(Weapon.DEFAULT_FIRE_RATE_MILLIS,2);
+        assertEquals(weapon.getDamagesPerBullet(),2,0);
+    }
+
 }

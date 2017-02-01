@@ -12,7 +12,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
  */
 public class Column {
     public static final int POSITION_X = 640;
-    public final static int MAX_NB_BRICK = 12;
+    public final static int MAX_NB_BRICK = 19;
     private float posX;
     private float speedX;
     private ArrayList<Brick> bricks = new ArrayList<Brick>();
@@ -23,18 +23,8 @@ public class Column {
         Set<Integer> pos = generatePosition();
         for(int position: pos ) {
             BrickType bt = new BrickType(1);
-            int nb = (int) (Math.random() * 3 );
-            switch (nb){
-                case 0:
-                    bt.setBrickTypeLife(1);
-                    break;
-                case 1:
-                    bt.setBrickTypeLife(2);
-                    break;
-                case 2:
-                    bt.setBrickTypeLife(3);
-                    break;
-            }
+            int nb = (int) (Math.random() * 10 );
+            bt.setBrickTypeLife(nb);
             this.bricks.add(generateBrick(POSITION_X, position, bt));
         }
     }
@@ -52,11 +42,8 @@ public class Column {
         return pos;
     }
 
-    private Brick calculPosBrick(int x,int position, BrickType brickType) {
-        return new Brick(x, (position * 60) - 360, brickType);
-    }
     private Brick generateBrick(int x, int position, BrickType brickType) {
-        return new Brick(x, (position * 60) - 360, brickType);
+        return new Brick(x, (position * Brick.HEIGHT+1) - 350, brickType);
     }
 
     public float getPosX() {
