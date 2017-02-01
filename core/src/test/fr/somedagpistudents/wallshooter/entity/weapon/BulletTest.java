@@ -67,18 +67,6 @@ public class BulletTest {
         assertTrue(ColisionTools.contact(bullet, brick));
     }
 
-    @Test
-    public void bulletRemovesBrickHealth() throws Exception{
-        Bullet bullet;
-        Brick brick;
-        BrickType easyBrick = new BrickType(1);
-        Weapon weapon = new Weapon();
-
-        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, 0, weapon.getDamagesPerBullet());
-        brick = new Brick(0, 0, easyBrick);
-
-        assertEquals(0, brick.getBrickLife(),0);
-    }
 
     @Test
     public void bulletDoesNotCollideWithBrick() throws Exception {
@@ -110,4 +98,15 @@ public class BulletTest {
         Bullet bullet = weapon.shoot(0,0);
         assertEquals(weapon.getDamagesPerBullet(),bullet.getDamages(),0);
     }
+
+/*
+    @Test
+    public void bulletRemovesBrickHealth() throws Exception{
+        Weapon weapon = new Weapon();
+        Bullet bullet = weapon.shoot(0,0);
+        BrickType easyBrick = new BrickType(1);
+        Brick brick = new Brick(0, 0, easyBrick);
+
+        assertEquals(0, brick.getBrickLife(),0);
+    }*/
 }

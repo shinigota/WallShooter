@@ -19,9 +19,9 @@ public class World {
     private Controller controller;
 
     public World(Controller controller) {
-        BrickType easyBrick = new BrickType(1);
-        BrickType mediumBrick = new BrickType(2);
-        BrickType hardBrick = new BrickType(3);
+        BrickType easyBrick = new BrickType(3);
+        BrickType mediumBrick = new BrickType(6);
+        BrickType hardBrick = new BrickType(9);
 
         this.wall = new Wall();
         
