@@ -30,19 +30,12 @@ public class Controller {
     }
     public void checkGameState(Player player){
 
-/*
-if (player.getX()<0)
+
+if (player.getX()<-SCREEN_WIDTH/2)
         gamestate="gameover";
-        if (player.getY()<0)
-            gamestate="gameover";
-*/
-
-
-
 
     }
     public String displayGameStateText(){
-
 
         if (gamestate=="gamestart"){
             str="WALLSHOOTER \n Press start";
@@ -52,8 +45,6 @@ if (player.getX()<0)
             str="WALLSHOOTER \n Press start";
 
         }
-
-
 
         if (gamestate=="gameover"){
             str="You Died.";
