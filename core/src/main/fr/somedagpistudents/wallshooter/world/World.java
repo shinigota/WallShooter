@@ -61,7 +61,7 @@ public class World {
 
                 if(ColisionTools.contact(brick, bullet)) {
                     brick.setBrickLife(brick.getBrickLife() - bullet.getDamages());
-                    if(brick.getBrickLife() == 0){
+                    if(brick.getBrickLife() <= 0){
                         this.wall.removeBrick(brick);
                     }
                     removeBullet = true;
