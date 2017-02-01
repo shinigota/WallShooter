@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
+import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.awt.event.ActionEvent;
@@ -118,6 +119,12 @@ public class InputController implements ActionListener, InputProcessor{
 
         if(keycode == SPACE) {
             this.mPlayer.toggleShoot(false);
+            ///GAMEOVER
+            if (mWorld.getController().getGamestate()=="gameover")
+            mWorld.getController().restart();
+
+
+
         }
 
         return false;

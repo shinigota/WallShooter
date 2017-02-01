@@ -49,8 +49,14 @@ public class Controller {
         {
             if (player.getXSpeed()<0)
                 player.setXSpeed(0);
-            if ((player.getX()<-player.getWidth()-SCREEN_WIDTH/2))
-            gamestate="gameover";
+            if ((player.getX()<-player.getWidth()-SCREEN_WIDTH/2)) {
+                gamestate = "gameover";
+
+
+
+
+
+            }
         }
         if ((player.getX()>SCREEN_WIDTH/2-player.getWidth()))
         {
@@ -85,7 +91,7 @@ public class Controller {
         }
 
         if (gamestate=="gameover"){
-            str="You Died.";
+            str="GAME OVER\nPRESS SPACE.";
         }
 
     return(str);
@@ -123,6 +129,15 @@ public class Controller {
 
         this.checkGameState(player);
         //
+
+    }
+
+    public void restart(){
+
+        ///GAMEOVER
+        GameScreen gameScreen = new GameScreen(game,this);
+        game.setScreen(gameScreen);
+        gamestate = "gameplay";
 
     }
 }
