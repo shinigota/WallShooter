@@ -31,13 +31,13 @@ public class Controller {
     public void checkGameState(Player player){
 
 
-if ((player.getX()<-SCREEN_WIDTH/2))
-{
-    if (player.getXSpeed()<0)
-        player.setXSpeed(0);
-    if ((player.getX()<-player.getWidth()-SCREEN_WIDTH/2))
-    gamestate="gameover";
-}
+        if ((player.getX()<-SCREEN_WIDTH/2))
+        {
+            if (player.getXSpeed()<0)
+                player.setXSpeed(0);
+            if ((player.getX()<-player.getWidth()-SCREEN_WIDTH/2))
+            gamestate="gameover";
+        }
         if ((player.getX()>SCREEN_WIDTH/2-player.getWidth()))
         {
             if (player.getXSpeed()>0)

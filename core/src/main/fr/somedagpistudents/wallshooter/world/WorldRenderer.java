@@ -18,6 +18,9 @@ import fr.somedagpistudents.wallshooter.tools.Controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
+import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
+
 public class WorldRenderer{
 
     private Controller controller;
@@ -111,8 +114,8 @@ public class WorldRenderer{
         String str_y= String.valueOf(y);
 
         //displays position
-        this.font.draw(this.spriteBatch,str_x,x,y-16);
-        this.font.draw(this.spriteBatch,str_y,x,y);
+        this.font.draw(this.spriteBatch,"x  :  "+str_x,x+SCREEN_WIDTH/2,SCREEN_HEIGHT/2+y-16);
+        this.font.draw(this.spriteBatch,"y  :  "+str_y,x+SCREEN_WIDTH/2,SCREEN_HEIGHT/2+y);
     }
     private void debugPlayer() {
         Player p = world.getPlayer();

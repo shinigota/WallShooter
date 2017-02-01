@@ -34,4 +34,10 @@ public class ColumnTest {
         assertThat(column.getBrickPos(0).getY(), is(-360.0F));
     }
 */
+
+    @Test
+    public void validColumn() throws Exception {
+        Column column = new Column();
+
+    }
 }
