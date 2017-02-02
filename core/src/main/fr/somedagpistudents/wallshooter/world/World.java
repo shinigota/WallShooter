@@ -1,6 +1,5 @@
 package fr.somedagpistudents.wallshooter.world;
 
-import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
@@ -36,18 +35,18 @@ public class World {
     public void update(float delta) {
         controller.update(this.player,wall.getAllBricks());
         this.checkCollisions();
-        this.checkCollisionsPlayer();
+        this.checkCollisionsPlayer(delta);
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
         this.updateBullets(delta);
     }
 
-    private void checkCollisionsPlayer() {
+    private void checkCollisionsPlayer(float delta) {
         Iterator<Brick> brickIterator = wall.getAllBricks().iterator();
         while (brickIterator.hasNext()) {
             Brick brick = brickIterator.next();
-            ColisionTools.contact(player, brick);
+            ColisionTools.contactMoove(player, brick,delta);
         }
     }
 

@@ -27,4 +27,12 @@ public class ColisionToolsTest {
         Brick brick2 = new Brick(500, 500, easyBrick);
         assertFalse(ColisionTools.contact(brick,brick2));
     }
+
+    @Test
+    public void collisionWorks() throws Exception {
+        assertTrue(ColisionTools.collision(10.0f, 10.0f, 0f));
+        assertTrue(ColisionTools.collision(10.0f, 1.0f, 10f));
+        assertFalse(ColisionTools.collision(10.0f, 1.0f, 1f));
+
+    }
 }

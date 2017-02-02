@@ -12,7 +12,7 @@ public class Bullet extends MovableEntity {
     public final static float X_SPEED = 1200;
     public final static float Y_SPEED = 0;
 
-    public final static float MAX_Y_RAND = 2.5f;
+    public final static float MAX_Y_RAND = 250f;
     public final static float Y_RAND_SCALE = 100f;
 
 
