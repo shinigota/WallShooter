@@ -11,13 +11,13 @@ import static org.junit.Assert.assertNotNull;
 public class BrickTypeTest {
     @Test
     public void createBrickTypeTest() throws Exception {
-        BrickType bt = new BrickType(2);
+        BrickType bt = new BrickType(2, 20);
         assertNotNull(bt);
     }
 
     @Test
     public void brickTypeHasLifeTest() throws Exception{
-        BrickType bt = new BrickType(2);
-        assertEquals(2,bt.getBrickTypeLife(),0);
+        BrickType bt = new BrickType(2, 20);
+        assertEquals(2,bt.getLife(),0);
     }
 }

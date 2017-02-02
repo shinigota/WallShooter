@@ -43,6 +43,7 @@ public class Wall {
     }
 
     public ArrayList<Brick> getAllBricks(){
+
         ArrayList<Brick> bricks = new ArrayList<Brick>();
         for(Column column : columns){
             bricks.addAll(column.getBricks());
@@ -61,7 +62,8 @@ public class Wall {
     }
 
     public boolean canGenerateColumn() {
-        if(this.columns.get(columns.size()-1).getPosX()+Brick.WIDTH <= Column.POSITION_X-5){
+        if(this.columns.get(columns.size()-1).getPosX()+Brick.WIDTH <= Column.POSITION_X-5)
+        {
             return true;
         }
         return false;

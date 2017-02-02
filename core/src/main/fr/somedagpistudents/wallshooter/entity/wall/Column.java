@@ -28,9 +28,9 @@ public class Column {
             pos = generatePosition(MAX_BRICK_IN);
         }
         for(int position: pos ) {
-            BrickType bt = new BrickType(1);
+            BrickType bt = new BrickType(1, 10);
             int nb = (int) (Math.random() * 10);
-            bt.setBrickTypeLife(nb);
+            bt.setLife(nb);
             this.bricks.add(generateBrick(POSITION_X, position, bt));
         }
     }
