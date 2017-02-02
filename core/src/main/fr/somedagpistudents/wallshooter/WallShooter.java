@@ -22,7 +22,7 @@ public class WallShooter extends Game {
 
     @Override
 	public void create() {
-		this.debug = DEBUG_DEFAULT;
+		WallShooter.debug = DEBUG_DEFAULT;
 
 		Controller controller = new Controller(this);
 		GameScreen gameScreen = new GameScreen(this,controller);

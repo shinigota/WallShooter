@@ -45,6 +45,13 @@ public class PresentationScreen implements Screen {
             this.wallShooter.setScreen(new GameScreen(this.wallShooter, this.controller));
             this.controller.start();
         }
+        isPressed = Gdx.input.isKeyPressed(Input.Keys.T);
+        if(isPressed){
+            this.wallShooter.setScreen(new GameScreen(this.wallShooter, this.controller));
+            this.controller.startTuto();
+        }
+
+
         this.spritebatch.end();
 
 

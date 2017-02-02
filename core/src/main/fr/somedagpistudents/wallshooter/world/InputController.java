@@ -42,7 +42,7 @@ public class InputController implements ActionListener, InputProcessor{
 
         Controller c = (Controller) this.mWorld.getController();
 
-        if(mWorld.getController().getGamestate()=="gameplay") {
+        if(mWorld.getController().getGamestate().equals("gameplay")||mWorld.getController().getGamestate().equals("tuto")) {
 
             if (keycode == R) {
 
@@ -82,9 +82,9 @@ public class InputController implements ActionListener, InputProcessor{
                 WallShooter.toggleDebug();
             }
         }else{
-            if (mWorld.getController().getGamestate() == "gameover" && keycode == R)
+            if (mWorld.getController().getGamestate().equals( "gameover" )&& keycode == R)
                 mWorld.getController().restart();
-            if(mWorld.getController().getGamestate()=="gamestart" && keycode == R)
+            if(mWorld.getController().getGamestate().equals("gamestart") && keycode == R)
                 mWorld.getController().start();
 
         }
@@ -93,7 +93,11 @@ public class InputController implements ActionListener, InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
-        if(mWorld.getController().getGamestate()=="gameplay") {
+        if(mWorld.getController().getGamestate().equals("gameplay")
+                || mWorld.getController().getGamestate().equals("tuto")
+                )
+
+        {
             if (keycode == Z) {
                 this.mKeyMap.put("Z", 0);
                 if (this.mKeyMap.get("S") != 1) {
