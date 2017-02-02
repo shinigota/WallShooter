@@ -15,6 +15,7 @@ import fr.somedagpistudents.wallshooter.tools.ColisionTools;
  */
 public class Player extends MovableEntity{
     private int score = 0;
+    private float money = 0;
     private int lives = 0;
     private Weapon weapon;
     private Timer time;
@@ -23,16 +24,20 @@ public class Player extends MovableEntity{
 
 
     private boolean colisionXRight = false;
-
     private float speedcolisionXRight;
+    private float colisionXRightPos;
+
     private boolean colisionXLeft = false;
-
     private float speedcolisionXLeft;
-    private boolean colisionYBottom = false;
+    private float colisionXLeftPos;
 
+    private boolean colisionYBottom = false;
     private float speedcolisionYBottom;
+    private float colisionYBottomPos;
+
     private boolean colisionYTop = false;
     private float speedcolisionYTop;
+    private float colisionYTopPos;
 
     public Player(float x, float y, float width, float height) {
         super(x, y, width, height, 0, 0);
@@ -57,7 +62,8 @@ public class Player extends MovableEntity{
             if(colisionXRight) {
                 colisionXRight = false;
                 if (xSpeed*delta  > 0) {
-                    this.x += (speedcolisionXRight*delta);
+                    this.x = colisionXRightPos;
+                    //this.x += (speedcolisionXRight*delta);
                 } else {
                     this.x += ((getXSpeed() + speedcolisionXRight)*delta);
                 }
@@ -77,7 +83,8 @@ public class Player extends MovableEntity{
             if(colisionYBottom) {
                 colisionYBottom = false;
                 if (ySpeed*delta  < 0) {
-                    this.y += (speedcolisionYBottom*delta);
+                    this.y = colisionYBottomPos;
+                    //this.y += (speedcolisionYBottom*delta);
                 } else {
                     this.y += (getYSpeed()*delta);
                 }
@@ -85,7 +92,8 @@ public class Player extends MovableEntity{
             if(colisionYTop){
                 colisionYTop = false;
                 if (ySpeed*delta  > 0) {
-                    this.y += (speedcolisionYTop*delta);
+                    this.y = colisionYTopPos;
+                    //this.y += (speedcolisionYTop*delta);
                 } else {
                     this.y += (getYSpeed()*delta);
                 }
@@ -105,22 +113,22 @@ public class Player extends MovableEntity{
             if(ColisionTools.contactRightLeft(this, (Entity) object)){
                 this.colisionXRight = true;
                 this.speedcolisionXRight = ((Brick)object).getXSpeed();
-                this.x = ((Brick) object).getX() - this.width - 1;
+                this.colisionXRightPos = ((Brick) object).getX() - this.width - 1;
             }
             if(ColisionTools.contactLeftRight(this, (Entity) object)){
                 this.colisionXLeft = true;
                 this.speedcolisionXLeft = ((Brick)object).getXSpeed();
-                this.x = ((Brick) object).getX() + ((Brick) object).getWidth() +1;
+                this.colisionXLeftPos = ((Brick) object).getX() + ((Brick) object).getWidth() +1;
             }
             if(ColisionTools.contactBottomTop(this, (Entity) object)){
                 colisionYBottom = true;
                 speedcolisionYBottom = 0;
-                this.y = ((Brick) object).getY() + ((Brick) object).getHeight() + 1;
+                this.colisionYBottomPos = ((Brick) object).getY() + ((Brick) object).getHeight() + 1;
             }
             if(ColisionTools.contactTopBottom(this,(Entity) object)){
                 colisionYTop = true;
                 speedcolisionYTop = 0;
-                this.y = ((Brick) object).getY() - this.height - 1;
+                this.colisionYTopPos = ((Brick) object).getY() - this.height - 1;
             }
         }
     }
@@ -171,6 +179,14 @@ public class Player extends MovableEntity{
 
     public void setShooting(boolean isShooting) {
         this.isShooting = isShooting;
+    }
+
+    public void setMoney(float money){
+        this.money = money;
+    }
+
+    public float getMoney(){
+        return this.money;
     }
 
     public void stop() {

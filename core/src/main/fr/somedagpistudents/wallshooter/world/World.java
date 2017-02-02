@@ -1,6 +1,5 @@
 package fr.somedagpistudents.wallshooter.world;
 
-import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
@@ -14,17 +13,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static fr.somedagpistudents.wallshooter.entity.wall.Brick.XSPEED;
-
 public class World {
     private Wall wall;
     private Player player;
     private Controller controller;
 
     public World(Controller controller) {
-        BrickType easyBrick = new BrickType(3);
-        BrickType mediumBrick = new BrickType(6);
-        BrickType hardBrick = new BrickType(9);
+
+        BrickType easyBrick = new BrickType(3, 10);
+        BrickType mediumBrick = new BrickType(6, 20);
+        BrickType hardBrick = new BrickType(9, 50);
+
         this.wall = new Wall();
 
         this.player = new Player(-640, 0, 40, 80);
@@ -56,23 +55,25 @@ public class World {
         wall.setDifficulty(player.getScore()/10);
         this.updateBullets(delta);
         this.checkCollisions();
-        this.checkCollisionsPlayer();
+        this.checkCollisionsPlayer(delta);
     }
     private void playTuto(float delta) {
+
         Brick.XSPEED=-200;
+
         this.checkCollisions();
-        this.checkCollisionsPlayer();
+        this.checkCollisionsPlayer(delta);
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
         this.updateBullets(delta);
     }
 
-    private void checkCollisionsPlayer() {
+    private void checkCollisionsPlayer(float delta) {
         Iterator<Brick> brickIterator = wall.getAllBricks().iterator();
         while (brickIterator.hasNext()) {
             Brick brick = brickIterator.next();
-            ColisionTools.contact(player, brick);
+            ColisionTools.contactMoove(player, brick,delta);
         }
     }
 
@@ -87,9 +88,10 @@ public class World {
                 Brick brick = brickIter.next();
 
                 if(ColisionTools.contact(brick, bullet)) {
-                    brick.setBrickLife(brick.getBrickLife() - bullet.getDamages());
-                    if(brick.getBrickLife() <= 0){
+                    brick.setLife(brick.getLife() - bullet.getDamages());
+                    if(brick.getLife() <= 0){
                         this.wall.removeBrick(brick);
+                        this.player.setMoney(this.player.getMoney() + brick.getMoney());
                     }
                     removeBullet = true;
 

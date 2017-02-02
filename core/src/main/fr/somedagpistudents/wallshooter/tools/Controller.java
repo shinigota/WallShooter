@@ -149,7 +149,7 @@ public class Controller {
     }
     public void update(Player player, ArrayList<Brick> bricks) {
         for (Brick brick:bricks        ) {
-            ColisionTools.contact(player,brick);
+            //ColisionTools.contact(player,brick);
         }
 
         this.checkGameState(player);
