@@ -145,6 +145,10 @@ public class WorldRenderer{
         }
 
         this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
+
+        this.shapeRenderer.end();
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, 200, 20);
     }
 
     private void debugPlayerPosition()    {
