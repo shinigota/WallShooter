@@ -33,17 +33,14 @@ public class World {
         this.controller = controller;
     }
 
-    public void update() {
+    public void update(float delta) {
         controller.update(this.player,wall.getAllBricks());
-
-        player.update();
-        wall.update();
-        wall.setDifficulty(player.getScore()/10);
-
-        this.updateBullets();
-
         this.checkCollisions();
         this.checkCollisionsPlayer();
+        player.update(delta);
+        wall.update(delta);
+        wall.setDifficulty(player.getScore()/10);
+        this.updateBullets(delta);
     }
 
     private void checkCollisionsPlayer() {
@@ -80,11 +77,11 @@ public class World {
         }
     }
 
-    private void updateBullets() {
+    private void updateBullets(float delta) {
         Iterator<Bullet> bulletIter = this.getBullets().iterator();
         while (bulletIter.hasNext()) {
             Bullet bullet = bulletIter.next();
-            bullet.update();
+            bullet.update(delta);
         }
     }
 

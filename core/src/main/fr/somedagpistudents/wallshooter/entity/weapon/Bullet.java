@@ -33,7 +33,7 @@ public class Bullet extends MovableEntity {
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         this.x += this.xSpeed;
         this.y += this.ySpeed;
     }

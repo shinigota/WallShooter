@@ -21,7 +21,7 @@ public class Wall {
         this.columns.add(new Column(difficulty));
     }
 
-    public void update(){
+    public void update(float delta){
         Iterator<Column> columnIterator = this.columns.iterator();
         Column column;
         while (columnIterator.hasNext()) {
@@ -29,7 +29,7 @@ public class Wall {
             if(column.getPosX() < (Column.POSITION_X*-1)-Brick.WIDTH){
                 columnIterator.remove();
             }else {
-                column.update();
+                column.update(delta);
             }
         }
 

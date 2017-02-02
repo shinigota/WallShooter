@@ -76,10 +76,10 @@ public class Column {
         this.bricks.remove(brick);
     }
 
-    public void update(){
-        this.posX += this.speedX;
+    public void update(float delta){
+        this.posX += (this.speedX*delta);
         for(Brick brick: this.bricks){
-            brick.update();
+            brick.update(delta);
         }
     }
 

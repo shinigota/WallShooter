@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
 
         this.worldRenderer = new WorldRenderer(this.getWorld());
 
-        this.inputController = new InputController(this.getWorld(),3,3);
+        this.inputController = new InputController(this.getWorld(),200,200);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        this.getWorld().update();
+        this.getWorld().update(delta);
         this.worldRenderer.render();
     }
 
