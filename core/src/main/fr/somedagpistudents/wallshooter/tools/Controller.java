@@ -7,6 +7,8 @@ import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.world.World;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
@@ -20,6 +22,8 @@ public class Controller {
     WallShooter game;
     World world;
     Player player;
+    Timer time;
+    int t=0;
 
     public void setWorld(World world) {
         this.world = world;
@@ -91,15 +95,28 @@ public class Controller {
 
 
         }
-        if (gamestate.equals("gameplay")){
-            strGamestate ="";
+        if (gamestate.equals("tuto")){
+            int trig=Math.round(t/4);
+            ArrayList<String> strTuto = new ArrayList<String>();
+            strTuto.add("Welcome to Wallshooter's tutorial : ");
+            strTuto.add("Press Q to move left, d to move right,z to move up and s to move down.");
+            strTuto.add("Avoid walls that will push you to the bottom, and fire with SPACE key");
+            strTuto.add("Don't shoot blindly, or your weapon may heat");
+            strTuto.add("Bricks will gets harder and harder to avoid");
+            strTuto.add("Good luck, you'll need it !");
+
+            //sets the tutorial's text or else starts the game as it ends
+            
+            if (trig>strTuto.size()-1) start();
+                else
+            strGamestate =strTuto.get(trig);
+
 
         }
 
 
         if (gamestate=="gameover"){
             strGamestate ="GAME OVER\nPRESS R to Restart.\nYou scored : "+player.getScore();
-
             player.stop();
 
         }
@@ -163,7 +180,21 @@ public class Controller {
         ///GAMEOVER
         GameScreen gameScreen = new GameScreen(game,this);
         game.setScreen(gameScreen);
-        gamestate = "tuto";
 
+        gamestate = "tuto";
+        createTimer();
+
+    }
+    public void createTimer(){
+        time = new Timer();
+        time.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                    createTimer();
+                    t++;
+
+            }
+        },1000);
     }
 }

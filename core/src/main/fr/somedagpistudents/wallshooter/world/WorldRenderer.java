@@ -139,12 +139,16 @@ public class WorldRenderer{
 
     private void drawHUD() {
         String str = this.controller.displayGameStateText();
-        if (controller.getGamestate()=="gameplay") {
+        if (controller.getGamestate().equals("gameplay") ){
             font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x - this.camera.viewportWidth / 2 + 10,  20 - this.camera.viewportHeight / 2);
             font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
             font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
         }
-        else {
+        else
+        if (controller.getGamestate().equals("tuto") ){
+            font.draw(spriteBatch, str,  this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
+        }else
+            {
             font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);
         }
 

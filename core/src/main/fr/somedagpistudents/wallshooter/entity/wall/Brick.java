@@ -6,9 +6,9 @@ public class Brick extends MovableEntity {
     public static final float WIDTH  = 60;
     public static final float HEIGHT = 35;
 
-    public static float XSPEED  = -8;
+    public static float XSPEED  = -800;
 
-    public static final float YSPEED = 0;
+    public static float YSPEED = 0;
 
     private float mHealthPoints;
 
@@ -28,8 +28,8 @@ public class Brick extends MovableEntity {
     @Override
 
     public void update(float delta) {
-        this.x += (this.xSpeed * delta);
-        this.y += (this.ySpeed* delta);
+        this.x += (this.XSPEED * delta);
+        this.y += (this.YSPEED* delta);
 
     }
 

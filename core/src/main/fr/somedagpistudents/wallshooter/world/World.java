@@ -25,12 +25,9 @@ public class World {
         BrickType easyBrick = new BrickType(3);
         BrickType mediumBrick = new BrickType(6);
         BrickType hardBrick = new BrickType(9);
-        Brick.XSPEED=-2;
-
         this.wall = new Wall();
 
         this.player = new Player(-640, 0, 40, 80);
-
         this.player.setWeapon(new Weapon(100));
         this.controller = controller;
     }
@@ -53,6 +50,7 @@ public class World {
     }
 
     private void playGame(float delta) {
+        Brick.XSPEED=-600;
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
@@ -61,8 +59,7 @@ public class World {
         this.checkCollisionsPlayer();
     }
     private void playTuto(float delta) {
-        Brick.XSPEED=-2;
-
+        Brick.XSPEED=-200;
         this.checkCollisions();
         this.checkCollisionsPlayer();
         player.update(delta);
