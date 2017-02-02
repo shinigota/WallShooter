@@ -169,6 +169,9 @@ public class PresentationScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        spritebatch.dispose();
+        this.bricksAtlas.dispose();
+        this.shaperenderer.dispose();
+        this.font.dispose();
     }
 }
