@@ -28,7 +28,9 @@ public class PresentationScreen implements Screen {
     private Controller controller;
     private int SIZE_BUTTON_WIDTH = 300;
     private int SIZE_BUTTON_HEIGHT = 100;
-    private String[] txtButton = new String[]{"PLAY", "TUTO", "OPTION", "QUITTER","lol","XD"};
+    private int SIZE_TITLE_WIDTH = 600;
+    private int SIZE_TITLE_HEIGHT = 200;
+    private String[] txtButton = new String[]{"PLAY : PRESS SPACE", "TUTO : PRESS T", "OPTION", "QUITTER"};
     private BitmapFont font = new BitmapFont();
     private TextureAtlas bricksAtlas;
 
