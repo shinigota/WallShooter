@@ -169,11 +169,7 @@ public class Player extends MovableEntity{
         this.lives = lives;
     }
 
-    public void setShooting(boolean shooting) {
-        isShooting = shooting;
-    }
-
-    public void toggleShoot(boolean isShooting) {
+    public void setShooting(boolean isShooting) {
         this.isShooting = isShooting;
     }
 

@@ -1,5 +1,6 @@
 package fr.somedagpistudents.wallshooter.world;
 
+import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
@@ -19,7 +20,6 @@ public class World {
     private Controller controller;
 
     public World(Controller controller) {
-
         BrickType easyBrick = new BrickType(3);
         BrickType mediumBrick = new BrickType(6);
         BrickType hardBrick = new BrickType(9);
@@ -35,19 +35,6 @@ public class World {
 
     public void update(float delta) {
         controller.update(this.player,wall.getAllBricks());
-<<<<<<< HEAD
-=======
-
-
-        //if(controller.getGamestate()!="gamestart")
-        //if (controller.getGamestate()=="gameplay"||controller.getGamestate()=="gameover"){
-        player.update();
-        wall.update();
-        wall.setDifficulty(player.getScore()/10);
-
-        this.updateBullets();
-
->>>>>>> 819676721851fa68cb48898a3b73a1e534dac17a
         this.checkCollisions();
         this.checkCollisionsPlayer();
         player.update(delta);

@@ -8,8 +8,8 @@ import static com.badlogic.gdx.math.MathUtils.random;
  * Created by benjamin on 1/31/17.
  */
 public class Bullet extends MovableEntity {
-    public final static float SIZE = 10;
-    public final static float X_SPEED = 800;
+    public final static float SIZE = 20;
+    public final static float X_SPEED = 1200;
     public final static float Y_SPEED = 0;
 
     public final static float MAX_Y_RAND = 2.5f;

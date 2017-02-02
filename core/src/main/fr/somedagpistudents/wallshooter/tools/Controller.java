@@ -86,7 +86,7 @@ public class Controller {
     public String displayGameStateText(){
 
         if (gamestate=="gamestart"){
-            strGamestate ="START WALLSHOOTER \n Press R to Start GAME MOTHER FUCKER";
+            strGamestate ="START WALLSHOOTER \n Press Space to Start GAME YAOURTIERE";
 
         }
         if (gamestate=="gameplay"){
