@@ -142,13 +142,14 @@ public class Player extends MovableEntity{
     }
 
     public void createTimer(){
-
         time = new Timer("AddScore");
         time.schedule(new TimerTask() {
             @Override
             public void run() {
-                createTimer();
-                Player.this.score++;
+                if(!Player.this.isDead) {
+                    createTimer();
+                    Player.this.score++;
+                }
             }
         },1000);
     }
@@ -175,5 +176,12 @@ public class Player extends MovableEntity{
 
     public void toggleShoot(boolean isShooting) {
         this.isShooting = isShooting;
+    }
+
+    public void stop() {
+        this.xSpeed = 0;
+        this.ySpeed = 0;
+        this.isShooting = false;
+        this.isDead = true;
     }
 }

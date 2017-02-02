@@ -5,7 +5,6 @@ import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.world.World;
-import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 
 import java.util.ArrayList;
 
@@ -17,9 +16,8 @@ import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
  */
 public class Controller {
 
-    String gamestate,str,t;
+    String gamestate, strGamestate;
     WallShooter game;
-    WorldRenderer worldRenderer;
     World world;
     Player player;
 
@@ -29,7 +27,7 @@ public class Controller {
     }
 
     public Controller(WallShooter game){
-        this.gamestate="gameplay";
+        this.gamestate="gamestart";
         this.game=game;
 
 
@@ -88,31 +86,21 @@ public class Controller {
     public String displayGameStateText(){
 
         if (gamestate=="gamestart"){
-            str="WALLSHOOTER \n Press start";
+            strGamestate ="START WALLSHOOTER \n Press R to Start GAME MOTHER FUCKER";
 
         }
         if (gamestate=="gameplay"){
-            str="WALLSHOOTER \n Press start";
+            strGamestate ="WALLSHOOTER \n Press start";
 
         }
 
         if (gamestate=="gameover"){
-            str="GAME OVER\nPRESS SPACE.\nYou scored : "+player.getScore();
-
-            freezePlayer();
+            strGamestate ="GAME OVER\nPRESS SPACE.\nYou scored : "+player.getScore();
+            player.stop();
 
         }
 
-    return(str);
-
-
-    }
-
-    public void freezePlayer(){
-
-        player.setXSpeed(0);
-        player.setYSpeed(0);
-        player.setShooting(false);
+    return(strGamestate);
 
 
     }
@@ -148,6 +136,15 @@ public class Controller {
 
     }
 
+    public void start(){
+
+        ///BEGIN
+        GameScreen gameScreen = new GameScreen(game,this);
+        game.setScreen(gameScreen);
+        gamestate = "gameplay";
+
+    }
+
     public void restart(){
 
         ///GAMEOVER
@@ -156,4 +153,6 @@ public class Controller {
         gamestate = "gameplay";
 
     }
+
+
 }

@@ -36,6 +36,9 @@ public class World {
     public void update() {
         controller.update(this.player,wall.getAllBricks());
 
+
+        //if(controller.getGamestate()!="gamestart")
+        //if (controller.getGamestate()=="gameplay"||controller.getGamestate()=="gameover"){
         player.update();
         wall.update();
         wall.setDifficulty(player.getScore()/10);

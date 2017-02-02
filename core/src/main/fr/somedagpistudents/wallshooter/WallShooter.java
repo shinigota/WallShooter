@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import fr.somedagpistudents.wallshooter.screen.GameScreen;
+import fr.somedagpistudents.wallshooter.screen.PresentationScreen;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 import fr.somedagpistudents.wallshooter.world.InputController;
 import fr.somedagpistudents.wallshooter.world.World;
@@ -19,7 +20,7 @@ public class WallShooter extends Game {
 
 		Controller controller = new Controller(this);
 		GameScreen gameScreen = new GameScreen(this,controller);
-		this.setScreen(gameScreen);
+		this.setScreen(new PresentationScreen(this,controller));
 	}
 
 
