@@ -21,9 +21,9 @@ public abstract class Entity {
         this.height = height;
     }
 
-    public abstract void update();
+    public abstract void update(float delta);
 
-    public abstract void onCollision(Object object);
+    public abstract void onCollision(Object object, float delta);
 
     public float getX() {
         return this.x;

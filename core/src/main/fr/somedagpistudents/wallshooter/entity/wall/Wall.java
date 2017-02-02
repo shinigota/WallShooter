@@ -1,7 +1,5 @@
 package fr.somedagpistudents.wallshooter.entity.wall;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +19,7 @@ public class Wall {
         this.columns.add(new Column(difficulty));
     }
 
-    public void update(){
+    public void update(float delta){
         Iterator<Column> columnIterator = this.columns.iterator();
         Column column;
         while (columnIterator.hasNext()) {
@@ -29,7 +27,7 @@ public class Wall {
             if(column.getPosX() < (Column.POSITION_X*-1)-Brick.WIDTH){
                 columnIterator.remove();
             }else {
-                column.update();
+                column.update(delta);
             }
         }
 
@@ -43,6 +41,7 @@ public class Wall {
     }
 
     public ArrayList<Brick> getAllBricks(){
+
         ArrayList<Brick> bricks = new ArrayList<Brick>();
         for(Column column : columns){
             bricks.addAll(column.getBricks());
@@ -61,7 +60,8 @@ public class Wall {
     }
 
     public boolean canGenerateColumn() {
-        if(this.columns.get(columns.size()-1).getPosX()+Brick.WIDTH <= Column.POSITION_X-5){
+        if(this.columns.get(columns.size()-1).getPosX()+Brick.WIDTH <= Column.POSITION_X-5)
+        {
             return true;
         }
         return false;

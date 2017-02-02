@@ -1,10 +1,9 @@
 package fr.somedagpistudents.wallshooter.world;
 
 import com.badlogic.gdx.InputProcessor;
+import fr.somedagpistudents.wallshooter.WallShooter;
+import fr.somedagpistudents.wallshooter.entity.player.HorizontalMovement;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
-import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
-import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
-import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.awt.event.ActionEvent;
@@ -27,7 +26,6 @@ public class InputController implements ActionListener, InputProcessor{
     private Map<String, Integer> mKeyMap;
 
     public InputController(World w, int vSpeed, int lSpeed){
-
         this.mWorld = w;
         this.mPlayer = w.getPlayer();
         this.mLateralSpeed = lSpeed;
@@ -45,11 +43,9 @@ public class InputController implements ActionListener, InputProcessor{
 
         Controller c = (Controller) this.mWorld.getController();
 
-        if(mWorld.getController().getGamestate()=="gameplay") {
+        if(mWorld.getController().getGamestate().equals("gameplay")||mWorld.getController().getGamestate().equals("tuto")) {
 
             if (keycode == R) {
-
-
                 System.out.println("Event de relaunch du jeu");
             }
 
@@ -65,6 +61,7 @@ public class InputController implements ActionListener, InputProcessor{
             if (keycode == Q) {
                 this.mKeyMap.put("Q", 1);
                 this.mPlayer.setXSpeed(this.mLateralSpeed * -1);
+                this.mPlayer.setHorizontalMovement(HorizontalMovement.BACKWARD);
             }
 
             if (keycode == S) {
@@ -75,15 +72,20 @@ public class InputController implements ActionListener, InputProcessor{
             if (keycode == D) {
                 this.mKeyMap.put("D", 1);
                 this.mPlayer.setXSpeed(this.mLateralSpeed);
+                this.mPlayer.setHorizontalMovement(HorizontalMovement.FORWARD);
             }
 
-            if (keycode == SPACE) {
-                this.mPlayer.toggleShoot(true);
+            if(keycode == SPACE) {
+                this.mPlayer.setShooting(true);
+            }
+
+            if(keycode == F1){
+                WallShooter.toggleDebug();
             }
         }else{
-            if (mWorld.getController().getGamestate() == "gameover" && keycode == R)
+            if (mWorld.getController().getGamestate().equals( "gameover" )&& keycode == R)
                 mWorld.getController().restart();
-            if(mWorld.getController().getGamestate()=="gamestart" && keycode == R)
+            if(mWorld.getController().getGamestate().equals("gamestart") && keycode == R)
                 mWorld.getController().start();
 
         }
@@ -92,7 +94,11 @@ public class InputController implements ActionListener, InputProcessor{
 
     @Override
     public boolean keyUp(int keycode) {
-        if(mWorld.getController().getGamestate()=="gameplay") {
+        if(mWorld.getController().getGamestate().equals("gameplay")
+                || mWorld.getController().getGamestate().equals("tuto")
+                )
+
+        {
             if (keycode == Z) {
                 this.mKeyMap.put("Z", 0);
                 if (this.mKeyMap.get("S") != 1) {
@@ -115,8 +121,10 @@ public class InputController implements ActionListener, InputProcessor{
                 this.mKeyMap.put("Q", 0);
                 if (this.mKeyMap.get("D") != 1) {
                     this.mPlayer.setXSpeed(0);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.NONE);
                 } else {
                     this.mPlayer.setXSpeed(this.mLateralSpeed);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.FORWARD);
                 }
             }
 
@@ -124,13 +132,15 @@ public class InputController implements ActionListener, InputProcessor{
                 this.mKeyMap.put("D", 0);
                 if (this.mKeyMap.get("Q") != 1) {
                     this.mPlayer.setXSpeed(0);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.NONE);
                 } else {
                     this.mPlayer.setXSpeed(this.mLateralSpeed * -1);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.BACKWARD);
                 }
             }
 
             if (keycode == SPACE) {
-                this.mPlayer.toggleShoot(false);
+                this.mPlayer.setShooting(false);
             }
             if (keycode == ESCAPE) {
                 exit(0);
