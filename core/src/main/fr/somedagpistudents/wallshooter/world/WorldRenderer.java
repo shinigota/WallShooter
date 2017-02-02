@@ -87,6 +87,8 @@ public class WorldRenderer{
         this.debugPlayerPosition();
 
         this.spriteBatch.end();
+
+        this.drawHeatBar();
     }
 
     private void drawBullets() {
@@ -128,12 +130,28 @@ public class WorldRenderer{
         if (controller.getGamestate()=="gameplay") {
             font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x - this.camera.viewportWidth / 2 + 10,  20 - this.camera.viewportHeight / 2);
             font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
-            font.draw(spriteBatch, "Heat: "+ this.controller.getPlayer().getWeapon().getHeatPercent(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
+            font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
         }
         else {
             font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);
         }
 
+    }
+
+    private void drawHeatBar(){
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 50){
+            this.shapeRenderer.setColor(0, 1, 0, 1);
+        }
+        else if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 80){
+            this.shapeRenderer.setColor(1, 0.35f, 0, 1);
+        }
+        else{
+            this.shapeRenderer.setColor(1, 0, 0, 1);
+        }
+
+        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 305, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
+        this.shapeRenderer.end();
     }
 
 
