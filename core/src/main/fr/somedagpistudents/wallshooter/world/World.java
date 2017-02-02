@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static fr.somedagpistudents.wallshooter.entity.wall.Brick.XSPEED;
+
 public class World {
     private Wall wall;
     private Player player;
@@ -23,7 +25,7 @@ public class World {
         BrickType easyBrick = new BrickType(3);
         BrickType mediumBrick = new BrickType(6);
         BrickType hardBrick = new BrickType(9);
-
+        Brick.XSPEED=-2;
 
         this.wall = new Wall();
 
@@ -36,15 +38,32 @@ public class World {
     public void update() {
         controller.update(this.player,wall.getAllBricks());
 
+        if (controller.getGamestate().equals("gameplay")){
+            playGame();
+        }
+        else if(controller.getGamestate().equals("tuto")){
+            playTuto();
 
-        //if(controller.getGamestate()!="gamestart")
-        //if (controller.getGamestate()=="gameplay"||controller.getGamestate()=="gameover"){
+        }
+
+
+
+
+    }
+
+    private void playGame() {
         player.update();
         wall.update();
         wall.setDifficulty(player.getScore()/10);
-
         this.updateBullets();
-
+        this.checkCollisions();
+        this.checkCollisionsPlayer();
+    }
+    private void playTuto() {
+        Brick.XSPEED=-2;
+        player.update();
+        wall.update();
+        this.updateBullets();
         this.checkCollisions();
         this.checkCollisionsPlayer();
     }

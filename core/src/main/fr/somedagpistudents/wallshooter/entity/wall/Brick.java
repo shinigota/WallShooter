@@ -5,7 +5,7 @@ import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 public class Brick extends MovableEntity {
     public static final float WIDTH  = 60;
     public static final float HEIGHT = 35;
-    public static final float XSPEED  = -8;
+    public static float XSPEED  = -8;
     public static final float YSPEED = 0;
 
     private float mHealthPoints;
@@ -25,8 +25,8 @@ public class Brick extends MovableEntity {
 
     @Override
     public void update() {
-        this.x += this.xSpeed;
-        this.y += this.ySpeed;
+        this.x += this.XSPEED;
+        this.y += this.YSPEED;
     }
 
     @Override

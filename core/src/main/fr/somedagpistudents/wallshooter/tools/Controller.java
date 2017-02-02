@@ -85,17 +85,17 @@ public class Controller {
 
     public String displayGameStateText(){
 
-        if (gamestate=="gamestart"){
-            strGamestate ="START WALLSHOOTER \n Press R to Start GAME MOTHER FUCKER";
+        if (gamestate.equals("gamestart")){
+            strGamestate ="START WALLSHOOTER \n Press SPACE key to start";
 
         }
-        if (gamestate=="gameplay"){
-            strGamestate ="WALLSHOOTER \n Press start";
+        if (gamestate.equals("gameplay")){
+            strGamestate ="";
 
         }
 
-        if (gamestate=="gameover"){
-            strGamestate ="GAME OVER\nPRESS SPACE.\nYou scored : "+player.getScore();
+        if (gamestate.equals("gameover")){
+            strGamestate ="GAME OVER\nPRESS R.\nYou scored : "+player.getScore();
             player.stop();
 
         }
@@ -121,9 +121,9 @@ public class Controller {
     }
 
     public void decreaseLife(Player player ){
-            if (gamestate=="gameplay"){
+            if (gamestate.equals("gameplay")){
         player.setLives(player.getLives()-1);
-                gamestate="gameover";
+                gamestate.equals("gameover");
             }
     }
     public void update(Player player, ArrayList<Brick> bricks) {
@@ -155,4 +155,11 @@ public class Controller {
     }
 
 
+    public void startTuto() {
+        ///GAMEOVER
+        GameScreen gameScreen = new GameScreen(game,this);
+        game.setScreen(gameScreen);
+        gamestate = "tuto";
+
+    }
 }
