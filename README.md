@@ -20,6 +20,7 @@ Taskboard Framaboard : https://dagpi-wallshooter.framaboard.org/
   java -jar desktop/build/libs/desktop-1.0.jar
 ```
 
+
 ##Gradle usage
 *Creating launchable jar : `gradle desktop:dist`
 *Launch tests : `gradle test`
