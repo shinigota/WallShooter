@@ -12,3 +12,9 @@ Taskboard Framaboard : https://dagpi-wallshooter.framaboard.org/
 *Utilisation du taskboard
 **Priorités : de 1 à 3
 **Complexité : de 1 à 5
+
+# Building and running
+```
+  gradle desktop:dist
+  java -jar desktop/build/libs/desktop-1.0.jar
+```
