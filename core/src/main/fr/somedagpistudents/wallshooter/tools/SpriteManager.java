@@ -16,16 +16,19 @@ import java.util.HashMap;
  */
 public class SpriteManager {
 
-    private final SpriteBatch spriteBatch;
+    private SpriteBatch spriteBatch;
     private final TextureAtlas bricksAtlas;
     private final HashMap<String, Sprite> sprites;
 
-    public SpriteManager(SpriteBatch spriteBatch) {
-        this.spriteBatch = spriteBatch;
+    public SpriteManager() {
         this.bricksAtlas = new TextureAtlas("sprites.txt");
         this.sprites = new HashMap<String, Sprite>();
 
         this.loadSprites();
+    }
+
+    public void setSpriteBatch(SpriteBatch spriteBatch) {
+        this.spriteBatch = spriteBatch;
     }
 
     private void loadSprites() {
@@ -36,6 +39,7 @@ public class SpriteManager {
         loadSprite(SpriteType.BRICK_ORANGE);
         loadSprite(SpriteType.BRICK_GREEN);
         loadSprite(SpriteType.BULLET);
+        loadSprite(SpriteType.TITLE);
     }
 
     private void loadSprite(String spriteType) {
@@ -82,7 +86,7 @@ public class SpriteManager {
         bulletSprite.draw(this.spriteBatch);
     }
 
-    private Sprite get(String spriteType) {
+    public Sprite get(String spriteType) {
         return this.sprites.get(spriteType);
     }
 

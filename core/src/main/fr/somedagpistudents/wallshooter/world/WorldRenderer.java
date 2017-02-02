@@ -23,20 +23,23 @@ import java.util.List;
 
 public class WorldRenderer{
 
+    private WallShooter game;
     private Controller controller;
     private World world;
-
     private OrthographicCamera camera;
 
     private SpriteBatch spriteBatch;
+
     private ShapeRenderer debugShapeRenderer;
     private ShapeRenderer shapeRenderer;
 
-    public BitmapFont font;
-
     private SpriteManager spriteManager;
 
-    public WorldRenderer(World world) {
+    public BitmapFont font;
+
+    public WorldRenderer(World world, WallShooter game) {
+        this.game = game;
+
         this.world = world;
 
         this.camera = new OrthographicCamera(WallShooter.SCREEN_WIDTH, WallShooter.SCREEN_HEIGHT);
@@ -49,7 +52,8 @@ public class WorldRenderer{
 
         this.font = new BitmapFont();
 
-        this.spriteManager = new SpriteManager(this.spriteBatch);
+        this.spriteManager = this.game.getSpriteManager();
+        this.spriteManager.setSpriteBatch(this.spriteBatch);
 
         this.camera.update();
     }

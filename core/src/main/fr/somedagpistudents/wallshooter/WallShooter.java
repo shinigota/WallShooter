@@ -9,6 +9,7 @@ import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.screen.PresentationScreen;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 import fr.somedagpistudents.wallshooter.tools.SoundManager;
+import fr.somedagpistudents.wallshooter.tools.SpriteManager;
 import fr.somedagpistudents.wallshooter.world.InputController;
 import fr.somedagpistudents.wallshooter.world.World;
 import fr.somedagpistudents.wallshooter.world.WorldRenderer;
@@ -18,7 +19,8 @@ public class WallShooter extends Game {
 	public final static int SCREEN_HEIGHT = 720;
 	public static final boolean DEBUG_DEFAULT = true;
 
-	public static SoundManager soundManager;
+	private SoundManager soundManager;
+	private SpriteManager spriteManager;
 
     public static GameScreen gameScreen ;
 
@@ -27,7 +29,10 @@ public class WallShooter extends Game {
 	@Override
 	public void create() {
 		WallShooter.debug = DEBUG_DEFAULT;
-		WallShooter.soundManager = new SoundManager();
+
+		this.soundManager = new SoundManager();
+		this.spriteManager = new SpriteManager();
+
 		Controller controller = new Controller(this);
 		GameScreen gameScreen = new GameScreen(this,controller);
 		this.setScreen(new PresentationScreen(this,controller));
@@ -40,6 +45,15 @@ public class WallShooter extends Game {
 	@Override
 	public void dispose() {
 		super.dispose();
-		WallShooter.soundManager.dispose();
+		this.soundManager.dispose();
+		this.spriteManager.dispose();
+	}
+
+	public SpriteManager getSpriteManager() {
+		return spriteManager;
+	}
+
+	public SoundManager getSoundManager() {
+		return soundManager;
 	}
 }
