@@ -16,7 +16,3 @@ Taskboard Framaboard : https://dagpi-wallshooter.framaboard.org/
 ##Gradle usage
 *Creating launchable jar : `gradle desktop:dist`
 *Launch tests : `gradle test`
-
-sqd
-qsd
-
