@@ -20,9 +20,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
-import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
-
 public class WorldRenderer{
 
     private Controller controller;
@@ -31,6 +28,7 @@ public class WorldRenderer{
     private OrthographicCamera camera;
 
     private SpriteBatch spriteBatch;
+    private ShapeRenderer debugShapeRenderer;
     private ShapeRenderer shapeRenderer;
 
     public BitmapFont font;
@@ -45,6 +43,7 @@ public class WorldRenderer{
         this.camera = new OrthographicCamera(WallShooter.SCREEN_WIDTH, WallShooter.SCREEN_HEIGHT);
         this.spriteBatch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
+        this.debugShapeRenderer = new ShapeRenderer();
 
         this.camera.position.set(0,  0 , 0);
         this.controller= (Controller) world.getController();
@@ -64,7 +63,7 @@ public class WorldRenderer{
 
     public void render() {
         this.clearScreen();
-        this.drawTextures();
+        this.drawGame();
         if (WallShooter.debug) {
             this.drawDebug();
         }
@@ -75,20 +74,33 @@ public class WorldRenderer{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
-    private void drawTextures() {
+    private void drawGame() {
         this.spriteBatch.setProjectionMatrix(this.camera.combined);
         this.spriteBatch.begin();
-
         this.drawBullets();
         this.drawPlayer();
         this.drawBricks();
-
         this.drawHUD();
-        this.debugPlayerPosition();
-
         this.spriteBatch.end();
 
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        this.shapeRenderer.setProjectionMatrix(this.camera.combined);
         this.drawHeatBar();
+        this.shapeRenderer.end();
+    }
+
+    private void drawDebug() {
+        this.spriteBatch.setProjectionMatrix(this.camera.combined);
+        this.spriteBatch.begin();
+        this.debugPlayerPosition();
+        this.spriteBatch.end();
+
+        this.debugShapeRenderer.setProjectionMatrix(this.camera.combined);
+        this.debugShapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        this.debugBricks();
+        this.debugBullets();
+        this.debugPlayer();
+        this.debugShapeRenderer.end();
     }
 
     private void drawBullets() {
@@ -139,7 +151,7 @@ public class WorldRenderer{
     }
 
     private void drawHeatBar(){
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        this.shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
         if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 50){
             this.shapeRenderer.setColor(0, 1, 0, 1);
         }
@@ -151,32 +163,6 @@ public class WorldRenderer{
         }
 
         this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 305, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
-        this.shapeRenderer.end();
-    }
-
-
-    private void drawDebug() {
-        this.shapeRenderer.setProjectionMatrix(this.camera.combined);
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-
-
-        this.debugBricks();
-        this.debugBullets();
-        this.debugPlayer();
-
-
-        this.shapeRenderer.end();
-    }
-
-    private void debugBullets() {
-        List<Bullet> bullets = world.getBullets();
-        Iterator<Bullet> bulletIter = bullets.iterator();
-
-        this.shapeRenderer.setColor(Color.YELLOW);
-        while (bulletIter.hasNext()) {
-            Bullet bullet = bulletIter.next();
-            this.shapeRenderer.rect(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
-        }
     }
 
     private void debugPlayerPosition()    {
@@ -195,10 +181,22 @@ public class WorldRenderer{
         this.font.draw(this.spriteBatch,"x  :  "+str_x,x,y-16);
         this.font.draw(this.spriteBatch,"y  :  "+str_y,x,y);
     }
+
+    private void  debugBullets() {
+        List<Bullet> bullets = world.getBullets();
+        Iterator<Bullet> bulletIter = bullets.iterator();
+
+        this.debugShapeRenderer.setColor(Color.YELLOW);
+        while (bulletIter.hasNext()) {
+            Bullet bullet = bulletIter.next();
+            this.debugShapeRenderer.rect(bullet.getX(), bullet.getY(), bullet.getWidth(), bullet.getHeight());
+        }
+    }
+
     private void debugPlayer() {
         Player p = world.getPlayer();
-        this.shapeRenderer.setColor(Color.BLUE);
-        this.shapeRenderer.rect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
+        this.debugShapeRenderer.setColor(Color.BLUE);
+        this.debugShapeRenderer.rect(p.getX(), p.getY(), p.getWidth(), p.getHeight());
 
     }
 
@@ -211,34 +209,24 @@ public class WorldRenderer{
             Brick brick = brickIter.next();
             int brickLife = Math.round(brick.getBrickLife());
             if(brickLife <= 3){
-                this.shapeRenderer.setColor(Color.RED);
+                this.debugShapeRenderer.setColor(Color.RED);
             }
             else if(brickLife > 3 && brickLife <= 6){
-                    this.shapeRenderer.setColor(Color.ORANGE);
+                    this.debugShapeRenderer.setColor(Color.ORANGE);
                 }
                 else{
-                    this.shapeRenderer.setColor(Color.GREEN);
+                    this.debugShapeRenderer.setColor(Color.GREEN);
                 }
 
-            this.shapeRenderer.rect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
+            this.debugShapeRenderer.rect(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
         }
     }
 
-
     public void dispose() {
         spriteBatch.dispose();
-        shapeRenderer.dispose();
+        debugShapeRenderer.dispose();
         bricksAtlas.dispose();
         font.dispose();
-    }
-
-    public int get_xview(){
-        return (int) this.camera.position.x;
-
-    }
-    public int get_yview(){
-        return (int) this.camera.position.y;
-
     }
 
     public void updateCameraViewport(float width, float height) {

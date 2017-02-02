@@ -3,6 +3,7 @@ package fr.somedagpistudents.wallshooter.entity.player;
 import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
+import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 import java.util.Timer;
@@ -46,7 +47,7 @@ public class Player extends MovableEntity{
             weapon.reduceHeat();
 
         if(this.canShoot()) {
-            weapon.shoot(this.x+ this.width / 2, this.y + this.height / 2);
+            weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
         }
 
         if(time == null){
@@ -95,7 +96,6 @@ public class Player extends MovableEntity{
     }
 
     private boolean canShoot() {
-
         return this.weapon.canShoot() && this.isShooting;
     }
 
