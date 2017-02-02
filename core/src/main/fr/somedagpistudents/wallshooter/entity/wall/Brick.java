@@ -5,12 +5,8 @@ import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 public class Brick extends MovableEntity {
     public static final float WIDTH  = 60;
     public static final float HEIGHT = 35;
-
-
     public static float XSPEED  = -800;
-
     public static float YSPEED = 0;
-
 
     private float mHealthPoints;
     private float mMoneyOnBreak;
@@ -44,7 +40,7 @@ public class Brick extends MovableEntity {
     }
 
     @Override
-    public void onCollision(Object object) {
+    public void onCollision(Object object, float delta) {
 
     }
 }
