@@ -53,7 +53,6 @@ public class Weapon {
         if(canShoot()){
             this.lastShootTimeInMillis = TimeUtils.millis();
             this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
-            WallShooter.soundManager.playSound(Assets.SOUND_LASER);
         }
     }
 
