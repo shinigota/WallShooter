@@ -14,5 +14,9 @@ Taskboard Framaboard : https://dagpi-wallshooter.framaboard.org/
 **Complexité : de 1 à 5
 
 ##Gradle usage
-*Creating jar : `gradle desktop:dist`
+*Creating launchable jar : `gradle desktop:dist`
 *Launch tests : `gradle test`
+
+sqd
+qsd
+
