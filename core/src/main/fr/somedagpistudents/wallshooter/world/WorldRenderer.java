@@ -14,6 +14,7 @@ import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.tools.Controller;
+import fr.somedagpistudents.wallshooter.tools.SpriteManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,9 +34,7 @@ public class WorldRenderer{
 
     public BitmapFont font;
 
-    private TextureAtlas bricksAtlas;
-
-    private HashMap<String, Sprite> sprites;
+    private SpriteManager spriteManager;
 
     public WorldRenderer(World world) {
         this.world = world;
@@ -50,13 +49,7 @@ public class WorldRenderer{
 
         this.font = new BitmapFont();
 
-        this.bricksAtlas = new TextureAtlas("sprites.txt");
-        this.sprites = new HashMap<String, Sprite>();
-        this.sprites.put("player", this.bricksAtlas.createSprite("player"));
-        this.sprites.put("bullet", this.bricksAtlas.createSprite("bullet"));
-        this.sprites.put("neon_red", this.bricksAtlas.createSprite("neon_red"));
-        this.sprites.put("neon_orange", this.bricksAtlas.createSprite("neon_orange"));
-        this.sprites.put("neon_green", this.bricksAtlas.createSprite("neon_green"));
+        this.spriteManager = new SpriteManager(this.spriteBatch);
 
         this.camera.update();
     }
@@ -104,36 +97,19 @@ public class WorldRenderer{
     }
 
     private void drawBullets() {
-        Sprite bulletSprite = this.sprites.get("bullet");
         for(Bullet bullet : this.world.getBullets()) {
-            bulletSprite.setBounds(bullet.getX() - bullet.getWidth(), bullet.getY(), bullet.getWidth() * 2, bullet.getHeight());
-            bulletSprite.draw(spriteBatch);
+            this.spriteManager.drawBullet(bullet);
         }
     }
 
     private void drawPlayer() {
         Player player = world.getPlayer();
-        Sprite playerSprite = this.sprites.get("player");
-        playerSprite.setBounds(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-        playerSprite.draw(spriteBatch);
-
+        this.spriteManager.drawPlayer(player);
     }
 
     private void drawBricks() {
         for (Brick brick : this.world.getBricks()) {
-            float brickLife = brick.getLife();
-            Sprite brickSprite;
-            if (brickLife <= 3){
-                brickSprite = this.sprites.get("neon_red");
-            }
-            else if (brickLife > 3 && brickLife <= 6){
-                brickSprite = this.sprites.get("neon_orange");
-            }
-            else {
-                brickSprite = this.sprites.get("neon_green");
-            }
-            brickSprite.setBounds(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
-            brickSprite.draw(this.spriteBatch);
+            this.spriteManager.drawBrick(brick);
         }
     }
 
@@ -229,10 +205,10 @@ public class WorldRenderer{
     }
 
     public void dispose() {
-        spriteBatch.dispose();
-        debugShapeRenderer.dispose();
-        bricksAtlas.dispose();
-        font.dispose();
+        this.spriteBatch.dispose();
+        this.debugShapeRenderer.dispose();
+        this.spriteManager.dispose();
+        this.font.dispose();
     }
 
     public void updateCameraViewport(float width, float height) {

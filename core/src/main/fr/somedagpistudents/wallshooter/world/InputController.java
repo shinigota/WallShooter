@@ -2,6 +2,7 @@ package fr.somedagpistudents.wallshooter.world;
 
 import com.badlogic.gdx.InputProcessor;
 import fr.somedagpistudents.wallshooter.WallShooter;
+import fr.somedagpistudents.wallshooter.entity.player.HorizontalMovement;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
@@ -45,8 +46,6 @@ public class InputController implements ActionListener, InputProcessor{
         if(mWorld.getController().getGamestate().equals("gameplay")||mWorld.getController().getGamestate().equals("tuto")) {
 
             if (keycode == R) {
-
-
                 System.out.println("Event de relaunch du jeu");
             }
 
@@ -62,6 +61,7 @@ public class InputController implements ActionListener, InputProcessor{
             if (keycode == Q) {
                 this.mKeyMap.put("Q", 1);
                 this.mPlayer.setXSpeed(this.mLateralSpeed * -1);
+                this.mPlayer.setHorizontalMovement(HorizontalMovement.BACKWARD);
             }
 
             if (keycode == S) {
@@ -72,6 +72,7 @@ public class InputController implements ActionListener, InputProcessor{
             if (keycode == D) {
                 this.mKeyMap.put("D", 1);
                 this.mPlayer.setXSpeed(this.mLateralSpeed);
+                this.mPlayer.setHorizontalMovement(HorizontalMovement.FORWARD);
             }
 
             if(keycode == SPACE) {
@@ -120,8 +121,10 @@ public class InputController implements ActionListener, InputProcessor{
                 this.mKeyMap.put("Q", 0);
                 if (this.mKeyMap.get("D") != 1) {
                     this.mPlayer.setXSpeed(0);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.NONE);
                 } else {
                     this.mPlayer.setXSpeed(this.mLateralSpeed);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.FORWARD);
                 }
             }
 
@@ -129,8 +132,10 @@ public class InputController implements ActionListener, InputProcessor{
                 this.mKeyMap.put("D", 0);
                 if (this.mKeyMap.get("Q") != 1) {
                     this.mPlayer.setXSpeed(0);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.NONE);
                 } else {
                     this.mPlayer.setXSpeed(this.mLateralSpeed * -1);
+                    this.mPlayer.setHorizontalMovement(HorizontalMovement.BACKWARD);
                 }
             }
 

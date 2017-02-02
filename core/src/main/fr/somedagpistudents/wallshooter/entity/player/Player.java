@@ -39,9 +39,12 @@ public class Player extends MovableEntity{
     private float speedcolisionYTop;
     private float colisionYTopPos;
 
+    private HorizontalMovement horizontalMovement;
+
     public Player(float x, float y, float width, float height) {
         super(x, y, width, height, 0, 0);
         this.isShooting = false;
+        this.horizontalMovement = HorizontalMovement.NONE;
     }
 
     @Override
@@ -195,4 +198,13 @@ public class Player extends MovableEntity{
         this.isShooting = false;
         this.isDead = true;
     }
+
+    public HorizontalMovement getHorizontalMovement() {
+        return horizontalMovement;
+    }
+
+    public void setHorizontalMovement(HorizontalMovement horizontalMovement) {
+        this.horizontalMovement = horizontalMovement;
+    }
 }
+
