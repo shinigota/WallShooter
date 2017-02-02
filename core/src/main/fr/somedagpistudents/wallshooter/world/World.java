@@ -35,6 +35,19 @@ public class World {
 
     public void update(float delta) {
         controller.update(this.player,wall.getAllBricks());
+<<<<<<< HEAD
+=======
+
+
+        //if(controller.getGamestate()!="gamestart")
+        //if (controller.getGamestate()=="gameplay"||controller.getGamestate()=="gameover"){
+        player.update();
+        wall.update();
+        wall.setDifficulty(player.getScore()/10);
+
+        this.updateBullets();
+
+>>>>>>> 819676721851fa68cb48898a3b73a1e534dac17a
         this.checkCollisions();
         this.checkCollisionsPlayer();
         player.update(delta);

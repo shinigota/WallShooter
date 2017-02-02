@@ -33,11 +33,11 @@ public class BulletTest {
         assertEquals(bullet.getX(), 0, 0);
         assertEquals(bullet.getY(), 10, 0);
 
-        bullet.update();
+        bullet.update(1);
         assertEquals(bullet.getX(), 20, 0);
         assertEquals(bullet.getY(), 10, Bullet.MAX_Y_RAND);
 
-        bullet.update();
+        bullet.update(1);
         assertEquals(bullet.getX(), 40, 0);
         assertEquals(bullet.getY(), 10, Bullet.MAX_Y_RAND);
     }

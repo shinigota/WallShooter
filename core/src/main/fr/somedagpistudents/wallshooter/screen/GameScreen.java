@@ -20,12 +20,17 @@ public class GameScreen implements Screen {
     private Controller controller;
     private InputController inputController;
     private World world;
+    //private Menu menu;
+
     private WorldRenderer worldRenderer;
 
     public GameScreen(WallShooter wallShooter,Controller controller) {
         this.wallShooter = wallShooter;
         this.setController(controller);
+
+        //if controller.getGamestate()==
         World world = new World(controller);
+
         this.setWorld(world);
         this.controller.setWorld(world);
 
