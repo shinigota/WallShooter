@@ -25,6 +25,10 @@ public class SpriteManager {
         this.bricksAtlas = new TextureAtlas("sprites.txt");
         this.sprites = new HashMap<String, Sprite>();
 
+        this.loadSprites();
+    }
+
+    private void loadSprites() {
         loadSprite(SpriteType.PLAYER);
         loadSprite(SpriteType.PLAYER_FORWARD);
         loadSprite(SpriteType.PLAYER_BACKWARD);

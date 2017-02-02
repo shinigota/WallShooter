@@ -1,7 +1,9 @@
 package fr.somedagpistudents.wallshooter.entity.weapon;
 
 import com.badlogic.gdx.utils.TimeUtils;
+import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
+import fr.somedagpistudents.wallshooter.tools.Assets;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -56,6 +58,7 @@ public class Weapon {
         if(this.allowedToShoot){
             this.lastShootTimeInMillis = TimeUtils.millis();
             this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
+            WallShooter.soundManager.playSound(Assets.SOUND_LASER);
         }
 
     }

@@ -1,11 +1,13 @@
 package fr.somedagpistudents.wallshooter.world;
 
+import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
 import fr.somedagpistudents.wallshooter.entity.wall.Wall;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
+import fr.somedagpistudents.wallshooter.tools.Assets;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
@@ -90,6 +92,7 @@ public class World {
                     if(brick.getLife() <= 0){
                         this.wall.removeBrick(brick);
                         this.player.setMoney(this.player.getMoney() + brick.getMoney());
+                        WallShooter.soundManager.playSound(Assets.SOUND_EXPLOSION);
                     }
                     removeBullet = true;
 

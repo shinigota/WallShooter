@@ -4,9 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import fr.somedagpistudents.wallshooter.entity.wall.Wall;
 import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.screen.PresentationScreen;
 import fr.somedagpistudents.wallshooter.tools.Controller;
+import fr.somedagpistudents.wallshooter.tools.SoundManager;
 import fr.somedagpistudents.wallshooter.world.InputController;
 import fr.somedagpistudents.wallshooter.world.World;
 import fr.somedagpistudents.wallshooter.world.WorldRenderer;
@@ -16,14 +18,16 @@ public class WallShooter extends Game {
 	public final static int SCREEN_HEIGHT = 720;
 	public static final boolean DEBUG_DEFAULT = true;
 
+	public static SoundManager soundManager;
+
     public static GameScreen gameScreen ;
 
-    public static boolean debug;
+	public static boolean debug;
 
-    @Override
+	@Override
 	public void create() {
 		WallShooter.debug = DEBUG_DEFAULT;
-
+		WallShooter.soundManager = new SoundManager();
 		Controller controller = new Controller(this);
 		GameScreen gameScreen = new GameScreen(this,controller);
 		this.setScreen(new PresentationScreen(this,controller));
@@ -33,5 +37,9 @@ public class WallShooter extends Game {
 		WallShooter.debug = ! WallShooter.debug;
 	}
 
-
+	@Override
+	public void dispose() {
+		super.dispose();
+		WallShooter.soundManager.dispose();
+	}
 }
