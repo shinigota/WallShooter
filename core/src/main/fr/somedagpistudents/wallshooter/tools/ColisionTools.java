@@ -1,7 +1,5 @@
 package fr.somedagpistudents.wallshooter.tools;
 
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 
@@ -23,8 +21,8 @@ public class ColisionTools {
         boolean colisionBottom = collision(objectA.getY() + objectA.getHeight(), (objectB.getY()+(objectB.getYSpeed()*delta)), (objectB.getHeight()+(objectB.getYSpeed()*delta)));
         if(colisionLeft || colisionRight){
             if(colisionTop || colisionBottom) {
-                objectA.onCollision(objectB);
-                objectB.onCollision(objectA);
+                objectA.onCollision(objectB, delta);
+                objectB.onCollision(objectA, delta);
                 return true;
             }
         }
@@ -38,8 +36,8 @@ public class ColisionTools {
         boolean colisionBottom = collision(objectA.getY() + objectA.getHeight(), objectB.getY(), objectB.getHeight());
         if(colisionLeft || colisionRight){
             if(colisionTop || colisionBottom) {
-                objectA.onCollision(objectB);
-                objectB.onCollision(objectA);
+                objectA.onCollision(objectB, 0);
+                objectB.onCollision(objectA, 0);
                 return true;
             }
         }
@@ -50,19 +48,19 @@ public class ColisionTools {
         return ( posB <= posA) && (posA <= (posB + bWidth));
     }
 
-    public static boolean contactTopBottom(Entity objectA, Entity objectB) {
-        return (objectA.getY()+objectA.getHeight() >= objectB.getY() && objectA.getY()+objectA.getHeight() <= objectB.getY() +10);
+    public static boolean contactTopBottom(MovableEntity objectA, MovableEntity objectB, float delta) {
+        return (objectA.getY()+objectA.getHeight()-objectA.getYSpeed()*delta <= objectB.getY()-objectB.getYSpeed()*delta );
     }
 
-    public static boolean contactBottomTop(Entity objectA, Entity objectB) {
-        return (objectA.getY() <= objectB.getY()+objectB.getHeight() && objectA.getY() >= objectB.getY()+objectB.getHeight() -10);
+    public static boolean contactBottomTop(MovableEntity objectA, MovableEntity objectB, float delta) {
+        return (objectA.getY()-objectA.getYSpeed()*delta >= objectB.getY() + objectB.getHeight()-objectB.getYSpeed()*delta );
     }
 
-    public static boolean contactLeftRight(Entity objectA, Entity objectB) {
-        return ((objectA.getX() <= objectB.getX()+ objectB.getWidth()) && (objectA.getX() >= (objectB.getX()+ objectB.getWidth()-10)));
+    public static boolean contactLeftRight(MovableEntity objectA, MovableEntity objectB, float delta) {
+        return (objectA.getX()-objectA.getXSpeed()*delta >= objectB.getX()+ objectB.getWidth()-objectB.getXSpeed()*delta);
     }
 
-    public static boolean contactRightLeft(Entity objectA, Entity objectB) {
-        return ((objectA.getX() + objectA.getWidth() >= objectB.getX()) && (objectA.getX() + objectA.getWidth() <= (objectB.getX()+10)));
+    public static boolean contactRightLeft(MovableEntity objectA, MovableEntity objectB, float delta) {
+        return (objectA.getX()+objectA.getWidth()-objectA.getXSpeed()*delta <= objectB.getX()-objectB.getXSpeed()*delta);
     }
 }

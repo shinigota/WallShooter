@@ -24,7 +24,7 @@ public class World {
         BrickType easyBrick = new BrickType(3);
         BrickType mediumBrick = new BrickType(6);
         BrickType hardBrick = new BrickType(9);
-        Brick.XSPEED=-300;
+//        Brick.XSPEED=-300;
 
         this.wall = new Wall();
 
@@ -60,7 +60,7 @@ public class World {
         this.checkCollisionsPlayer(delta);
     }
     private void playTuto(float delta) {
-        Brick.XSPEED=-300;
+//        Brick.XSPEED=-300;
 
         this.checkCollisions();
         this.checkCollisionsPlayer(delta);

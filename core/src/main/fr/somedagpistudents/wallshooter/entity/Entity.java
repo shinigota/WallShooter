@@ -23,7 +23,7 @@ public abstract class Entity {
 
     public abstract void update(float delta);
 
-    public abstract void onCollision(Object object);
+    public abstract void onCollision(Object object, float delta);
 
     public float getX() {
         return this.x;

@@ -39,7 +39,7 @@ public class Bullet extends MovableEntity {
     }
 
     @Override
-    public void onCollision(Object object) {
+    public void onCollision(Object object, float delta) {
         
     }
 
