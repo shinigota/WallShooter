@@ -3,6 +3,8 @@ package fr.somedagpistudents.wallshooter.entity.weapon;
 import com.badlogic.gdx.utils.TimeUtils;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -22,6 +24,7 @@ public class Weapon {
     private boolean allowedToShoot;
 
     private float heatPercent;
+    private boolean blockHeatVariation;
 
     private List<Bullet> bullets;
 
@@ -36,6 +39,7 @@ public class Weapon {
         this.damagesPerBullet = DEFAULT_BULLET_DAMAGES;
         this.heatPercent = 0;
         this.allowedToShoot = true;
+        this.blockHeatVariation = false;
     }
 
     public Weapon(long fireRateInMillis, long damagesPerBullet){
@@ -49,34 +53,50 @@ public class Weapon {
         if(this.getHeatPercent() >= 100){
             this.allowedToShoot = false;
         }
-            if(this.allowedToShoot){
-                this.lastShootTimeInMillis = TimeUtils.millis();
-                this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
-            }
+        if(this.allowedToShoot){
+            this.lastShootTimeInMillis = TimeUtils.millis();
+            this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
+        }
 
     }
 
     public void growHeat(){
-        this.heatPercent = this.heatPercent + (float)(this.heatPercent * 0.0084) + (float) 0.05;
-        if(this.heatPercent >= 100){
-            this.heatPercent = 100;
+        if(!this.blockHeatVariation){
+            this.heatPercent = this.heatPercent + (float)(this.heatPercent * 0.0084) + (float) 0.05;
+            this.heatPercent = roundHeat(this.heatPercent);
+            if(this.heatPercent >= 100){
+                this.heatPercent = 100;
+            }
+        }
+        else{
+            this.reduceHeat();
         }
     }
 
     public void reduceHeat(){
         if(!this.allowedToShoot){
+            this.blockHeatVariation = true;
             this.heatPercent = ((float) (this.heatPercent - 0.75));
             if(this.heatPercent <= 5){
                 this.allowedToShoot = true;
+                this.blockHeatVariation = false;
             }
         }
         else{
-            this.heatPercent = ((float) (this.heatPercent - 2));
+            this.heatPercent = (this.heatPercent - 2);
         }
 
         if(this.heatPercent < 0){
             this.heatPercent = 0;
         }
+    }
+
+    public float roundHeat(float heat){
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.FLOOR);
+        Number n = heat;
+        Double d = n.doubleValue();
+        return (float) Float.parseFloat(df.format(d).replace(',','.'));
     }
 
     public Bullet getLastBullet(){
@@ -92,7 +112,7 @@ public class Weapon {
     }
 
     public float getHeatPercent() {
-        return this.heatPercent;
+        return roundHeat(this.heatPercent);
     }
 
     public void setHeatPercent(float newHeatPercent){

@@ -1,10 +1,8 @@
 package fr.somedagpistudents.wallshooter.world;
 
 import com.badlogic.gdx.InputProcessor;
+import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
-import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
-import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
-import fr.somedagpistudents.wallshooter.screen.GameScreen;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.awt.event.ActionEvent;
@@ -27,7 +25,6 @@ public class InputController implements ActionListener, InputProcessor{
     private Map<String, Integer> mKeyMap;
 
     public InputController(World w, int vSpeed, int lSpeed){
-
         this.mWorld = w;
         this.mPlayer = w.getPlayer();
         this.mLateralSpeed = lSpeed;
@@ -77,8 +74,12 @@ public class InputController implements ActionListener, InputProcessor{
                 this.mPlayer.setXSpeed(this.mLateralSpeed);
             }
 
-            if (keycode == SPACE) {
-                this.mPlayer.toggleShoot(true);
+            if(keycode == SPACE) {
+                this.mPlayer.setShooting(true);
+            }
+
+            if(keycode == F1){
+                WallShooter.toggleDebug();
             }
         }else{
             if (mWorld.getController().getGamestate().equals( "gameover" )&& keycode == R)
@@ -134,7 +135,7 @@ public class InputController implements ActionListener, InputProcessor{
             }
 
             if (keycode == SPACE) {
-                this.mPlayer.toggleShoot(false);
+                this.mPlayer.setShooting(false);
             }
             if (keycode == ESCAPE) {
                 exit(0);

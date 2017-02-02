@@ -3,7 +3,6 @@ package fr.somedagpistudents.wallshooter.entity.player;
 import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
-import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 
 import java.util.Timer;
@@ -40,7 +39,7 @@ public class Player extends MovableEntity{
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if(this.isShooting)
             weapon.growHeat();
         else
@@ -56,42 +55,42 @@ public class Player extends MovableEntity{
         if(colisionXRight || colisionXLeft) {
             if(colisionXRight) {
                 colisionXRight = false;
-                if (xSpeed > 0) {
-                    this.x += speedcolisionXRight;
+                if (xSpeed*delta  > 0) {
+                    this.x += (speedcolisionXRight*delta);
                 } else {
-                    this.x += getXSpeed() + speedcolisionXRight;
+                    this.x += ((getXSpeed() + speedcolisionXRight)*delta);
                 }
             }
             if(colisionXLeft) {
                 colisionXLeft = false;
-                if (xSpeed < 0) {
-                    this.x += speedcolisionXLeft;
+                if (xSpeed*delta < 0) {
+                    this.x += (speedcolisionXLeft*delta);
                 }else{
-                    this.x += getXSpeed();
+                    this.x += (getXSpeed()*delta);
                 }
             }
         }else {
-            this.x += getXSpeed();
+            this.x += (getXSpeed()*delta);
         }
         if(colisionYBottom || colisionYTop){
             if(colisionYBottom) {
                 colisionYBottom = false;
-                if (ySpeed < 0) {
-                    this.y += speedcolisionYBottom;
+                if (ySpeed*delta  < 0) {
+                    this.y += (speedcolisionYBottom*delta);
                 } else {
-                    this.y += getYSpeed();
+                    this.y += (getYSpeed()*delta);
                 }
             }
             if(colisionYTop){
                 colisionYTop = false;
-                if (ySpeed > 0) {
-                    this.y += speedcolisionYTop;
+                if (ySpeed*delta  > 0) {
+                    this.y += (speedcolisionYTop*delta);
                 } else {
-                    this.y += getYSpeed();
+                    this.y += (getYSpeed()*delta);
                 }
             }
         }else {
-            this.y += getYSpeed();
+            this.y += (getYSpeed()*delta);
         }
     }
 
@@ -170,11 +169,7 @@ public class Player extends MovableEntity{
         this.lives = lives;
     }
 
-    public void setShooting(boolean shooting) {
-        isShooting = shooting;
-    }
-
-    public void toggleShoot(boolean isShooting) {
+    public void setShooting(boolean isShooting) {
         this.isShooting = isShooting;
     }
 

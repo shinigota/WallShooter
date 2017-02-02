@@ -1,5 +1,6 @@
 package fr.somedagpistudents.wallshooter.world;
 
+import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
@@ -21,7 +22,6 @@ public class World {
     private Controller controller;
 
     public World(Controller controller) {
-
         BrickType easyBrick = new BrickType(3);
         BrickType mediumBrick = new BrickType(6);
         BrickType hardBrick = new BrickType(9);
@@ -35,14 +35,15 @@ public class World {
         this.controller = controller;
     }
 
-    public void update() {
+    public void update(float delta) {
         controller.update(this.player,wall.getAllBricks());
 
+
         if (controller.getGamestate().equals("gameplay")){
-            playGame();
+            playGame(delta);
         }
         else if(controller.getGamestate().equals("tuto")){
-            playTuto();
+            playTuto(delta);
 
         }
 
@@ -51,21 +52,23 @@ public class World {
 
     }
 
-    private void playGame() {
-        player.update();
-        wall.update();
+    private void playGame(float delta) {
+        player.update(delta);
+        wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
-        this.updateBullets();
+        this.updateBullets(delta);
         this.checkCollisions();
         this.checkCollisionsPlayer();
     }
-    private void playTuto() {
+    private void playTuto(float delta) {
         Brick.XSPEED=-2;
-        player.update();
-        wall.update();
-        this.updateBullets();
+
         this.checkCollisions();
         this.checkCollisionsPlayer();
+        player.update(delta);
+        wall.update(delta);
+        wall.setDifficulty(player.getScore()/10);
+        this.updateBullets(delta);
     }
 
     private void checkCollisionsPlayer() {
@@ -102,11 +105,11 @@ public class World {
         }
     }
 
-    private void updateBullets() {
+    private void updateBullets(float delta) {
         Iterator<Bullet> bulletIter = this.getBullets().iterator();
         while (bulletIter.hasNext()) {
             Bullet bullet = bulletIter.next();
-            bullet.update();
+            bullet.update(delta);
         }
     }
 

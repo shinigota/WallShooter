@@ -85,8 +85,10 @@ public class Controller {
 
     public String displayGameStateText(){
 
+
         if (gamestate.equals("gamestart")){
             strGamestate ="START WALLSHOOTER \n Press SPACE key to start";
+
 
         }
         if (gamestate.equals("gameplay")){
@@ -94,8 +96,10 @@ public class Controller {
 
         }
 
-        if (gamestate.equals("gameover")){
-            strGamestate ="GAME OVER\nPRESS R.\nYou scored : "+player.getScore();
+
+        if (gamestate=="gameover"){
+            strGamestate ="GAME OVER\nPRESS R to Restart.\nYou scored : "+player.getScore();
+
             player.stop();
 
         }

@@ -37,7 +37,7 @@ class DummyEntity extends Entity {
     }
 
     @Override
-    public void update() { }
+    public void update(float delta) { }
 
     @Override
     public void onCollision(Object object) {}

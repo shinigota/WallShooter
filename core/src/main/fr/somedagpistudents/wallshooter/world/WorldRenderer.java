@@ -1,21 +1,22 @@
 package fr.somedagpistudents.wallshooter.world;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
-import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class WorldRenderer{
 
     public BitmapFont font;
 
+    private TextureAtlas bricksAtlas;
+
+    private HashMap<String, Sprite> sprites;
+
     public WorldRenderer(World world) {
         this.world = world;
 
@@ -45,13 +50,24 @@ public class WorldRenderer{
         this.controller= (Controller) world.getController();
 
         this.font = new BitmapFont();
+
+        this.bricksAtlas = new TextureAtlas("sprites.txt");
+        this.sprites = new HashMap<String, Sprite>();
+        this.sprites.put("player", this.bricksAtlas.createSprite("player"));
+        this.sprites.put("bullet", this.bricksAtlas.createSprite("bullet"));
+        this.sprites.put("neon_red", this.bricksAtlas.createSprite("neon_red"));
+        this.sprites.put("neon_orange", this.bricksAtlas.createSprite("neon_orange"));
+        this.sprites.put("neon_green", this.bricksAtlas.createSprite("neon_green"));
+
         this.camera.update();
     }
 
     public void render() {
         this.clearScreen();
-        this.drawDebug();
         this.drawTextures();
+        if (WallShooter.debug) {
+            this.drawDebug();
+        }
     }
 
     private void clearScreen() {
@@ -60,22 +76,82 @@ public class WorldRenderer{
     }
 
     private void drawTextures() {
+        this.spriteBatch.setProjectionMatrix(this.camera.combined);
         this.spriteBatch.begin();
+
+        this.drawBullets();
+        this.drawPlayer();
+        this.drawBricks();
 
         this.drawHUD();
         this.debugPlayerPosition();
+
         this.spriteBatch.end();
+
+        this.drawHeatBar();
+    }
+
+    private void drawBullets() {
+        Sprite bulletSprite = this.sprites.get("bullet");
+        for(Bullet bullet : this.world.getBullets()) {
+            bulletSprite.setBounds(bullet.getX() - bullet.getWidth(), bullet.getY(), bullet.getWidth() * 2, bullet.getHeight());
+            bulletSprite.draw(spriteBatch);
+        }
+    }
+
+    private void drawPlayer() {
+        Player player = world.getPlayer();
+        Sprite playerSprite = this.sprites.get("player");
+        playerSprite.setBounds(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+        playerSprite.draw(spriteBatch);
+
+    }
+
+    private void drawBricks() {
+        for (Brick brick : this.world.getBricks()) {
+            float brickLife = brick.getBrickLife();
+            Sprite brickSprite;
+            if (brickLife <= 3){
+                brickSprite = this.sprites.get("neon_red");
+            }
+            else if (brickLife > 3 && brickLife <= 6){
+                brickSprite = this.sprites.get("neon_orange");
+            }
+            else {
+                brickSprite = this.sprites.get("neon_green");
+            }
+            brickSprite.setBounds(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
+            brickSprite.draw(this.spriteBatch);
+        }
     }
 
     private void drawHUD() {
         String str = this.controller.displayGameStateText();
-        if (controller.getGamestate()=="gameplay"){
-        font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x+10, 10);
-        font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x+10+128, 10);
-        font.draw(spriteBatch, "Heat: "+ this.controller.getPlayer().getWeapon().getHeatPercent(), this.camera.position.x+10+256, 10);}
-        else
-            font.draw(spriteBatch, str, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+        if (controller.getGamestate()=="gameplay") {
+            font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x - this.camera.viewportWidth / 2 + 10,  20 - this.camera.viewportHeight / 2);
+            font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
+            font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
+        }
+        else {
+            font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);
+        }
 
+    }
+
+    private void drawHeatBar(){
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 50){
+            this.shapeRenderer.setColor(0, 1, 0, 1);
+        }
+        else if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 80){
+            this.shapeRenderer.setColor(1, 0.35f, 0, 1);
+        }
+        else{
+            this.shapeRenderer.setColor(1, 0, 0, 1);
+        }
+
+        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 305, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
+        this.shapeRenderer.end();
     }
 
 
@@ -116,8 +192,8 @@ public class WorldRenderer{
         String str_y= String.valueOf(y);
 
         //displays position
-        this.font.draw(this.spriteBatch,"x  :  "+str_x,x+SCREEN_WIDTH/2,SCREEN_HEIGHT/2+y-16);
-        this.font.draw(this.spriteBatch,"y  :  "+str_y,x+SCREEN_WIDTH/2,SCREEN_HEIGHT/2+y);
+        this.font.draw(this.spriteBatch,"x  :  "+str_x,x,y-16);
+        this.font.draw(this.spriteBatch,"y  :  "+str_y,x,y);
     }
     private void debugPlayer() {
         Player p = world.getPlayer();
@@ -152,6 +228,7 @@ public class WorldRenderer{
     public void dispose() {
         spriteBatch.dispose();
         shapeRenderer.dispose();
+        bricksAtlas.dispose();
         font.dispose();
     }
 

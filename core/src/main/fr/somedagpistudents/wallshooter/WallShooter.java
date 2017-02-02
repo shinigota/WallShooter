@@ -14,15 +14,24 @@ import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 public class WallShooter extends Game {
 	public final static int SCREEN_WIDTH = 1280;
 	public final static int SCREEN_HEIGHT = 720;
-	public static GameScreen gameScreen ;
-	@Override
+	public static final boolean DEBUG_DEFAULT = true;
+
+    public static GameScreen gameScreen ;
+
+    public static boolean debug;
+
+    @Override
 	public void create() {
+		this.debug = DEBUG_DEFAULT;
 
 		Controller controller = new Controller(this);
 		GameScreen gameScreen = new GameScreen(this,controller);
 		this.setScreen(new PresentationScreen(this,controller));
 	}
 
+	public static void toggleDebug() {
+		WallShooter.debug = ! WallShooter.debug;
+	}
 
 
 }
