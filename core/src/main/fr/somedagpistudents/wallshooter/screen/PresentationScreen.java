@@ -6,13 +6,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.tools.Controller;
+import fr.somedagpistudents.wallshooter.tools.SpriteManager;
+import fr.somedagpistudents.wallshooter.tools.SpriteType;
 
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
@@ -33,6 +32,7 @@ public class PresentationScreen implements Screen {
     private String[] txtButton = new String[]{"PLAY : PRESS SPACE", "TUTO : PRESS T", "OPTION", "QUITTER"};
     private BitmapFont font = new BitmapFont();
     private TextureAtlas bricksAtlas;
+    public static final String TITLE = "title";
 
 
     public PresentationScreen(WallShooter wallShooter,Controller controller){
@@ -53,6 +53,7 @@ public class PresentationScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        this.drawTitle();
         this.drawHUD();
         boolean isPressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
         if(isPressed){
@@ -95,10 +96,11 @@ public class PresentationScreen implements Screen {
     }
 
     public void drawTitle(){
-
-        this.font = new BitmapFont();
-
-        this.bricksAtlas = new TextureAtlas("title.txt");
+        this.bricksAtlas = new TextureAtlas("sprites.txt");
+        Sprite titleSprite = this.bricksAtlas.createSprite(TITLE);
+        spritebatch.begin();
+        titleSprite.draw(spritebatch);
+        spritebatch.end();
     }
 
     public void drawRect(){

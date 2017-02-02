@@ -36,6 +36,7 @@ public class SpriteManager {
         loadSprite(SpriteType.BRICK_ORANGE);
         loadSprite(SpriteType.BRICK_GREEN);
         loadSprite(SpriteType.BULLET);
+        loadSprite(SpriteType.TITLE);
     }
 
     private void loadSprite(String spriteType) {
@@ -82,7 +83,7 @@ public class SpriteManager {
         bulletSprite.draw(this.spriteBatch);
     }
 
-    private Sprite get(String spriteType) {
+    public Sprite get(String spriteType) {
         return this.sprites.get(spriteType);
     }
 
