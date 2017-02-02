@@ -121,7 +121,7 @@ public class WorldRenderer{
 
     private void drawBricks() {
         for (Brick brick : this.world.getBricks()) {
-            float brickLife = brick.getBrickLife();
+            float brickLife = brick.getLife();
             Sprite brickSprite;
             if (brickLife <= 3){
                 brickSprite = this.sprites.get("neon_red");
@@ -142,7 +142,9 @@ public class WorldRenderer{
         if (controller.getGamestate()=="gameplay") {
             font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x - this.camera.viewportWidth / 2 + 10,  20 - this.camera.viewportHeight / 2);
             font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
-            font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
+            font.draw(spriteBatch, "Money: $"+ this.controller.getPlayer().getMoney(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
+
+            font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 420, 20 - this.camera.viewportHeight / 2);
         }
         else {
             font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);
@@ -162,7 +164,7 @@ public class WorldRenderer{
             this.shapeRenderer.setColor(1, 0, 0, 1);
         }
 
-        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 305, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
+        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
     }
 
     private void debugPlayerPosition()    {
@@ -207,7 +209,7 @@ public class WorldRenderer{
 
         while (brickIter.hasNext()) {
             Brick brick = brickIter.next();
-            int brickLife = Math.round(brick.getBrickLife());
+            int brickLife = Math.round(brick.getLife());
             if(brickLife <= 3){
                 this.debugShapeRenderer.setColor(Color.RED);
             }

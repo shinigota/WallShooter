@@ -15,6 +15,7 @@ import fr.somedagpistudents.wallshooter.tools.ColisionTools;
  */
 public class Player extends MovableEntity{
     private int score = 0;
+    private float money = 0;
     private int lives = 0;
     private Weapon weapon;
     private Timer time;
@@ -178,6 +179,14 @@ public class Player extends MovableEntity{
 
     public void setShooting(boolean isShooting) {
         this.isShooting = isShooting;
+    }
+
+    public void setMoney(float money){
+        this.money = money;
+    }
+
+    public float getMoney(){
+        return this.money;
     }
 
     public void stop() {

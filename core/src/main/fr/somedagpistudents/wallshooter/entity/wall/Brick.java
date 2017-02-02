@@ -9,19 +9,27 @@ public class Brick extends MovableEntity {
     public static final float YSPEED = 0;
 
     private float mHealthPoints;
+    private float mMoneyOnBreak;
+
 
     public Brick(float x, float y, BrickType bt) {
         super(x, y, Brick.WIDTH, Brick.HEIGHT,Brick.XSPEED,Brick.YSPEED);
-        this.mHealthPoints = bt.getBrickTypeLife();
+        this.mHealthPoints = bt.getLife();
+        this.mMoneyOnBreak = bt.getMoney();
     }
 
-    public float getBrickLife(){
+    public float getLife(){
         return mHealthPoints;
     }
 
-    public void setBrickLife(float newBrickLife){
+    public void setLife(float newBrickLife){
         this.mHealthPoints = newBrickLife;
     }
+
+    public float getMoney(){
+        return this.mMoneyOnBreak;
+    }
+
 
     @Override
 

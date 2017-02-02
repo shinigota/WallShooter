@@ -76,14 +76,14 @@ public class Weapon {
     public void reduceHeat(){
         if(!this.allowedToShoot){
             this.blockHeatVariation = true;
-            this.heatPercent = ((float) (this.heatPercent - 0.75));
+            this.heatPercent = ((float) (this.heatPercent - 0.42));
             if(this.heatPercent <= 5){
                 this.allowedToShoot = true;
                 this.blockHeatVariation = false;
             }
         }
         else{
-            this.heatPercent = (this.heatPercent - 2);
+            this.heatPercent = (this.heatPercent - 1);
         }
 
         if(this.heatPercent < 0){
