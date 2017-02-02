@@ -71,4 +71,21 @@ public class WeaponTest {
         weapon.reduceHeat();
         assertEquals(0,weapon.getHeatPercent(),0);
     }
+
+    @Test
+    public void heatReducesProperlyWithOverheat(){
+        Weapon weapon = new Weapon();
+        weapon.setHeatPercent(110);
+        weapon.shoot(0,0);
+        weapon.reduceHeat();
+        assertEquals(109.25, weapon.getHeatPercent(),0);
+    }
+
+    @Test
+    public void heatReducesProperlyWithoutOverheat(){
+        Weapon weapon = new Weapon();
+        weapon.setHeatPercent(80);
+        weapon.reduceHeat();
+        assertEquals(78, weapon.getHeatPercent(),0);
+    }
 }
