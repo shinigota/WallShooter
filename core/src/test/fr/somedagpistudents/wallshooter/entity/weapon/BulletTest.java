@@ -33,11 +33,11 @@ public class BulletTest {
         assertEquals(bullet.getX(), 0, 0);
         assertEquals(bullet.getY(), 10, 0);
 
-        bullet.update();
+        bullet.update(1);
         assertEquals(bullet.getX(), 20, 0);
         assertEquals(bullet.getY(), 10, Bullet.MAX_Y_RAND);
 
-        bullet.update();
+        bullet.update(1);
         assertEquals(bullet.getX(), 40, 0);
         assertEquals(bullet.getY(), 10, Bullet.MAX_Y_RAND);
     }
@@ -46,7 +46,7 @@ public class BulletTest {
     public void bulletCollidesWithBrick() throws Exception {
         Bullet bullet;
         Brick brick;
-        BrickType easyBrick = new BrickType(1);
+        BrickType easyBrick = new BrickType(1, 10);
         Weapon weapon = new Weapon();
 
         bullet = new Bullet(0, 0, weapon.getDamagesPerBullet());
@@ -71,7 +71,7 @@ public class BulletTest {
     public void bulletDoesNotCollideWithBrick() throws Exception {
         Bullet bullet;
         Brick brick;
-        BrickType easyBrick = new BrickType(1);
+        BrickType easyBrick = new BrickType(1, 10);
         Weapon weapon = new Weapon();
 
         bullet = new Bullet(-Bullet.SIZE - 1, 0, weapon.getDamagesPerBullet());
@@ -104,10 +104,10 @@ public class BulletTest {
         Weapon weapon = new Weapon();
         weapon.shoot(0,0);
         Bullet bullet = weapon.getLastBullet();
-        BrickType easyBrick = new BrickType(1);
+        BrickType easyBrick = new BrickType(1, 10);
         Brick brick = new Brick(0, 0, easyBrick);
-        brick.setBrickLife(brick.getBrickLife()-bullet.getDamages());
+        brick.setLife(brick.getLife()-bullet.getDamages());
 
-        assertEquals(0, brick.getBrickLife(),0);
+        assertEquals(0, brick.getLife(),0);
     }
 }

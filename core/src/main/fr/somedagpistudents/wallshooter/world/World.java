@@ -1,11 +1,13 @@
 package fr.somedagpistudents.wallshooter.world;
 
+import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
 import fr.somedagpistudents.wallshooter.entity.wall.Wall;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
+import fr.somedagpistudents.wallshooter.tools.Assets;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 
@@ -14,46 +16,66 @@ import java.util.Iterator;
 import java.util.List;
 
 public class World {
+    private WallShooter game;
     private Wall wall;
     private Player player;
     private Controller controller;
 
-    public World(Controller controller) {
+    public World(Controller controller, WallShooter game) {
+        this.game = game;
 
-        BrickType easyBrick = new BrickType(3);
-        BrickType mediumBrick = new BrickType(6);
-        BrickType hardBrick = new BrickType(9);
-
+        this.controller = controller;
 
         this.wall = new Wall();
 
         this.player = new Player(-640, 0, 40, 80);
-
         this.player.setWeapon(new Weapon(100));
-        this.controller = controller;
+
+        BrickType easyBrick = new BrickType(3, 10);
+        BrickType mediumBrick = new BrickType(6, 20);
+        BrickType hardBrick = new BrickType(9, 50);
     }
 
-    public void update() {
+    public void update(float delta) {
         controller.update(this.player,wall.getAllBricks());
 
+        if (controller.getGamestate().equals("gameplay")){
+            playGame(delta);
+        }
+        else if(controller.getGamestate().equals("tuto")){
+            playTuto(delta);
 
-        //if(controller.getGamestate()!="gamestart")
-        //if (controller.getGamestate()=="gameplay"||controller.getGamestate()=="gameover"){
-        player.update();
-        wall.update();
-        wall.setDifficulty(player.getScore()/10);
-
-        this.updateBullets();
-
-        this.checkCollisions();
-        this.checkCollisionsPlayer();
+        }
     }
 
-    private void checkCollisionsPlayer() {
+    private void playGame(float delta) {
+        Brick.XSPEED=-600;
+        if(player.canShoot()) {
+            this.game.getSoundManager().playSound(Assets.SOUND_LASER);
+        }
+        player.update(delta);
+        wall.update(delta);
+        wall.setDifficulty(player.getScore()/10);
+        this.updateBullets(delta);
+        this.checkCollisions();
+        this.checkCollisionsPlayer(delta);
+    }
+    private void playTuto(float delta) {
+        Brick.XSPEED=-200;
+
+        this.checkCollisions();
+        this.checkCollisionsPlayer(delta);
+        player.update(delta);
+        wall.update(delta);
+        wall.setDifficulty(player.getScore()/10);
+        this.updateBullets(delta);
+    }
+
+    private void checkCollisionsPlayer(float delta) {
         Iterator<Brick> brickIterator = wall.getAllBricks().iterator();
         while (brickIterator.hasNext()) {
             Brick brick = brickIterator.next();
-            ColisionTools.contact(player, brick);
+            ColisionTools.contactMoove(player, brick,delta);
         }
     }
 
@@ -68,9 +90,11 @@ public class World {
                 Brick brick = brickIter.next();
 
                 if(ColisionTools.contact(brick, bullet)) {
-                    brick.setBrickLife(brick.getBrickLife() - bullet.getDamages());
-                    if(brick.getBrickLife() <= 0){
+                    brick.setLife(brick.getLife() - bullet.getDamages());
+                    if(brick.getLife() <= 0){
                         this.wall.removeBrick(brick);
+                        this.player.setMoney(this.player.getMoney() + brick.getMoney());
+                        this.game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
                     }
                     removeBullet = true;
 
@@ -83,11 +107,11 @@ public class World {
         }
     }
 
-    private void updateBullets() {
+    private void updateBullets(float delta) {
         Iterator<Bullet> bulletIter = this.getBullets().iterator();
         while (bulletIter.hasNext()) {
             Bullet bullet = bulletIter.next();
-            bullet.update();
+            bullet.update(delta);
         }
     }
 

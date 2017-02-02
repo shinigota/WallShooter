@@ -1,6 +1,5 @@
 package fr.somedagpistudents.wallshooter.entity.player;
 
-import fr.somedagpistudents.wallshooter.entity.Entity;
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
@@ -15,6 +14,7 @@ import fr.somedagpistudents.wallshooter.tools.ColisionTools;
  */
 public class Player extends MovableEntity{
     private int score = 0;
+    private float money = 0;
     private int lives = 0;
     private Weapon weapon;
     private Timer time;
@@ -23,31 +23,38 @@ public class Player extends MovableEntity{
 
 
     private boolean colisionXRight = false;
-
     private float speedcolisionXRight;
+    private float colisionXRightPos;
+
     private boolean colisionXLeft = false;
-
     private float speedcolisionXLeft;
-    private boolean colisionYBottom = false;
+    private float colisionXLeftPos;
 
+    private boolean colisionYBottom = false;
     private float speedcolisionYBottom;
+    private float colisionYBottomPos;
+
     private boolean colisionYTop = false;
     private float speedcolisionYTop;
+    private float colisionYTopPos;
+
+    private HorizontalMovement horizontalMovement;
 
     public Player(float x, float y, float width, float height) {
         super(x, y, width, height, 0, 0);
         this.isShooting = false;
+        this.horizontalMovement = HorizontalMovement.NONE;
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if(this.isShooting)
             weapon.growHeat();
         else
             weapon.reduceHeat();
 
         if(this.canShoot()) {
-            weapon.shoot(this.x+ this.width / 2, this.y + this.height / 2);
+            weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
         }
 
         if(time == null){
@@ -56,72 +63,76 @@ public class Player extends MovableEntity{
         if(colisionXRight || colisionXLeft) {
             if(colisionXRight) {
                 colisionXRight = false;
-                if (xSpeed > 0) {
-                    this.x += speedcolisionXRight;
+                if (xSpeed*delta  > 0) {
+                    this.x = colisionXRightPos;
+                    //this.x += (speedcolisionXRight*delta);
                 } else {
-                    this.x += getXSpeed() + speedcolisionXRight;
+                    this.x += ((getXSpeed() + speedcolisionXRight)*delta);
                 }
             }
             if(colisionXLeft) {
                 colisionXLeft = false;
-                if (xSpeed < 0) {
-                    this.x += speedcolisionXLeft;
+                if (xSpeed*delta < 0) {
+                    this. x = colisionXLeftPos;
+//                    this.x += (speedcolisionXLeft*delta);
                 }else{
-                    this.x += getXSpeed();
+                    this.x += (getXSpeed()*delta);
                 }
             }
         }else {
-            this.x += getXSpeed();
+            this.x += (getXSpeed()*delta);
         }
         if(colisionYBottom || colisionYTop){
             if(colisionYBottom) {
                 colisionYBottom = false;
-                if (ySpeed < 0) {
-                    this.y += speedcolisionYBottom;
+                if (ySpeed*delta  < 0) {
+                    this.y = colisionYBottomPos;
+                    //this.y += (speedcolisionYBottom*delta);
                 } else {
-                    this.y += getYSpeed();
+                    this.y += (getYSpeed()*delta);
                 }
             }
             if(colisionYTop){
                 colisionYTop = false;
-                if (ySpeed > 0) {
-                    this.y += speedcolisionYTop;
+                if (ySpeed*delta  > 0) {
+                    this.y = colisionYTopPos;
+                    //this.y += (speedcolisionYTop*delta);
                 } else {
-                    this.y += getYSpeed();
+                    this.y += (getYSpeed()*delta);
                 }
             }
         }else {
-            this.y += getYSpeed();
+            this.y += (getYSpeed()*delta);
         }
     }
 
-    private boolean canShoot() {
-
+    public boolean canShoot() {
         return this.weapon.canShoot() && this.isShooting;
     }
 
     @Override
-    public void onCollision(Object object) {
+    public void onCollision(Object object, float delta) {
         if(object instanceof Brick){
-            if(ColisionTools.contactRightLeft(this, (Entity) object)){
+            if(ColisionTools.contactRightLeft(this, (MovableEntity) object, delta)){
                 this.colisionXRight = true;
                 this.speedcolisionXRight = ((Brick)object).getXSpeed();
-                this.x = ((Brick) object).getX() - this.width - 1;
+                this.colisionXRightPos = ((Brick) object).getX() - this.width - 1;
+            }else {
+                if (ColisionTools.contactLeftRight(this, (MovableEntity) object, delta)) {
+                    this.colisionXLeft = true;
+                    this.speedcolisionXLeft = ((Brick) object).getXSpeed();
+                    this.colisionXLeftPos = ((Brick) object).getX() + ((Brick) object).getWidth() + 1;
+                }
             }
-            if(ColisionTools.contactLeftRight(this, (Entity) object)){
-                this.colisionXLeft = true;
-                this.speedcolisionXLeft = ((Brick)object).getXSpeed();
-                this.x = ((Brick) object).getX() + ((Brick) object).getWidth() +1;
-            }
-            if(ColisionTools.contactBottomTop(this, (Entity) object)){
+            if(ColisionTools.contactBottomTop(this, (MovableEntity) object, delta)){
                 colisionYBottom = true;
                 speedcolisionYBottom = 0;
-                this.y = ((Brick) object).getY() + ((Brick) object).getHeight() + 1;
+                this.colisionYBottomPos = ((Brick) object).getY() + ((Brick) object).getHeight() + 1;
             }
-            if(ColisionTools.contactTopBottom(this,(Entity) object)){
+            if(ColisionTools.contactTopBottom(this,(MovableEntity) object, delta)){
                 colisionYTop = true;
                 speedcolisionYTop = 0;
-                this.y = ((Brick) object).getY() - this.height - 1;
+                this.colisionYTopPos = ((Brick) object).getY() - this.height - 1;
             }
         }
     }
@@ -170,12 +181,16 @@ public class Player extends MovableEntity{
         this.lives = lives;
     }
 
-    public void setShooting(boolean shooting) {
-        isShooting = shooting;
+    public void setShooting(boolean isShooting) {
+        this.isShooting = isShooting;
     }
 
-    public void toggleShoot(boolean isShooting) {
-        this.isShooting = isShooting;
+    public void setMoney(float money){
+        this.money = money;
+    }
+
+    public float getMoney(){
+        return this.money;
     }
 
     public void stop() {
@@ -184,4 +199,13 @@ public class Player extends MovableEntity{
         this.isShooting = false;
         this.isDead = true;
     }
+
+    public HorizontalMovement getHorizontalMovement() {
+        return horizontalMovement;
+    }
+
+    public void setHorizontalMovement(HorizontalMovement horizontalMovement) {
+        this.horizontalMovement = horizontalMovement;
+    }
 }
+

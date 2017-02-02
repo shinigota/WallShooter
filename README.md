@@ -6,15 +6,21 @@ DAGPI project based on SCRUM method
 * Master : ![Master build status](https://travis-ci.org/DopaSensei/WallShooter.svg?branch=master "Master branch build status")
 * Develop : ![Develop build status](https://travis-ci.org/DopaSensei/WallShooter.svg?branch=develop "Develop branch build status")
 
-## Project Management Tools
+##Project Management Tools
 
 Taskboard Framaboard : https://dagpi-wallshooter.framaboard.org/
 *Utilisation du taskboard
 **Priorités : de 1 à 3
 **Complexité : de 1 à 5
 
+
 # Building and running
 ```
   gradle desktop:dist
   java -jar desktop/build/libs/desktop-1.0.jar
 ```
+
+##Gradle usage
+*Creating launchable jar : `gradle desktop:dist`
+*Launch tests : `gradle test`
+
