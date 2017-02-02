@@ -51,7 +51,6 @@ public class PresentationScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        this.spritebatch.begin();
         this.drawHUD();
         boolean isPressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
         if(isPressed){
@@ -63,9 +62,6 @@ public class PresentationScreen implements Screen {
             this.wallShooter.setScreen(new GameScreen(this.wallShooter, this.controller));
             this.controller.startTuto();
         }
-
-
-        this.spritebatch.end();
 
 
     }
