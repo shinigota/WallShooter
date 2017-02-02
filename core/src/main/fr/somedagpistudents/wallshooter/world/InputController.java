@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.badlogic.gdx.Input.Keys.*;
+import static java.lang.System.exit;
 
 /**
  * Created by dopasensei on 31/01/17.
@@ -131,6 +132,10 @@ public class InputController implements ActionListener, InputProcessor{
             if (keycode == SPACE) {
                 this.mPlayer.toggleShoot(false);
             }
+            if (keycode == ESCAPE) {
+                exit(0);
+            }
+
         }
 
         return false;
