@@ -32,8 +32,7 @@ public class PlayerTest {
         Player player = new Player(0,0,10,10);
         Bonus bonus = new Bonus(0,0,new BonusType(3));
         player.onCollision(bonus,0);
-        player.shoot();
-
+        player.shoot(player.typeBonus);
         bonus = new Bonus(0,0,new BonusType(0));
         player.onCollision(bonus,0);
 

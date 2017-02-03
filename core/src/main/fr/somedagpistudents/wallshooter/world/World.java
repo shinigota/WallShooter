@@ -67,7 +67,7 @@ public class World {
 
         this.checkCollisions();
         this.checkCollisionsPlayer(delta);
-      //  this.checkCollisionsBonusPlayer(delta);
+
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
@@ -81,16 +81,16 @@ public class World {
             ColisionTools.contactMoove(player, brick,delta);
 
         }
-    }
-
-
-        private void checkCollisionsBonusPlayer(float delta) {
         Iterator<Bonus> bonusIterator = this.getAllBonus().iterator();
         while (bonusIterator.hasNext()) {
             Bonus bonus = bonusIterator.next();
-            ColisionTools.contactMoove(player, bonus,delta);
+            if( ColisionTools.contact(player, bonus)==true){
+                bonusIterator.remove();
+            }
         }
+
     }
+
 
 
     private void checkCollisions() {
@@ -108,6 +108,7 @@ public class World {
                         player.setMoney(player.getMoney() + brick.getMoney());
                         game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
                         brick.destroyBrick(wall);
+                        bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(5)));
                     }
                     removeBullet = true;
                 }
@@ -116,7 +117,7 @@ public class World {
             if (removeBullet) {
                 bulletIter.remove();
 
-               // bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(1)));
+
 
             }
         }

@@ -22,6 +22,7 @@ public class Bullet extends MovableEntity {
         super(x, y, size, xSpeed, ySpeed);
         this.setRandomYSpeed();
         this.bulletDamages = bulletDamages;
+
     }
 
     public Bullet(float x, float y, float bulletDamages) {

@@ -61,9 +61,7 @@ public class Player extends MovableEntity{
             weapon.reduceHeat();
 
         if(this.canShoot()) {
-            this.shoot();
-
-
+            this.shoot(this.typeBonus);
 
         }
 
@@ -194,10 +192,11 @@ public class Player extends MovableEntity{
             }
         },1000);
     }
-    public Bullet shoot(){
-        for (int i = 0; i <= this.typeBonus; i++) {
-            return weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
-        }
+    public Bullet shoot(int typeBonus){
+
+            weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12,typeBonus);
+
+
         return null;
     }
 
