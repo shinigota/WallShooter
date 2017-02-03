@@ -22,7 +22,6 @@ public class World {
     private Wall wall;
     private Player player;
     private Controller controller;
-    BrickType easyBrick;
     private ArrayList<Bonus> bonusList;
 
 
@@ -105,14 +104,12 @@ public class World {
                 Brick brick = brickIter.next();
 
                 if(ColisionTools.contact(brick, bullet)) {
-                    brick.setLife(brick.getLife() - bullet.getDamages());
-                    if(brick.getLife() <= 0){
-                        this.wall.removeBrick(brick);
-                        this.player.setMoney(this.player.getMoney() + brick.getMoney());
-                        this.game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
+                    if(brick.hit(bullet) != null){
+                        player.setMoney(player.getMoney() + brick.getMoney());
+                        game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
+                        brick.destroyBrick(wall);
                     }
                     removeBullet = true;
-
                 }
             }
 

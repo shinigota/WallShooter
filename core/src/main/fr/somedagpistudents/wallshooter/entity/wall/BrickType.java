@@ -6,10 +6,12 @@ package fr.somedagpistudents.wallshooter.entity.wall;
 public class BrickType {
     private float mLife;
     private float mMoney;
+    private boolean destructible;
 
-    public BrickType(float brickLife, float brickMoney){
+    public BrickType(float brickLife, float brickMoney, boolean brickDestructible){
         this.mLife = brickLife;
         this.mMoney = brickMoney;
+        this.destructible = brickDestructible;
     }
 
     public float getLife(){
@@ -26,5 +28,9 @@ public class BrickType {
 
     public float getMoney(){
         return this.mMoney;
+    }
+
+    public boolean isDestructible() {
+        return this.destructible;
     }
 }
