@@ -2,16 +2,12 @@ package fr.somedagpistudents.wallshooter.entity.weapon;
 
 import com.badlogic.gdx.utils.TimeUtils;
 import fr.somedagpistudents.wallshooter.WallShooter;
-import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.tools.Assets;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by benjamin on 1/31/17.
@@ -19,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class Weapon {
     public final static long DEFAULT_FIRE_RATE_MILLIS = 500;
     public final static long DEFAULT_BULLET_DAMAGES = 1;
+    public static final float HEAT_REDUCTION_ON_OVERHEAT = 0.42f;
+    public static final float HEAT_REDUCTION_ON_NORMAL_HEAT = 1f;
 
     private long fireRateInMillis;
     private long lastShootTimeInMillis;
@@ -52,15 +50,10 @@ public class Weapon {
     }
 
     public void shoot(float xOrigin, float yOrigin) {
-        if(this.getHeatPercent() >= 100){
-            this.allowedToShoot = false;
-        }
-        if(this.allowedToShoot){
+        if(canShoot()){
             this.lastShootTimeInMillis = TimeUtils.millis();
             this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
-            WallShooter.soundManager.playSound(Assets.SOUND_LASER);
         }
-
     }
 
     public void growHeat(){
@@ -78,19 +71,23 @@ public class Weapon {
 
     public void reduceHeat(){
         if(!this.allowedToShoot){
-            this.blockHeatVariation = true;
-            this.heatPercent = ((float) (this.heatPercent - 0.42));
-            if(this.heatPercent <= 5){
-                this.allowedToShoot = true;
-                this.blockHeatVariation = false;
-            }
+            blockHeatVariation();
         }
         else{
-            this.heatPercent = (this.heatPercent - 1);
+            this.heatPercent = (this.heatPercent - HEAT_REDUCTION_ON_NORMAL_HEAT);
         }
 
         if(this.heatPercent < 0){
             this.heatPercent = 0;
+        }
+    }
+
+    private void blockHeatVariation() {
+        this.blockHeatVariation = true;
+        this.heatPercent = ((float) (this.heatPercent - HEAT_REDUCTION_ON_OVERHEAT));
+        if(this.heatPercent <= 5){
+            this.allowedToShoot = true;
+            this.blockHeatVariation = false;
         }
     }
 
@@ -115,15 +112,21 @@ public class Weapon {
     }
 
     public float getHeatPercent() {
-        return roundHeat(this.heatPercent);
+        return this.heatPercent;
     }
 
     public void setHeatPercent(float newHeatPercent){
-        this.heatPercent = newHeatPercent;
+        this.heatPercent = roundHeat(newHeatPercent);
     }
 
     public boolean canShoot() {
-        return TimeUtils.millis() - this.lastShootTimeInMillis >= this.fireRateInMillis;
+        if(this.heatPercent >= 100){
+            this.allowedToShoot = false;
+        }
+        if(this.allowedToShoot){
+            return TimeUtils.millis() - this.lastShootTimeInMillis >= this.fireRateInMillis;
+        }
+        return false;
     }
 
     public List<Bullet> getBullets() {

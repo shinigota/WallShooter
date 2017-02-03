@@ -14,9 +14,10 @@ public class ControllerTest {
     @Test
     public void worldHasController() throws Exception  {
 
+        WallShooter game = new WallShooter();
         WallShooter wallshooter = new WallShooter();
         Controller controller = new Controller(wallshooter);
-        World world = new World(controller);
+        World world = new World(controller, game);
         assertNotNull(controller);
 
 

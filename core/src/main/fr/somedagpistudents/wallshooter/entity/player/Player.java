@@ -112,7 +112,7 @@ public class Player extends MovableEntity{
         }
     }
 
-    private boolean canShoot() {
+    public boolean canShoot() {
         return this.weapon.canShoot() && this.isShooting;
     }
 

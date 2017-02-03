@@ -24,6 +24,8 @@ public class Controller {
     Player player;
     Timer time;
     int t=0;
+    float gameMoney;
+    boolean moneyUpdated;
 
     public void setWorld(World world) {
         this.world = world;
@@ -33,9 +35,7 @@ public class Controller {
     public Controller(WallShooter game){
         this.gamestate="gamestart";
         this.game=game;
-
-
-
+        this.moneyUpdated = false;
     }
 
 
@@ -59,11 +59,7 @@ public class Controller {
                 player.setXSpeed(0);
             if ((player.getX()<-player.getWidth()-SCREEN_WIDTH/2)) {
                 gamestate = "gameover";
-
-
-
-
-
+                updateGameMoney();
             }
         }
         if ((player.getX()>SCREEN_WIDTH/2-player.getWidth()))
@@ -119,7 +115,6 @@ public class Controller {
         if (gamestate=="gameover"){
             strGamestate ="GAME OVER\nPRESS R to Restart.\nYou scored : "+player.getScore();
             player.stop();
-
         }
 
     return(strGamestate);
@@ -144,10 +139,21 @@ public class Controller {
 
     public void decreaseLife(Player player ){
             if (gamestate.equals("gameplay")){
-        player.setLives(player.getLives()-1);
+                player.setLives(player.getLives()-1);
                 gamestate.equals("gameover");
+
             }
     }
+
+    public void updateGameMoney(){
+        if(!this.moneyUpdated){
+            this.gameMoney = player.getMoney();
+            System.out.println(this.gameMoney);
+            this.moneyUpdated = true;
+        }
+
+    }
+
     public void update(Player player, ArrayList<Brick> bricks) {
         for (Brick brick:bricks        ) {
             //ColisionTools.contact(player,brick);
@@ -173,6 +179,7 @@ public class Controller {
         GameScreen gameScreen = new GameScreen(game,this);
         game.setScreen(gameScreen);
         gamestate = "gameplay";
+        player.setMoney(this.gameMoney);
 
     }
 

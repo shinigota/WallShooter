@@ -24,22 +24,22 @@ import java.util.List;
 
 public class WorldRenderer{
 
+    private WallShooter game;
     private Controller controller;
     private World world;
-
     private OrthographicCamera camera;
 
     private SpriteBatch spriteBatch;
+
     private ShapeRenderer debugShapeRenderer;
     private ShapeRenderer shapeRenderer;
 
-    public BitmapFont font;
-
     private SpriteManager spriteManager;
 
-    public WorldRenderer(World world) {
+    public BitmapFont font;
 
-
+    public WorldRenderer(World world, WallShooter game) {
+        this.game = game;
         this.world = world;
 
         this.camera = new OrthographicCamera(WallShooter.SCREEN_WIDTH, WallShooter.SCREEN_HEIGHT);
@@ -52,7 +52,8 @@ public class WorldRenderer{
         this.controller= (Controller) world.getController();
 
 
-        this.spriteManager = new SpriteManager(this.spriteBatch);
+        this.spriteManager = this.game.getSpriteManager();
+        this.spriteManager.setSpriteBatch(this.spriteBatch);
 
         this.camera.update();
     }
@@ -168,6 +169,10 @@ public class WorldRenderer{
         }
 
         this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
+
+        this.shapeRenderer.end();
+        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, 200, 20);
     }
 
     private void debugPlayerPosition()    {

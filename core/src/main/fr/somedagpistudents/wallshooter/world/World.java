@@ -18,28 +18,29 @@ import java.util.Iterator;
 import java.util.List;
 
 public class World {
+    private WallShooter game;
     private Wall wall;
     private Player player;
     private Controller controller;
     BrickType easyBrick;
     private ArrayList<Bonus> bonusList;
 
-    public World(Controller controller) {
-        BrickType easyBrick = new BrickType(3, 10);
-        BrickType mediumBrick = new BrickType(6, 20);
-        BrickType hardBrick = new BrickType(9, 50);
-        bonusList=new ArrayList<Bonus>() ;
+
+    public World(Controller controller, WallShooter game) {
+        this.game = game;
+            bonusList=new ArrayList<Bonus>() ;
+        this.controller = controller;
+
 
         this.wall = new Wall();
 
         this.player = new Player(-640, 0, 40, 80);
         this.player.setWeapon(new Weapon(100));
-        this.controller = controller;
+
     }
 
     public void update(float delta) {
         controller.update(this.player,wall.getAllBricks());
-
 
         if (controller.getGamestate().equals("gameplay")){
             playGame(delta);
@@ -48,14 +49,13 @@ public class World {
             playTuto(delta);
 
         }
-
-
-
-
     }
 
     private void playGame(float delta) {
         Brick.XSPEED=-600;
+        if(player.canShoot()) {
+            this.game.getSoundManager().playSound(Assets.SOUND_LASER);
+        }
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
@@ -97,7 +97,7 @@ public class World {
                     if(brick.getLife() <= 0){
                         this.wall.removeBrick(brick);
                         this.player.setMoney(this.player.getMoney() + brick.getMoney());
-                        WallShooter.soundManager.playSound(Assets.SOUND_EXPLOSION);
+                        this.game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
                     }
                     removeBullet = true;
 
