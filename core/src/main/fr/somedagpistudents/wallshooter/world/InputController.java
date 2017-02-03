@@ -82,9 +82,16 @@ public class InputController implements ActionListener, InputProcessor{
             if(keycode == F1){
                 WallShooter.toggleDebug();
             }
+
+            if(keycode == M) {
+                System.out.println("Event redirection vers Menu");
+            }
+
         }else{
             if (mWorld.getController().getGamestate().equals( "gameover" )&& keycode == R)
                 mWorld.getController().restart();
+            if (mWorld.getController().getGamestate().equals( "gameover" )&& keycode == M)
+                mWorld.getController().presentation();
             if(mWorld.getController().getGamestate().equals("gamestart") && keycode == R)
                 mWorld.getController().start();
 
