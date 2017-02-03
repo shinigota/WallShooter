@@ -1,5 +1,7 @@
 package fr.somedagpistudents.wallshooter.entity.wall;
 
+import com.badlogic.gdx.math.MathUtils;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,9 +30,8 @@ public class Column {
             pos = generatePosition(MAX_BRICK_IN);
         }
         for(int position: pos ) {
-            BrickType bt = new BrickType(1, 10);
-            int nb = (int) (Math.random() * 10);
-            bt.setLife(nb);
+            BrickType bt = new BrickType((int) (Math.random() * 10), 10, MathUtils.random(1,5) != 3);
+
             this.bricks.add(generateBrick(POSITION_X, position, bt));
         }
     }
