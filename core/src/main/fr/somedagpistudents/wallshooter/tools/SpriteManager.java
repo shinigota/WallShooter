@@ -44,6 +44,7 @@ public class SpriteManager {
         loadSprite(SpriteType.BRICK_BLUE);
         loadSprite(SpriteType.BULLET);
         loadSprite(SpriteType.TITLE);
+        loadSprite(SpriteType.BONUS);
         this.sprites.put(Assets.BACKGROUND, new Sprite(new Texture(Gdx.files.internal(Assets.BACKGROUND))));
     }
 
@@ -88,12 +89,11 @@ public class SpriteManager {
 
 
     public void drawBonus(Bonus bonus) {
-        Sprite brickSprite;
+        Sprite bonusSprite;
 
-
-            brickSprite = this.get(SpriteType.BRICK_RED);
-        this.spriteToEntityBounds(brickSprite, bonus);
-        brickSprite.draw(this.spriteBatch);
+        bonusSprite = this.get(SpriteType.BONUS);
+        this.spriteToEntityBounds(bonusSprite, bonus);
+        bonusSprite.draw(this.spriteBatch);
     }
     
 

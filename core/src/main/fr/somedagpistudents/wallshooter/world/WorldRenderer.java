@@ -76,10 +76,10 @@ public class WorldRenderer{
         this.spriteBatch.setProjectionMatrix(this.camera.combined);
         this.spriteBatch.begin();
         this.drawBackground();
+        this.drawBonuses();
         this.drawBullets();
         this.drawPlayer();
         this.drawBricks();
-        this.drawBonuses();
         this.drawHUD();
         this.spriteBatch.end();
 

@@ -10,4 +10,5 @@ public class SpriteType {
     public static final String PLAYER_FORWARD = "player_forward";
     public static final String PLAYER_BACKWARD = "player_backward";
     public static final String TITLE = "title";
+    public static final String BONUS = "bonus";
 }

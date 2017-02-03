@@ -109,9 +109,9 @@ public class World {
                         game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
                         brick.destroyBrick(wall);
 
-//                        if(MathUtils.random(1,7) == 3){
-//                            bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(MathUtils.random(2, 2 + wall.getDifficulty()))));
-//                        }
+                        if(MathUtils.random(1,7) == 3){
+                            bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(MathUtils.random(2, 2 + wall.getDifficulty()))));
+                        }
 
                     }
                     removeBullet = true;
