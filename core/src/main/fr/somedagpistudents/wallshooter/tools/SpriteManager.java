@@ -1,5 +1,7 @@
 package fr.somedagpistudents.wallshooter.tools;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -41,6 +43,7 @@ public class SpriteManager {
         loadSprite(SpriteType.BRICK_GREEN);
         loadSprite(SpriteType.BULLET);
         loadSprite(SpriteType.TITLE);
+        this.sprites.put(Assets.BACKGROUND, new Sprite(new Texture(Gdx.files.internal(Assets.BACKGROUND))));
     }
 
     private void loadSprite(String spriteType) {
@@ -86,7 +89,7 @@ public class SpriteManager {
 
 
             brickSprite = this.get(SpriteType.BRICK_RED);
-
+        this.spriteToEntityBounds(brickSprite, bonus);
         brickSprite.draw(this.spriteBatch);
     }
     

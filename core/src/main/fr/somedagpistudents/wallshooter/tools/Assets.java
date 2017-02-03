@@ -5,6 +5,7 @@ package fr.somedagpistudents.wallshooter.tools;
  */
 public class Assets {
     public static final String SPRITESHEET = "sprites.txt";
+    public static final String BACKGROUND = "background.png";
     public static final String SOUND_LASER = "laser.wav";
     public static final String SOUND_EXPLOSION = "explosion.wav";
 }

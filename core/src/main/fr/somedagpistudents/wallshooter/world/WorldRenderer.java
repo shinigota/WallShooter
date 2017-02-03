@@ -14,6 +14,7 @@ import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
+import fr.somedagpistudents.wallshooter.tools.Assets;
 import fr.somedagpistudents.wallshooter.tools.Controller;
 import fr.somedagpistudents.wallshooter.tools.SpriteManager;
 
@@ -74,6 +75,7 @@ public class WorldRenderer{
     private void drawGame() {
         this.spriteBatch.setProjectionMatrix(this.camera.combined);
         this.spriteBatch.begin();
+        this.drawBackground();
         this.drawBullets();
         this.drawPlayer();
         this.drawBricks();
@@ -85,6 +87,12 @@ public class WorldRenderer{
         this.shapeRenderer.setProjectionMatrix(this.camera.combined);
         this.drawHeatBar();
         this.shapeRenderer.end();
+    }
+
+    private void drawBackground() {
+        Sprite background = this.spriteManager.get(Assets.BACKGROUND);
+        background.setBounds(- WallShooter.SCREEN_WIDTH / 2, - WallShooter.SCREEN_HEIGHT/ 2, WallShooter.SCREEN_WIDTH, WallShooter.SCREEN_HEIGHT );
+        background.draw(this.spriteBatch);
     }
 
     private void drawDebug() {

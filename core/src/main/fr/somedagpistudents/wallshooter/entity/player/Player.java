@@ -1,6 +1,7 @@
 package fr.somedagpistudents.wallshooter.entity.player;
 
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
+import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
@@ -8,6 +9,8 @@ import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import java.util.Timer;
 import java.util.TimerTask;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
+
+import static fr.somedagpistudents.wallshooter.entity.bonus.Bonus.getTypeBonus;
 
 /**
  * Created by djacques on 30/01/17.
@@ -50,6 +53,7 @@ public class Player extends MovableEntity{
 
     @Override
     public void update(float delta) {
+
         if(this.isShooting)
             weapon.growHeat();
         else
@@ -119,9 +123,20 @@ public class Player extends MovableEntity{
 
     @Override
     public void onCollision(Object object, float delta) {
+
+
+        if(object instanceof Bonus){
+            Bonus bonus = (Bonus) object;
+        this.typeBonus=bonus.getTypeBonus();
+
+
+        }
+
+
         if(object instanceof Brick) {
             boolean contactRL =ColisionTools.contactRightLeft(this, (MovableEntity) object, delta);
             if (contactRL) {
+
                 this.colisionXRight = true;
                 this.speedcolisionXRight = ((Brick) object).getXSpeed();
                 this.colisionXRightPos = ((Brick) object).getX() - this.width - 1;

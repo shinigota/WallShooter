@@ -42,6 +42,11 @@ public class InputController implements ActionListener, InputProcessor{
     public boolean keyDown(int keycode) {
 
         Controller c = (Controller) this.mWorld.getController();
+        if (keycode == ESCAPE) {
+            exit(0);
+        }
+
+
 
         if(mWorld.getController().getGamestate().equals("gameplay")||mWorld.getController().getGamestate().equals("tuto")) {
 
@@ -149,9 +154,7 @@ public class InputController implements ActionListener, InputProcessor{
             if (keycode == SPACE) {
                 this.mPlayer.setShooting(false);
             }
-            if (keycode == ESCAPE) {
-                exit(0);
-            }
+
 
         }
 
