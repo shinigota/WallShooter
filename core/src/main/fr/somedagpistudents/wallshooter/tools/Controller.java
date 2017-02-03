@@ -1,9 +1,11 @@
 package fr.somedagpistudents.wallshooter.tools;
 
+import com.badlogic.gdx.Gdx;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.screen.GameScreen;
+import fr.somedagpistudents.wallshooter.screen.PresentationScreen;
 import fr.somedagpistudents.wallshooter.world.World;
 
 import java.util.ArrayList;
@@ -205,5 +207,9 @@ public class Controller {
 
             }
         },1000);
+    }
+
+    public void presentation() {
+        this.game.setScreen(new PresentationScreen(game,this));
     }
 }

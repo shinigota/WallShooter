@@ -15,6 +15,7 @@ import fr.somedagpistudents.wallshooter.tools.SpriteType;
 
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
+import static java.lang.System.exit;
 
 /**
  * Created by sbonnan on 01/02/17.
@@ -27,9 +28,7 @@ public class PresentationScreen implements Screen {
     private Controller controller;
     private int SIZE_BUTTON_WIDTH = 300;
     private int SIZE_BUTTON_HEIGHT = 100;
-    private int SIZE_TITLE_WIDTH = 600;
-    private int SIZE_TITLE_HEIGHT = 200;
-    private String[] txtButton = new String[]{"PLAY : PRESS SPACE", "TUTO : PRESS T", "OPTION", "QUITTER"};
+    private String[] txtButton = new String[]{"PLAY : press ENTER", "TUTO : press T", "QUITTER : press ECHAP"};
     private BitmapFont font = new BitmapFont();
     private TextureAtlas bricksAtlas;
     public static final String TITLE = "title";
@@ -55,7 +54,7 @@ public class PresentationScreen implements Screen {
     public void render(float delta) {
         this.drawTitle();
         this.drawHUD();
-        boolean isPressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
+        boolean isPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
         if(isPressed){
             this.wallShooter.setScreen(new GameScreen(this.wallShooter, this.controller));
             this.controller.start();
@@ -65,8 +64,10 @@ public class PresentationScreen implements Screen {
             this.wallShooter.setScreen(new GameScreen(this.wallShooter, this.controller));
             this.controller.startTuto();
         }
-
-
+        isPressed = Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
+        if(isPressed){
+            Gdx.app.exit();
+        }
     }
 
     private void drawHUD() {
@@ -80,7 +81,6 @@ public class PresentationScreen implements Screen {
         spritebatch.begin();
         titleSprite.draw(spritebatch);
         spritebatch.end();
-        this.bricksAtlas.dispose();
     }
 
     public void drawRect(){
@@ -149,5 +149,6 @@ public class PresentationScreen implements Screen {
 
     @Override
     public void dispose() {
+        this.bricksAtlas.dispose();
     }
 }
