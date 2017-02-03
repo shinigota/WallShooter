@@ -60,13 +60,13 @@ public class InputController implements ActionListener, InputProcessor{
 
             if (keycode == Q) {
                 this.mKeyMap.put("Q", 1);
-                this.mPlayer.setXSpeed(this.mLateralSpeed * -1);
+                this.mPlayer.setXSpeed(this.mLateralSpeed * -1f);
                 this.mPlayer.setHorizontalMovement(HorizontalMovement.BACKWARD);
             }
 
             if (keycode == S) {
                 this.mKeyMap.put("S", 1);
-                this.mPlayer.setYSpeed(this.mVerticalSpeed * -1);
+                this.mPlayer.setYSpeed(this.mVerticalSpeed * -1f);
             }
 
             if (keycode == D) {

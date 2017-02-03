@@ -50,7 +50,7 @@ public class World {
     }
 
     private void playGame(float delta) {
-        Brick.XSPEED=-600;
+        Brick.XSPEED=-400;
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);

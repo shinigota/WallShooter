@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
 
         this.worldRenderer = new WorldRenderer(this.getWorld());
 
-        this.inputController = new InputController(this.getWorld(),300,300);
+        this.inputController = new InputController(this.getWorld(),400,400);
     }
 
     @Override
