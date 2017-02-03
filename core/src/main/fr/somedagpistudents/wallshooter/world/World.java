@@ -52,7 +52,7 @@ public class World {
     }
 
     private void playGame(float delta) {
-        Brick.XSPEED=-600;
+        //Brick.XSPEED=-800;
         if(player.canShoot()) {
             this.game.getSoundManager().playSound(Assets.SOUND_LASER);
         }

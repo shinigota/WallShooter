@@ -128,20 +128,14 @@ public class WorldRenderer{
 
 
     private void drawHUD() {
-        //sets font to an ugly antialiased scale
-        //dsl :x
-
-
-
-        //search for game state text
 
         String str = this.controller.displayGameStateText();
         //draws HUD
 
         if (controller.getGamestate().equals("gameplay") ){
             font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x - this.camera.viewportWidth / 2 + 10,  20 - this.camera.viewportHeight / 2);
-            font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
-            font.draw(spriteBatch, "Money: $"+ this.controller.getPlayer().getMoney(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
+            //font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
+            //font.draw(spriteBatch, "Money: $"+ this.controller.getPlayer().getMoney(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
 
             font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 420, 20 - this.camera.viewportHeight / 2);
         }

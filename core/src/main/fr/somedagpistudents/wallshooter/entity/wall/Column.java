@@ -15,16 +15,16 @@ public class Column {
     public final static int MAX_NB_BRICK = 16;
     public final static int MAX_BRICK_IN = 8;
     private float posX;
-    private float speedX;
     private ArrayList<Brick> bricks = new ArrayList<Brick>();
 
     public Column(int difficulty) {
         posX = POSITION_X;
-        speedX = Brick.XSPEED;
         Set<Integer> pos;
         if(difficulty < MAX_BRICK_IN) {
+            Brick.XSPEED = -100 * (difficulty+1);
             pos = generatePosition(difficulty);
         }else{
+            Brick.XSPEED = -100 * MAX_BRICK_IN;
             pos = generatePosition(MAX_BRICK_IN);
         }
         for(int position: pos ) {
@@ -77,13 +77,13 @@ public class Column {
     }
 
     public void update(float delta){
-        this.posX += (this.speedX*delta);
+        this.posX += (Brick.XSPEED*delta);
         for(Brick brick: this.bricks){
             brick.update(delta);
         }
     }
 
     public float getSpeedX() {
-        return speedX;
+        return Brick.XSPEED;
     }
 }
