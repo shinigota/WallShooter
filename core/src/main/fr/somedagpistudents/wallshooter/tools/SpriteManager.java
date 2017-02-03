@@ -86,7 +86,7 @@ public class SpriteManager {
 
 
             brickSprite = this.get(SpriteType.BRICK_RED);
-
+        this.spriteToEntityBounds(brickSprite, bonus);
         brickSprite.draw(this.spriteBatch);
     }
     

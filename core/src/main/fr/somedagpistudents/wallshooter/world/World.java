@@ -68,6 +68,7 @@ public class World {
 
         this.checkCollisions();
         this.checkCollisionsPlayer(delta);
+      //  this.checkCollisionsBonusPlayer(delta);
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
@@ -79,8 +80,19 @@ public class World {
         while (brickIterator.hasNext()) {
             Brick brick = brickIterator.next();
             ColisionTools.contactMoove(player, brick,delta);
+
         }
     }
+
+
+        private void checkCollisionsBonusPlayer(float delta) {
+        Iterator<Bonus> bonusIterator = this.getAllBonus().iterator();
+        while (bonusIterator.hasNext()) {
+            Bonus bonus = bonusIterator.next();
+            ColisionTools.contactMoove(player, bonus,delta);
+        }
+    }
+
 
     private void checkCollisions() {
         Iterator<Bullet> bulletIter = this.getBullets().iterator();
@@ -106,7 +118,9 @@ public class World {
 
             if (removeBullet) {
                 bulletIter.remove();
-                bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(1)));
+
+               // bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(1)));
+
             }
         }
     }
@@ -140,6 +154,7 @@ public class World {
     }
 
     public ArrayList<Bonus> getAllBonus() {
+
         return this.bonusList;
     }
 }

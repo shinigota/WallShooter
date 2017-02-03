@@ -8,7 +8,10 @@ public class BonusType {
     private final int type;
 
     public BonusType(int type){
-
         this.type = type;
+    }
+
+    public int getType() {
+        return type;
     }
 }
