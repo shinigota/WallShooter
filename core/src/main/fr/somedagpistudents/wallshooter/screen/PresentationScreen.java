@@ -72,27 +72,6 @@ public class PresentationScreen implements Screen {
     private void drawHUD() {
         this.drawRect();
         this.drawText();
-/*
-        String str = this.
-                controller.
-                displayGameStateText();
-*/
-        //font.draw(spritebatch, strMenu1, txtPosX(),txtPosY(3,3));
-        /*font.draw(spritebatch, strMenu2, txtPosX(),txtPosY(2,3));
-        font.draw(spritebatch, strMenu3, txtPosX(),txtPosY(1,3));
-        int nb = 3;*/
-        /*
-        final int steps = 200;
-        Color rgbColor = new Color();
-        for(int i = 0; i < steps; i++){
-            Color.argb8888ToColor(rgbColor, java.awt.Color.HSBtoRGB(1.0f * i / steps, 1, 1));
-            shaperenderer.rect(490, 360, 50, 50, 300, 50, 1, 1, i * 360 / steps, rgbColor, rgbColor, rgbColor, rgbColor);
-        }
-        */
-
-
-
-
     }
 
     public void drawTitle(){
