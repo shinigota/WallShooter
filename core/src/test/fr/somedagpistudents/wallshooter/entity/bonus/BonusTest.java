@@ -1,14 +1,8 @@
 package fr.somedagpistudents.wallshooter.entity.bonus;
 
-import fr.somedagpistudents.wallshooter.entity.player.Player;
-import fr.somedagpistudents.wallshooter.entity.wall.Brick;
-import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
-import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static fr.somedagpistudents.wallshooter.entity.wall.Brick.XSPEED;
-import static fr.somedagpistudents.wallshooter.entity.wall.Brick.YSPEED;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 

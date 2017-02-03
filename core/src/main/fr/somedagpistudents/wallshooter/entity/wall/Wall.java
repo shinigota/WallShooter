@@ -24,7 +24,7 @@ public class Wall {
         Column column;
         while (columnIterator.hasNext()) {
             column = columnIterator.next();
-            if(column.getPosX() < (Column.POSITION_X*-1)-Brick.WIDTH){
+            if(column.getPosX() < (Column.POSITION_X*-1)-Brick.DEFAULT_WIDTH){
                 columnIterator.remove();
             }else {
                 column.update(delta);
@@ -64,7 +64,7 @@ public class Wall {
     }
 
     public boolean canGenerateColumn() {
-        if(this.columns.get(columns.size()-1).getPosX()+Brick.WIDTH <= Column.POSITION_X-5)
+        if(this.columns.get(columns.size()-1).getPosX()+Brick.DEFAULT_WIDTH <= Column.POSITION_X-5)
         {
             return true;
         }

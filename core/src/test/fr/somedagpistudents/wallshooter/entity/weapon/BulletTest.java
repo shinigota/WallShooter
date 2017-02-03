@@ -2,7 +2,6 @@ package fr.somedagpistudents.wallshooter.entity.weapon;
 
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
-import fr.somedagpistudents.wallshooter.entity.wall.Wall;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
 import org.junit.Assert;
 import org.junit.Test;
@@ -55,15 +54,15 @@ public class BulletTest {
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
-        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, 0, weapon.getDamagesPerBullet());
+        bullet = new Bullet(Brick.DEFAULT_WIDTH - Bullet.SIZE, 0, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
-        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, Brick.HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
+        bullet = new Bullet(Brick.DEFAULT_WIDTH - Bullet.SIZE, Brick.DEFAULT_HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
-        bullet = new Bullet(0, Brick.HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
+        bullet = new Bullet(0, Brick.DEFAULT_HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
     }
@@ -80,15 +79,15 @@ public class BulletTest {
         brick = new Brick(0, 0, easyBrick);
         assertTrue(! ColisionTools.contact(bullet, brick));
 
-//        bullet = new Bullet(Brick.WIDTH, 0);
+//        bullet = new Bullet(Brick.DEFAULT_WIDTH, 0);
 //        brick = new Brick(0, 0);
 //        assertTrue(ColisionTools.contact(bullet, brick));
 //
-//        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, Brick.HEIGHT - Bullet.SIZE);
+//        bullet = new Bullet(Brick.DEFAULT_WIDTH - Bullet.SIZE, Brick.DEFAULT_HEIGHT - Bullet.SIZE);
 //        brick = new Brick(0, 0);
 //        assertTrue(ColisionTools.contact(bullet, brick));
 //
-//        bullet = new Bullet(0, Brick.HEIGHT - Bullet.SIZE);
+//        bullet = new Bullet(0, Brick.DEFAULT_HEIGHT - Bullet.SIZE);
 //        brick = new Brick(0, 0);
 //        assertTrue(ColisionTools.contact(bullet, brick));
     }

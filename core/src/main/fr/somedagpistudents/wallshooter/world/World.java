@@ -3,10 +3,8 @@ package fr.somedagpistudents.wallshooter.world;
 import com.badlogic.gdx.math.MathUtils;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
-import fr.somedagpistudents.wallshooter.entity.bonus.BonusType;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
-import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
 import fr.somedagpistudents.wallshooter.entity.wall.Wall;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
@@ -52,7 +50,7 @@ public class World {
     }
 
     private void playGame(float delta) {
-        //Brick.XSPEED=-800;
+        //Brick.DEFAULT_XSPEED=-800;
         if(player.canShoot()) {
             this.game.getSoundManager().playSound(Assets.SOUND_LASER);
         }
@@ -64,7 +62,7 @@ public class World {
         this.checkCollisionsPlayer(delta);
     }
     private void playTuto(float delta) {
-        Brick.XSPEED=-200;
+        Brick.DEFAULT_XSPEED =-200;
 
         this.checkCollisions();
         this.checkCollisionsPlayer(delta);

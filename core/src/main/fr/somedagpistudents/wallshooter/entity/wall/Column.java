@@ -23,10 +23,10 @@ public class Column {
         posX = POSITION_X;
         Set<Integer> pos;
         if(difficulty < MAX_BRICK_IN) {
-            Brick.XSPEED = -100 * (difficulty+1);
+            Brick.DEFAULT_XSPEED = -100 * (difficulty+1);
             pos = generatePosition(difficulty);
         }else{
-            Brick.XSPEED = -100 * MAX_BRICK_IN;
+            Brick.DEFAULT_XSPEED = -100 * MAX_BRICK_IN;
             pos = generatePosition(MAX_BRICK_IN);
         }
         for(int position: pos ) {
@@ -62,7 +62,7 @@ public class Column {
     }
 
     private Brick generateBrick(int x, int position, BrickType brickType) {
-        return new Brick(x, (position * (Brick.HEIGHT+5))- 340, brickType);
+        return new Brick(x, (position * (Brick.DEFAULT_HEIGHT +5))- 340, brickType);
     }
 
     public float getPosX() {
@@ -78,13 +78,13 @@ public class Column {
     }
 
     public void update(float delta){
-        this.posX += (Brick.XSPEED*delta);
+        this.posX += (Brick.DEFAULT_XSPEED *delta);
         for(Brick brick: this.bricks){
             brick.update(delta);
         }
     }
 
     public float getSpeedX() {
-        return Brick.XSPEED;
+        return Brick.DEFAULT_XSPEED;
     }
 }

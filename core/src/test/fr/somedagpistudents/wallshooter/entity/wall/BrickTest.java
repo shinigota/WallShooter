@@ -45,8 +45,8 @@ public class BrickTest {
     public void BrickIsWellDimensioned() throws Exception  {
         BrickType easyBrick = new BrickType(1, 10, true);
         Brick b = new Brick(5,5,easyBrick);
-        assertEquals(Brick.WIDTH,60,0);
-        assertEquals(Brick.HEIGHT,35,0);
+        assertEquals(Brick.DEFAULT_WIDTH,60,0);
+        assertEquals(Brick.DEFAULT_HEIGHT,35,0);
     }
 
     @Test
