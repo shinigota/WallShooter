@@ -27,7 +27,7 @@ public class WeaponTest {
     public void bulletCreatedOnShoot() throws Exception {
         Weapon weapon = new Weapon();
         assertEquals(weapon.getBullets().size(), 0, 0);
-        weapon.shoot(0, 1);
+        weapon.shoot(0, 1, 1);
         assertEquals(weapon.getBullets().size(), 1, 0);
     }
 
@@ -35,12 +35,12 @@ public class WeaponTest {
     public void canShoot() throws Exception {
         Weapon weapon1 = new Weapon();
         assertTrue(weapon1.canShoot());
-        weapon1.shoot(0, 0);
+        weapon1.shoot(0, 0, 0);
         assertFalse(weapon1.canShoot());
 
         Weapon weapon2 = new Weapon(0);
         assertTrue(weapon2.canShoot());
-        weapon2.shoot(0, 0);
+        weapon2.shoot(0, 0, 0);
         assertTrue(weapon2.canShoot());
     }
 
@@ -77,7 +77,7 @@ public class WeaponTest {
         Weapon weapon = new Weapon();
         float newHealPercent = 110f;
         weapon.setHeatPercent(newHealPercent);
-        weapon.shoot(0,0);
+        weapon.shoot(0,0, 0);
         weapon.reduceHeat();
         assertEquals(newHealPercent - Weapon.HEAT_REDUCTION_ON_OVERHEAT, weapon.getHeatPercent(),0);
     }
