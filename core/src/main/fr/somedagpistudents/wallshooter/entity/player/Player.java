@@ -1,6 +1,7 @@
 package fr.somedagpistudents.wallshooter.entity.player;
 
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
+import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
@@ -8,6 +9,8 @@ import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
 import java.util.Timer;
 import java.util.TimerTask;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
+
+import static fr.somedagpistudents.wallshooter.entity.bonus.Bonus.getTypeBonus;
 
 /**
  * Created by djacques on 30/01/17.
@@ -18,9 +21,9 @@ public class Player extends MovableEntity{
     private int lives = 0;
     private Weapon weapon;
     private Timer time;
-    private boolean isShooting;
+    public boolean isShooting;
     private boolean isDead=false;
-    private int typeBonus=1;
+    public int typeBonus=1;
 
 
 
@@ -45,21 +48,20 @@ public class Player extends MovableEntity{
     public Player(float x, float y, float width, float height) {
         super(x, y, width, height, 0, 0);
         this.isShooting = false;
+        this.setWeapon(new Weapon(100));
         this.horizontalMovement = HorizontalMovement.NONE;
     }
 
     @Override
     public void update(float delta) {
+
         if(this.isShooting)
             weapon.growHeat();
         else
             weapon.reduceHeat();
 
         if(this.canShoot()) {
-            for (int i = 0; i < typeBonus; i++) {
-                weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
-            }
-
+            this.shoot(this.typeBonus);
 
         }
 
@@ -119,9 +121,20 @@ public class Player extends MovableEntity{
 
     @Override
     public void onCollision(Object object, float delta) {
+
+
+        if(object instanceof Bonus){
+            Bonus bonus = (Bonus) object;
+        this.typeBonus=bonus.getTypeBonus();
+
+
+        }
+
+
         if(object instanceof Brick) {
             boolean contactRL =ColisionTools.contactRightLeft(this, (MovableEntity) object, delta);
             if (contactRL) {
+
                 this.colisionXRight = true;
                 this.speedcolisionXRight = ((Brick) object).getXSpeed();
                 this.colisionXRightPos = ((Brick) object).getX() - this.width - 1;
@@ -178,6 +191,13 @@ public class Player extends MovableEntity{
                 }
             }
         },1000);
+    }
+    public Bullet shoot(int typeBonus){
+
+            weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12,typeBonus);
+
+
+        return null;
     }
 
     public void setYSpeed(float y){

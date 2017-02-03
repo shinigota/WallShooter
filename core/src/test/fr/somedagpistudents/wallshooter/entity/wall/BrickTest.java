@@ -17,14 +17,14 @@ public class BrickTest {
 
     @Test
     public void BrickIsCreated() throws Exception  {
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Brick b = new Brick(5,5,easyBrick);
         assertNotNull(b);
     }
 
     @Test
     public void BrickHasGoodCoordinates() throws Exception  {
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Brick b = new Brick(5,5,easyBrick);
         assertEquals(5,b.getX(),0);
         assertEquals(5,b.getY(),0);
@@ -32,7 +32,7 @@ public class BrickTest {
 
     @Test
     public void BrickMovesProperly() throws Exception  {
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Brick b = new Brick(5,5,easyBrick);
 
         b.update(1);
@@ -43,23 +43,30 @@ public class BrickTest {
 
     @Test
     public void BrickIsWellDimensioned() throws Exception  {
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Brick b = new Brick(5,5,easyBrick);
-        assertEquals(Brick.WIDTH,60,0);
-        assertEquals(Brick.HEIGHT,35,0);
+        assertEquals(Brick.DEFAULT_WIDTH,60,0);
+        assertEquals(Brick.DEFAULT_HEIGHT,35,0);
     }
 
     @Test
     public void BrickHasCorrectLife() throws Exception{
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Brick b = new Brick(5,5,easyBrick);
         assertEquals(1,b.getLife(),0);
     }
 
     @Test
     public void BrickHasCorrectMoney() throws Exception{
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Brick b = new Brick(5,5,easyBrick);
         assertEquals(10,b.getMoney(),0);
     }
+    @Test
+    public void BrickIndestructible() throws Exception{
+        BrickType indestructibleBrick = new BrickType(1, 10, false);
+        Brick b = new Brick(5,5,indestructibleBrick);
+        assertEquals(false,b.isDestructible());
+    }
+
 }

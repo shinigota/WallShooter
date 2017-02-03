@@ -3,6 +3,7 @@ package fr.somedagpistudents.wallshooter.entity.weapon;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
 import fr.somedagpistudents.wallshooter.tools.ColisionTools;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -46,22 +47,22 @@ public class BulletTest {
     public void bulletCollidesWithBrick() throws Exception {
         Bullet bullet;
         Brick brick;
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Weapon weapon = new Weapon();
 
         bullet = new Bullet(0, 0, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
-        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, 0, weapon.getDamagesPerBullet());
+        bullet = new Bullet(Brick.DEFAULT_WIDTH - Bullet.SIZE, 0, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
-        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, Brick.HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
+        bullet = new Bullet(Brick.DEFAULT_WIDTH - Bullet.SIZE, Brick.DEFAULT_HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
 
-        bullet = new Bullet(0, Brick.HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
+        bullet = new Bullet(0, Brick.DEFAULT_HEIGHT - Bullet.SIZE, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(ColisionTools.contact(bullet, brick));
     }
@@ -71,22 +72,22 @@ public class BulletTest {
     public void bulletDoesNotCollideWithBrick() throws Exception {
         Bullet bullet;
         Brick brick;
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Weapon weapon = new Weapon();
 
         bullet = new Bullet(-Bullet.SIZE - 1, 0, weapon.getDamagesPerBullet());
         brick = new Brick(0, 0, easyBrick);
         assertTrue(! ColisionTools.contact(bullet, brick));
 
-//        bullet = new Bullet(Brick.WIDTH, 0);
+//        bullet = new Bullet(Brick.DEFAULT_WIDTH, 0);
 //        brick = new Brick(0, 0);
 //        assertTrue(ColisionTools.contact(bullet, brick));
 //
-//        bullet = new Bullet(Brick.WIDTH - Bullet.SIZE, Brick.HEIGHT - Bullet.SIZE);
+//        bullet = new Bullet(Brick.DEFAULT_WIDTH - Bullet.SIZE, Brick.DEFAULT_HEIGHT - Bullet.SIZE);
 //        brick = new Brick(0, 0);
 //        assertTrue(ColisionTools.contact(bullet, brick));
 //
-//        bullet = new Bullet(0, Brick.HEIGHT - Bullet.SIZE);
+//        bullet = new Bullet(0, Brick.DEFAULT_HEIGHT - Bullet.SIZE);
 //        brick = new Brick(0, 0);
 //        assertTrue(ColisionTools.contact(bullet, brick));
     }
@@ -104,10 +105,40 @@ public class BulletTest {
         Weapon weapon = new Weapon();
         weapon.shoot(0,0);
         Bullet bullet = weapon.getLastBullet();
-        BrickType easyBrick = new BrickType(1, 10);
+        BrickType easyBrick = new BrickType(1, 10, true);
         Brick brick = new Brick(0, 0, easyBrick);
         brick.setLife(brick.getLife()-bullet.getDamages());
 
         assertEquals(0, brick.getLife(),0);
     }
+
+    @Test
+    public void bulletDoesntDestroyIndestructibleBrick() throws Exception {
+        Bullet bullet = new Bullet(0, 0, 1);
+        BrickType brickType = new BrickType(2, 20, false);
+        Brick brick = new Brick(0, 0, brickType);
+
+        assertTrue(ColisionTools.contact(bullet,brick));
+        assertEquals(2, brick.getLife(),0);
+        Assert.assertNull(brick.hit(bullet));
+        assertEquals(2, brick.getLife(),0);
+
+    }
+
+    @Test
+    public void bulletDestroyDestructibleBrick() throws Exception {
+        Bullet bullet = new Bullet(0, 0, 1);
+        BrickType brickType = new BrickType(2, 20, true);
+        Brick brick = new Brick(0, 0, brickType);
+
+        assertTrue(ColisionTools.contact(bullet,brick));
+        assertEquals(2, brick.getLife(),0);
+        Assert.assertNull(brick.hit(bullet));
+        assertEquals(1, brick.getLife(),0);
+
+        assertTrue(ColisionTools.contact(bullet,brick));
+        Assert.assertNotNull(brick.hit(bullet));
+        assertEquals(0, brick.getLife(),0);
+    }
+
 }

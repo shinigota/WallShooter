@@ -11,6 +11,7 @@ public class ColisionTools {
         return collision(objectA,objectB) || collision(objectB,objectA);
     }
     public static boolean contactMoove(MovableEntity objectA, MovableEntity objectB, float delta){
+
         return collision(objectA,objectB,delta) || collision(objectB,objectA,delta);
     }
 
@@ -34,11 +35,14 @@ public class ColisionTools {
         boolean colisionRight = collision(objectA.getX() + objectA.getWidth(), objectB.getX(), objectB.getWidth());
         boolean colisionTop = collision(objectA.getY(), objectB.getY(), objectB.getHeight());
         boolean colisionBottom = collision(objectA.getY() + objectA.getHeight(), objectB.getY(), objectB.getHeight());
+
         if(colisionLeft || colisionRight){
             if(colisionTop || colisionBottom) {
                 objectA.onCollision(objectB, 0);
                 objectB.onCollision(objectA, 0);
+
                 return true;
+
             }
         }
         return  false;

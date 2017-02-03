@@ -1,60 +1,81 @@
 sprites.png
-size: 1808, 1150
+size: 1608, 1500
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-bullet
+blackhole
   rotate: false
   xy: 0, 0
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+bonus
+  rotate: false
+  xy: 35, 0
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+bullet
+  rotate: false
+  xy: 70, 0
   size: 200, 100
   orig: 200, 100
   offset: 0, 0
   index: -1
+neon_blue
+  rotate: false
+  xy: 1008, 800
+  size: 600, 350
+  orig: 600, 350
+  offset: 0, 0
+  index: -1
 neon_green
   rotate: false
-  xy: 600, 800
+  xy: 600, 1150
   size: 600, 350
   orig: 600, 350
   offset: 0, 0
   index: -1
 neon_orange
   rotate: false
-  xy: 1200, 800
+  xy: 0, 1150
   size: 600, 350
   orig: 600, 350
   offset: 0, 0
   index: -1
 neon_red
   rotate: false
-  xy: 0, 800
+  xy: 408, 800
   size: 600, 350
   orig: 600, 350
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 1000, 0
+  xy: 1070, 0
   size: 400, 800
   orig: 400, 800
   offset: 0, 0
   index: -1
 player_backward
   rotate: false
-  xy: 600, 0
+  xy: 270, 0
   size: 400, 800
   orig: 400, 800
   offset: 0, 0
   index: -1
 player_forward
   rotate: false
-  xy: 200, 0
+  xy: 670, 0
   size: 400, 800
   orig: 400, 800
   offset: 0, 0
   index: -1
 title
   rotate: false
-  xy: 1400, 0
+  xy: 0, 800
   size: 408, 54
   orig: 408, 54
   offset: 0, 0

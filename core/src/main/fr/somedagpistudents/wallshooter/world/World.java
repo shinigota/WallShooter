@@ -1,11 +1,11 @@
 package fr.somedagpistudents.wallshooter.world;
 
+import com.badlogic.gdx.math.MathUtils;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.bonus.BonusType;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
-import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
 import fr.somedagpistudents.wallshooter.entity.wall.Wall;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
 import fr.somedagpistudents.wallshooter.entity.weapon.Weapon;
@@ -22,7 +22,6 @@ public class World {
     private Wall wall;
     private Player player;
     private Controller controller;
-    BrickType easyBrick;
     private ArrayList<Bonus> bonusList;
 
 
@@ -52,7 +51,7 @@ public class World {
     }
 
     private void playGame(float delta) {
-        //Brick.XSPEED=-800;
+        //Brick.DEFAULT_XSPEED=-800;
         if(player.canShoot()) {
             this.game.getSoundManager().playSound(Assets.SOUND_LASER);
         }
@@ -64,10 +63,11 @@ public class World {
         this.checkCollisionsPlayer(delta);
     }
     private void playTuto(float delta) {
-        Brick.XSPEED=-200;
+        Brick.DEFAULT_XSPEED =-200;
 
         this.checkCollisions();
         this.checkCollisionsPlayer(delta);
+
         player.update(delta);
         wall.update(delta);
         wall.setDifficulty(player.getScore()/10);
@@ -79,8 +79,19 @@ public class World {
         while (brickIterator.hasNext()) {
             Brick brick = brickIterator.next();
             ColisionTools.contactMoove(player, brick,delta);
+
         }
+        Iterator<Bonus> bonusIterator = this.getAllBonus().iterator();
+        while (bonusIterator.hasNext()) {
+            Bonus bonus = bonusIterator.next();
+            if( ColisionTools.contact(player, bonus)==true){
+                bonusIterator.remove();
+            }
+        }
+
     }
+
+
 
     private void checkCollisions() {
         Iterator<Bullet> bulletIter = this.getBullets().iterator();
@@ -93,20 +104,23 @@ public class World {
                 Brick brick = brickIter.next();
 
                 if(ColisionTools.contact(brick, bullet)) {
-                    brick.setLife(brick.getLife() - bullet.getDamages());
-                    if(brick.getLife() <= 0){
-                        this.wall.removeBrick(brick);
-                        this.player.setMoney(this.player.getMoney() + brick.getMoney());
-                        this.game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
+                    if(brick.hit(bullet) != null){
+                        player.setMoney(player.getMoney() + brick.getMoney());
+                        game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
+                        brick.destroyBrick(wall);
+
+//                        if(MathUtils.random(1,7) == 3){
+//                            bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(MathUtils.random(2, 2 + wall.getDifficulty()))));
+//                        }
+
                     }
                     removeBullet = true;
-
                 }
             }
 
             if (removeBullet) {
                 bulletIter.remove();
-                bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(1)));
+
             }
         }
     }
@@ -140,6 +154,7 @@ public class World {
     }
 
     public ArrayList<Bonus> getAllBonus() {
+
         return this.bonusList;
     }
 }

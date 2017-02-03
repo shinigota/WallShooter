@@ -1,16 +1,13 @@
 package fr.somedagpistudents.wallshooter.entity.wall;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Matcher;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -47,7 +44,7 @@ public class ColumnTest {
     @Test
     public void columnSpeedX() throws Exception {
         Column column = new Column(2);
-        assertEquals(column.getSpeedX(), Brick.XSPEED, 0);
+        assertEquals(column.getSpeedX(), Brick.DEFAULT_XSPEED, 0);
     }
 
     @Test

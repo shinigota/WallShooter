@@ -41,6 +41,7 @@ public class SpriteManager {
         loadSprite(SpriteType.BRICK_RED);
         loadSprite(SpriteType.BRICK_ORANGE);
         loadSprite(SpriteType.BRICK_GREEN);
+        loadSprite(SpriteType.BRICK_BLUE);
         loadSprite(SpriteType.BULLET);
         loadSprite(SpriteType.TITLE);
         this.sprites.put(Assets.BACKGROUND, new Sprite(new Texture(Gdx.files.internal(Assets.BACKGROUND))));
@@ -68,15 +69,17 @@ public class SpriteManager {
     public void drawBrick(Brick brick) {
         Sprite brickSprite;
 
-        float brickLife = brick.getLife();
-        if (brickLife <= 3){
-            brickSprite = this.get(SpriteType.BRICK_RED);
-        }
-        else if (brickLife > 3 && brickLife <= 6){
-            brickSprite = this.get(SpriteType.BRICK_ORANGE);
-        }
-        else {
-            brickSprite = this.get(SpriteType.BRICK_GREEN);
+        if(!brick.isDestructible()) {
+            brickSprite = this.get(SpriteType.BRICK_BLUE);
+        } else {
+            float brickLife = brick.getLife();
+            if (brickLife <= 3){
+                brickSprite = this.get(SpriteType.BRICK_RED);
+            } else if (brickLife > 3 && brickLife <= 6){
+                brickSprite = this.get(SpriteType.BRICK_ORANGE);
+            } else {
+                brickSprite = this.get(SpriteType.BRICK_GREEN);
+            }
         }
 
         this.spriteToEntityBounds(brickSprite, brick);
@@ -89,7 +92,7 @@ public class SpriteManager {
 
 
             brickSprite = this.get(SpriteType.BRICK_RED);
-
+        this.spriteToEntityBounds(brickSprite, bonus);
         brickSprite.draw(this.spriteBatch);
     }
     

@@ -1,39 +1,38 @@
 package fr.somedagpistudents.wallshooter.entity.bonus;
 
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
-import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
-import fr.somedagpistudents.wallshooter.entity.wall.BrickType.*;
 
 import fr.somedagpistudents.wallshooter.entity.MovableEntity;
 
-import static fr.somedagpistudents.wallshooter.entity.wall.Brick.XSPEED;
-import static fr.somedagpistudents.wallshooter.entity.wall.Brick.YSPEED;
+import static fr.somedagpistudents.wallshooter.entity.wall.Brick.DEFAULT_XSPEED;
+import static fr.somedagpistudents.wallshooter.entity.wall.Brick.DEFAULT_YSPEED;
 
 public class Bonus extends MovableEntity {
-    public static final float WIDTH  = 60;
-    public static final float HEIGHT = 35;
-
+    public static final float DEFAULT_WIDTH = 60;
+    public static final float DEFAULT_HEIGHT = 35;
+    private static int typeBonus;
 
 
     public static int getTypeBonus() {
         return typeBonus;
     }
 
-    public static int typeBonus=2;
-
-
-
     public Bonus(float x, float y, BonusType bt) {
-        super(x, y, Brick.WIDTH, Brick.HEIGHT, XSPEED, YSPEED);
+        super(x, y, Brick.DEFAULT_WIDTH, Brick.DEFAULT_HEIGHT, DEFAULT_XSPEED, DEFAULT_YSPEED);
+        this.setTypeBonus(bt.getType());
 
+    }
+
+    public static void setTypeBonus(int typeBonus) {
+        Bonus.typeBonus = typeBonus;
     }
 
 
     @Override
 
     public void update(float delta) {
-        this.x += (XSPEED* delta);
-        this.y += (YSPEED* delta);
+        this.x += (DEFAULT_XSPEED * delta);
+        this.y += (DEFAULT_YSPEED * delta);
 
     }
 
