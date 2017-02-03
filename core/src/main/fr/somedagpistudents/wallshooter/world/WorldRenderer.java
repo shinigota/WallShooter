@@ -151,22 +151,24 @@ public class WorldRenderer{
     }
 
     private void drawHeatBar(){
-        this.shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
-        if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 50){
-            this.shapeRenderer.setColor(0, 1, 0, 1);
-        }
-        else if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 80){
-            this.shapeRenderer.setColor(1, 0.35f, 0, 1);
-        }
-        else{
-            this.shapeRenderer.setColor(1, 0, 0, 1);
-        }
+        if(!this.world.getController().getGamestate().equals("gameover")){
+            this.shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+            if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 50){
+                this.shapeRenderer.setColor(0, 1, 0, 1);
+            }
+            else if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 80){
+                this.shapeRenderer.setColor(1, 0.35f, 0, 1);
+            }
+            else{
+                this.shapeRenderer.setColor(1, 0, 0, 1);
+            }
 
-        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
+            this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
 
-        this.shapeRenderer.end();
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, 200, 20);
+            this.shapeRenderer.end();
+            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, 200, 20);
+        }
     }
 
     private void debugPlayerPosition()    {
