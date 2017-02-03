@@ -17,7 +17,7 @@ import fr.somedagpistudents.wallshooter.world.WorldRenderer;
 public class WallShooter extends Game {
 	public final static int SCREEN_WIDTH = 1280;
 	public final static int SCREEN_HEIGHT = 720;
-	public static final boolean DEBUG_DEFAULT = true;
+	public static final boolean DEBUG_DEFAULT = false;
 
 	private SoundManager soundManager;
 	private SpriteManager spriteManager;
