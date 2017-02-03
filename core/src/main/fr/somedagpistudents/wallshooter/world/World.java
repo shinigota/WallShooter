@@ -1,6 +1,8 @@
 package fr.somedagpistudents.wallshooter.world;
 
 import fr.somedagpistudents.wallshooter.WallShooter;
+import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
+import fr.somedagpistudents.wallshooter.entity.bonus.BonusType;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
@@ -19,11 +21,14 @@ public class World {
     private Wall wall;
     private Player player;
     private Controller controller;
+    BrickType easyBrick;
+    private ArrayList<Bonus> bonusList;
 
     public World(Controller controller) {
         BrickType easyBrick = new BrickType(3, 10);
         BrickType mediumBrick = new BrickType(6, 20);
         BrickType hardBrick = new BrickType(9, 50);
+        bonusList=new ArrayList<Bonus>() ;
 
         this.wall = new Wall();
 
@@ -101,6 +106,7 @@ public class World {
 
             if (removeBullet) {
                 bulletIter.remove();
+                bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(1)));
             }
         }
     }
@@ -131,5 +137,9 @@ public class World {
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public ArrayList<Bonus> getAllBonus() {
+        return this.bonusList;
     }
 }

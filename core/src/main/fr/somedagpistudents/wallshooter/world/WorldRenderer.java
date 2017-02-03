@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
+import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
@@ -37,6 +38,8 @@ public class WorldRenderer{
     private SpriteManager spriteManager;
 
     public WorldRenderer(World world) {
+
+
         this.world = world;
 
         this.camera = new OrthographicCamera(WallShooter.SCREEN_WIDTH, WallShooter.SCREEN_HEIGHT);
@@ -45,9 +48,9 @@ public class WorldRenderer{
         this.debugShapeRenderer = new ShapeRenderer();
 
         this.camera.position.set(0,  0 , 0);
+        this.font = new BitmapFont();
         this.controller= (Controller) world.getController();
 
-        this.font = new BitmapFont();
 
         this.spriteManager = new SpriteManager(this.spriteBatch);
 
@@ -73,6 +76,7 @@ public class WorldRenderer{
         this.drawBullets();
         this.drawPlayer();
         this.drawBricks();
+        this.drawBonuses();
         this.drawHUD();
         this.spriteBatch.end();
 
@@ -111,10 +115,28 @@ public class WorldRenderer{
         for (Brick brick : this.world.getBricks()) {
             this.spriteManager.drawBrick(brick);
         }
+
+
+    }
+    private void drawBonuses() {
+        for (Bonus bonus : this.world.getAllBonus()) {
+            this.spriteManager.drawBonus(bonus);
+        }
+
     }
 
+
     private void drawHUD() {
+        //sets font to an ugly antialiased scale
+        //dsl :x
+
+
+
+        //search for game state text
+
         String str = this.controller.displayGameStateText();
+        //draws HUD
+
         if (controller.getGamestate().equals("gameplay") ){
             font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x - this.camera.viewportWidth / 2 + 10,  20 - this.camera.viewportHeight / 2);
             font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
@@ -123,8 +145,9 @@ public class WorldRenderer{
             font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 420, 20 - this.camera.viewportHeight / 2);
         }
         else
+            //draws in the middle of the screen
         if (controller.getGamestate().equals("tuto") ){
-            font.draw(spriteBatch, str,  this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
+            font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);
         }else
             {
             font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);

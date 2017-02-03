@@ -103,6 +103,7 @@ public class Controller {
             strTuto.add("Avoid walls that will push you to the bottom, and fire with SPACE key");
             strTuto.add("Don't shoot blindly, or your weapon may heat");
             strTuto.add("Bricks will gets harder and harder to avoid");
+            strTuto.add("If you get stuck on the left you'll die");
             strTuto.add("Good luck, you'll need it !");
 
             //sets the tutorial's text or else starts the game as it ends
@@ -177,6 +178,7 @@ public class Controller {
 
 
     public void startTuto() {
+
         ///GAMEOVER
         GameScreen gameScreen = new GameScreen(game,this);
         game.setScreen(gameScreen);

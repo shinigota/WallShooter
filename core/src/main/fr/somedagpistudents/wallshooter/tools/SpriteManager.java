@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import fr.somedagpistudents.wallshooter.entity.Entity;
+import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.player.HorizontalMovement;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
@@ -74,6 +75,17 @@ public class SpriteManager {
         this.spriteToEntityBounds(brickSprite, brick);
         brickSprite.draw(this.spriteBatch);
     }
+
+
+    public void drawBonus(Bonus bonus) {
+        Sprite brickSprite;
+
+
+            brickSprite = this.get(SpriteType.BRICK_RED);
+
+        brickSprite.draw(this.spriteBatch);
+    }
+    
 
     public void drawBullet(Bullet bullet) {
         Sprite bulletSprite = this.get(SpriteType.BULLET);
