@@ -50,15 +50,10 @@ public class Weapon {
     }
 
     public void shoot(float xOrigin, float yOrigin) {
-        if(this.heatPercent >= 100){
-            this.allowedToShoot = false;
-        }
-        if(this.allowedToShoot){
+        if(canShoot()){
             this.lastShootTimeInMillis = TimeUtils.millis();
             this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
-            WallShooter.soundManager.playSound(Assets.SOUND_LASER);
         }
-
     }
 
     public void growHeat(){
@@ -125,7 +120,13 @@ public class Weapon {
     }
 
     public boolean canShoot() {
-        return TimeUtils.millis() - this.lastShootTimeInMillis >= this.fireRateInMillis;
+        if(this.heatPercent >= 100){
+            this.allowedToShoot = false;
+        }
+        if(this.allowedToShoot){
+            return TimeUtils.millis() - this.lastShootTimeInMillis >= this.fireRateInMillis;
+        }
+        return false;
     }
 
     public List<Bullet> getBullets() {

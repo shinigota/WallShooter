@@ -20,6 +20,8 @@ public class Player extends MovableEntity{
     private Timer time;
     private boolean isShooting;
     private boolean isDead=false;
+    private int typeBonus=1;
+
 
 
     private boolean colisionXRight = false;
@@ -54,7 +56,11 @@ public class Player extends MovableEntity{
             weapon.reduceHeat();
 
         if(this.canShoot()) {
-            weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
+            for (int i = 0; i < typeBonus; i++) {
+                weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
+            }
+
+
         }
 
         if(time == null){
@@ -107,7 +113,7 @@ public class Player extends MovableEntity{
         }
     }
 
-    private boolean canShoot() {
+    public boolean canShoot() {
         return this.weapon.canShoot() && this.isShooting;
     }
 
