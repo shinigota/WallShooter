@@ -21,9 +21,9 @@ public class Player extends MovableEntity{
     private int lives = 0;
     private Weapon weapon;
     private Timer time;
-    private boolean isShooting;
+    public boolean isShooting;
     private boolean isDead=false;
-    private int typeBonus=1;
+    public int typeBonus=1;
 
 
 
@@ -48,6 +48,7 @@ public class Player extends MovableEntity{
     public Player(float x, float y, float width, float height) {
         super(x, y, width, height, 0, 0);
         this.isShooting = false;
+        this.setWeapon(new Weapon(100));
         this.horizontalMovement = HorizontalMovement.NONE;
     }
 
@@ -60,9 +61,8 @@ public class Player extends MovableEntity{
             weapon.reduceHeat();
 
         if(this.canShoot()) {
-            for (int i = 0; i < typeBonus; i++) {
-                weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
-            }
+            this.shoot();
+
 
 
         }
@@ -193,6 +193,12 @@ public class Player extends MovableEntity{
                 }
             }
         },1000);
+    }
+    public Bullet shoot(){
+        for (int i = 0; i <= this.typeBonus; i++) {
+            return weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
+        }
+        return null;
     }
 
     public void setYSpeed(float y){

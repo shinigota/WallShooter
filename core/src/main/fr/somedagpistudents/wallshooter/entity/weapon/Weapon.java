@@ -49,11 +49,15 @@ public class Weapon {
         this.heatPercent = 0;
     }
 
-    public void shoot(float xOrigin, float yOrigin) {
-        if(canShoot()){
+    public Bullet shoot(float xOrigin, float yOrigin) {
+    //    if(canShoot()){
             this.lastShootTimeInMillis = TimeUtils.millis();
-            this.bullets.add(new Bullet(xOrigin, yOrigin, this.damagesPerBullet));
-        }
+            Bullet bullet = new Bullet(xOrigin, yOrigin, this.damagesPerBullet);
+            this.bullets.add(bullet);
+            return bullet;
+
+      //  }
+        //return null;
     }
 
     public void growHeat(){
