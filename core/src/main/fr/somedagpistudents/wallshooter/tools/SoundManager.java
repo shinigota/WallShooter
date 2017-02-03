@@ -26,7 +26,7 @@ public class SoundManager {
     }
 
     public void playSound(String sound) {
-        this.sounds.get(sound).play();
+        this.sounds.get(sound).play(0.1f);
     }
 
 

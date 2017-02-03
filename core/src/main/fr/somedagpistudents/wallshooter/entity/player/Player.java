@@ -20,6 +20,8 @@ public class Player extends MovableEntity{
     private Timer time;
     private boolean isShooting;
     private boolean isDead=false;
+    private int typeBonus=1;
+
 
 
     private boolean colisionXRight = false;
@@ -54,7 +56,11 @@ public class Player extends MovableEntity{
             weapon.reduceHeat();
 
         if(this.canShoot()) {
-            weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
+            for (int i = 0; i < typeBonus; i++) {
+                weapon.shoot(this.x+ this.width / 2 + Bullet.SIZE, this.y + this.height / 2 - 12);
+            }
+
+
         }
 
         if(time == null){
@@ -67,7 +73,8 @@ public class Player extends MovableEntity{
                     this.x = colisionXRightPos;
                     //this.x += (speedcolisionXRight*delta);
                 } else {
-                    this.x += ((getXSpeed() + speedcolisionXRight)*delta);
+                    this.x = colisionXRightPos;
+                    //this.x += ((getXSpeed() + speedcolisionXRight)*delta);
                 }
             }
             if(colisionXLeft) {
@@ -112,27 +119,35 @@ public class Player extends MovableEntity{
 
     @Override
     public void onCollision(Object object, float delta) {
-        if(object instanceof Brick){
-            if(ColisionTools.contactRightLeft(this, (MovableEntity) object, delta)){
+        if(object instanceof Brick) {
+            boolean contactRL =ColisionTools.contactRightLeft(this, (MovableEntity) object, delta);
+            if (contactRL) {
                 this.colisionXRight = true;
-                this.speedcolisionXRight = ((Brick)object).getXSpeed();
+                this.speedcolisionXRight = ((Brick) object).getXSpeed();
                 this.colisionXRightPos = ((Brick) object).getX() - this.width - 1;
-            }else {
-                if (ColisionTools.contactLeftRight(this, (MovableEntity) object, delta)) {
-                    this.colisionXLeft = true;
-                    this.speedcolisionXLeft = ((Brick) object).getXSpeed();
-                    this.colisionXLeftPos = ((Brick) object).getX() + ((Brick) object).getWidth() + 1;
-                }
             }
-            if(ColisionTools.contactBottomTop(this, (MovableEntity) object, delta)){
+            boolean contactLR =ColisionTools.contactLeftRight(this, (MovableEntity) object, delta);
+            if (contactLR) {
+                this.colisionXLeft = true;
+                this.speedcolisionXLeft = ((Brick) object).getXSpeed();
+                this.colisionXLeftPos = ((Brick) object).getX() + ((Brick) object).getWidth() + 1;
+            }
+            boolean contactBT =ColisionTools.contactBottomTop(this, (MovableEntity) object, delta);
+            if (contactBT) {
                 colisionYBottom = true;
                 speedcolisionYBottom = 0;
                 this.colisionYBottomPos = ((Brick) object).getY() + ((Brick) object).getHeight() + 1;
             }
-            if(ColisionTools.contactTopBottom(this,(MovableEntity) object, delta)){
+            boolean contactTB =ColisionTools.contactTopBottom(this, (MovableEntity) object, delta);
+            if (contactTB) {
                 colisionYTop = true;
                 speedcolisionYTop = 0;
                 this.colisionYTopPos = ((Brick) object).getY() - this.height - 1;
+            }
+            if(!contactBT && !contactLR && !contactTB && !contactRL){
+                this.colisionXRight = true;
+                this.speedcolisionXRight = ((Brick) object).getXSpeed();
+                this.colisionXRightPos = ((Brick) object).getX() - this.width - 1;
             }
         }
     }

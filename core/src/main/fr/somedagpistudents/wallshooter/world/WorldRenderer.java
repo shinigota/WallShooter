@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import fr.somedagpistudents.wallshooter.WallShooter;
+import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.weapon.Bullet;
@@ -40,7 +41,6 @@ public class WorldRenderer{
 
     public WorldRenderer(World world, WallShooter game) {
         this.game = game;
-
         this.world = world;
 
         this.camera = new OrthographicCamera(WallShooter.SCREEN_WIDTH, WallShooter.SCREEN_HEIGHT);
@@ -49,9 +49,9 @@ public class WorldRenderer{
         this.debugShapeRenderer = new ShapeRenderer();
 
         this.camera.position.set(0,  0 , 0);
+        this.font = new BitmapFont();
         this.controller= (Controller) world.getController();
 
-        this.font = new BitmapFont();
 
         this.spriteManager = this.game.getSpriteManager();
         this.spriteManager.setSpriteBatch(this.spriteBatch);
@@ -79,6 +79,7 @@ public class WorldRenderer{
         this.drawBullets();
         this.drawPlayer();
         this.drawBricks();
+        this.drawBonuses();
         this.drawHUD();
         this.spriteBatch.end();
 
@@ -123,20 +124,33 @@ public class WorldRenderer{
         for (Brick brick : this.world.getBricks()) {
             this.spriteManager.drawBrick(brick);
         }
+
+
+    }
+    private void drawBonuses() {
+        for (Bonus bonus : this.world.getAllBonus()) {
+            this.spriteManager.drawBonus(bonus);
+        }
+
     }
 
+
     private void drawHUD() {
+
         String str = this.controller.displayGameStateText();
+        //draws HUD
+
         if (controller.getGamestate().equals("gameplay") ){
             font.draw(spriteBatch, "Score : "+this.controller.getPlayerScore(), this.camera.position.x - this.camera.viewportWidth / 2 + 10,  20 - this.camera.viewportHeight / 2);
-            font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
-            font.draw(spriteBatch, "Money: $"+ this.controller.getPlayer().getMoney(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
+            //font.draw(spriteBatch, "Lives: "+this.controller.getPlayerLives(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
+            //font.draw(spriteBatch, "Money: $"+ this.controller.getPlayer().getMoney(), this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 256, 20 - this.camera.viewportHeight / 2);
 
             font.draw(spriteBatch, "Heat: ", this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 420, 20 - this.camera.viewportHeight / 2);
         }
         else
+            //draws in the middle of the screen
         if (controller.getGamestate().equals("tuto") ){
-            font.draw(spriteBatch, str,  this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 128, 20 - this.camera.viewportHeight / 2);
+            font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);
         }else
             {
             font.draw(spriteBatch, str, this.camera.position.x, this.camera.position.y);
@@ -145,22 +159,24 @@ public class WorldRenderer{
     }
 
     private void drawHeatBar(){
-        this.shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
-        if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 50){
-            this.shapeRenderer.setColor(0, 1, 0, 1);
-        }
-        else if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 80){
-            this.shapeRenderer.setColor(1, 0.35f, 0, 1);
-        }
-        else{
-            this.shapeRenderer.setColor(1, 0, 0, 1);
-        }
+        if(!this.world.getController().getGamestate().equals("gameover")){
+            this.shapeRenderer.set(ShapeRenderer.ShapeType.Filled);
+            if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 50){
+                this.shapeRenderer.setColor(0, 1, 0, 1);
+            }
+            else if(this.controller.getPlayer().getWeapon().getHeatPercent() <= 80){
+                this.shapeRenderer.setColor(1, 0.35f, 0, 1);
+            }
+            else{
+                this.shapeRenderer.setColor(1, 0, 0, 1);
+            }
 
-        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
+            this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, this.controller.getPlayer().getWeapon().getHeatPercent()*2, 20);
 
-        this.shapeRenderer.end();
-        this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, 200, 20);
+            this.shapeRenderer.end();
+            this.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            this.shapeRenderer.rect(this.camera.position.x - this.camera.viewportWidth / 2 + 10 + 465, 5 - this.camera.viewportHeight / 2, 200, 20);
+        }
     }
 
     private void debugPlayerPosition()    {

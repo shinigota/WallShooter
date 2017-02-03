@@ -1,6 +1,8 @@
 package fr.somedagpistudents.wallshooter.world;
 
 import fr.somedagpistudents.wallshooter.WallShooter;
+import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
+import fr.somedagpistudents.wallshooter.entity.bonus.BonusType;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.BrickType;
@@ -20,20 +22,21 @@ public class World {
     private Wall wall;
     private Player player;
     private Controller controller;
+    BrickType easyBrick;
+    private ArrayList<Bonus> bonusList;
+
 
     public World(Controller controller, WallShooter game) {
         this.game = game;
-
+            bonusList=new ArrayList<Bonus>() ;
         this.controller = controller;
+
 
         this.wall = new Wall();
 
         this.player = new Player(-640, 0, 40, 80);
         this.player.setWeapon(new Weapon(100));
 
-        BrickType easyBrick = new BrickType(3, 10);
-        BrickType mediumBrick = new BrickType(6, 20);
-        BrickType hardBrick = new BrickType(9, 50);
     }
 
     public void update(float delta) {
@@ -49,7 +52,7 @@ public class World {
     }
 
     private void playGame(float delta) {
-        Brick.XSPEED=-600;
+        //Brick.XSPEED=-800;
         if(player.canShoot()) {
             this.game.getSoundManager().playSound(Assets.SOUND_LASER);
         }
@@ -103,6 +106,7 @@ public class World {
 
             if (removeBullet) {
                 bulletIter.remove();
+                bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(1)));
             }
         }
     }
@@ -133,5 +137,9 @@ public class World {
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public ArrayList<Bonus> getAllBonus() {
+        return this.bonusList;
     }
 }

@@ -15,6 +15,7 @@ import fr.somedagpistudents.wallshooter.tools.SpriteType;
 
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_HEIGHT;
 import static fr.somedagpistudents.wallshooter.WallShooter.SCREEN_WIDTH;
+import static java.lang.System.exit;
 
 /**
  * Created by sbonnan on 01/02/17.
@@ -27,9 +28,7 @@ public class PresentationScreen implements Screen {
     private Controller controller;
     private int SIZE_BUTTON_WIDTH = 300;
     private int SIZE_BUTTON_HEIGHT = 100;
-    private int SIZE_TITLE_WIDTH = 600;
-    private int SIZE_TITLE_HEIGHT = 200;
-    private String[] txtButton = new String[]{"PLAY : PRESS SPACE", "TUTO : PRESS T", "OPTION", "QUITTER"};
+    private String[] txtButton = new String[]{"PLAY : press ENTER", "TUTO : press T", "QUITTER : press ECHAP"};
     private BitmapFont font = new BitmapFont();
     private TextureAtlas bricksAtlas;
     public static final String TITLE = "title";
@@ -55,7 +54,7 @@ public class PresentationScreen implements Screen {
     public void render(float delta) {
         this.drawTitle();
         this.drawHUD();
-        boolean isPressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
+        boolean isPressed = Gdx.input.isKeyPressed(Input.Keys.ENTER);
         if(isPressed){
             this.wallShooter.setScreen(new GameScreen(this.wallShooter, this.controller));
             this.controller.start();
@@ -65,34 +64,15 @@ public class PresentationScreen implements Screen {
             this.wallShooter.setScreen(new GameScreen(this.wallShooter, this.controller));
             this.controller.startTuto();
         }
-
-
+        isPressed = Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
+        if(isPressed){
+            Gdx.app.exit();
+        }
     }
 
     private void drawHUD() {
         this.drawRect();
         this.drawText();
-/*
-        String str = this.
-                controller.
-                displayGameStateText();
-*/
-        //font.draw(spritebatch, strMenu1, txtPosX(),txtPosY(3,3));
-        /*font.draw(spritebatch, strMenu2, txtPosX(),txtPosY(2,3));
-        font.draw(spritebatch, strMenu3, txtPosX(),txtPosY(1,3));
-        int nb = 3;*/
-        /*
-        final int steps = 200;
-        Color rgbColor = new Color();
-        for(int i = 0; i < steps; i++){
-            Color.argb8888ToColor(rgbColor, java.awt.Color.HSBtoRGB(1.0f * i / steps, 1, 1));
-            shaperenderer.rect(490, 360, 50, 50, 300, 50, 1, 1, i * 360 / steps, rgbColor, rgbColor, rgbColor, rgbColor);
-        }
-        */
-
-
-
-
     }
 
     public void drawTitle(){
@@ -169,6 +149,6 @@ public class PresentationScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        this.bricksAtlas.dispose();
     }
 }

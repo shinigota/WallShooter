@@ -1,9 +1,11 @@
 package fr.somedagpistudents.wallshooter.tools;
 
+import com.badlogic.gdx.Gdx;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.player.Player;
 import fr.somedagpistudents.wallshooter.entity.wall.Brick;
 import fr.somedagpistudents.wallshooter.screen.GameScreen;
+import fr.somedagpistudents.wallshooter.screen.PresentationScreen;
 import fr.somedagpistudents.wallshooter.world.World;
 
 import java.util.ArrayList;
@@ -99,6 +101,7 @@ public class Controller {
             strTuto.add("Avoid walls that will push you to the bottom, and fire with SPACE key");
             strTuto.add("Don't shoot blindly, or your weapon may heat");
             strTuto.add("Bricks will gets harder and harder to avoid");
+            strTuto.add("If you get stuck on the left you'll die");
             strTuto.add("Good luck, you'll need it !");
 
             //sets the tutorial's text or else starts the game as it ends
@@ -184,6 +187,7 @@ public class Controller {
 
 
     public void startTuto() {
+
         ///GAMEOVER
         GameScreen gameScreen = new GameScreen(game,this);
         game.setScreen(gameScreen);
@@ -203,5 +207,9 @@ public class Controller {
 
             }
         },1000);
+    }
+
+    public void presentation() {
+        this.game.setScreen(new PresentationScreen(game,this));
     }
 }
