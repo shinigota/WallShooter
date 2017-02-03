@@ -1,5 +1,6 @@
 package fr.somedagpistudents.wallshooter.world;
 
+import com.badlogic.gdx.math.MathUtils;
 import fr.somedagpistudents.wallshooter.WallShooter;
 import fr.somedagpistudents.wallshooter.entity.bonus.Bonus;
 import fr.somedagpistudents.wallshooter.entity.bonus.BonusType;
@@ -108,7 +109,12 @@ public class World {
                         player.setMoney(player.getMoney() + brick.getMoney());
                         game.getSoundManager().playSound(Assets.SOUND_EXPLOSION);
                         brick.destroyBrick(wall);
-                        bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(5)));
+
+
+                        if(MathUtils.random(1,7) == 3){
+                            bonusList.add(new Bonus( bullet.getX(),bullet.getY(), new BonusType(MathUtils.random(2, 2 + wall.getDifficulty()))));
+                        }
+
                     }
                     removeBullet = true;
                 }
@@ -116,8 +122,6 @@ public class World {
 
             if (removeBullet) {
                 bulletIter.remove();
-
-
 
             }
         }

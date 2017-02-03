@@ -40,6 +40,10 @@ public class Wall {
         this.difficulty = difficulty;
     }
 
+    public int getDifficulty(){
+        return difficulty;
+    }
+
     public ArrayList<Brick> getAllBricks(){
 
         ArrayList<Brick> bricks = new ArrayList<Brick>();
