@@ -101,6 +101,7 @@ public class PresentationScreen implements Screen {
         spritebatch.begin();
         titleSprite.draw(spritebatch);
         spritebatch.end();
+        this.bricksAtlas.dispose();
     }
 
     public void drawRect(){
@@ -169,6 +170,5 @@ public class PresentationScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }
