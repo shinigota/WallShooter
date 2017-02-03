@@ -8,7 +8,7 @@ import static fr.somedagpistudents.wallshooter.entity.wall.Brick.DEFAULT_XSPEED;
 import static fr.somedagpistudents.wallshooter.entity.wall.Brick.DEFAULT_YSPEED;
 
 public class Bonus extends MovableEntity {
-    public static final float DEFAULT_WIDTH = 60;
+    public static final float DEFAULT_WIDTH = 35;
     public static final float DEFAULT_HEIGHT = 35;
     private static int typeBonus;
 
@@ -18,7 +18,7 @@ public class Bonus extends MovableEntity {
     }
 
     public Bonus(float x, float y, BonusType bt) {
-        super(x, y, Brick.DEFAULT_WIDTH, Brick.DEFAULT_HEIGHT, DEFAULT_XSPEED, DEFAULT_YSPEED);
+        super(x, y, DEFAULT_WIDTH, Brick.DEFAULT_HEIGHT, DEFAULT_XSPEED, DEFAULT_YSPEED);
         this.setTypeBonus(bt.getType());
 
     }
